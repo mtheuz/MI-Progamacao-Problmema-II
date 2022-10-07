@@ -14,6 +14,6 @@ public interface TecnicoDAO {
 	public void apagarTecnico();
 	public void editarTecnico();
 	public void cadastrarTecnicoSemSelecao();
-
+ 
 	
 }
