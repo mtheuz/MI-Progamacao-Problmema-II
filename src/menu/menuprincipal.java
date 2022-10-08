@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
+import model.PartidaPackage.PartidaDaoImpl;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
@@ -39,7 +40,8 @@ public class menuprincipal
 		TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Técnicos no sistema
 		JogadorDaoImpl jogador = new JogadorDaoImpl(selecao.getListaSelecoes());//Instanciando objeto da Classe responsável pelo CRUD de Jogadores no sistema
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
-		
+		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
+		partidas.adicionarPartida(null);
 		int continua = 0;// variável para condicionar while do menu principal 
 		System.out.println("Bem vindo ao Syscopa!");
 		while(continua ==0)// repetição do menu principal
