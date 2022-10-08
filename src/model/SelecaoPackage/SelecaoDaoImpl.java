@@ -1,7 +1,11 @@
-package model;
+package model.SelecaoPackage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import model.JogadorPackage.JogadorDaoImpl;
+import model.TecnicoPackage.TecnicoDaoImpl;
+import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
 
 /**
@@ -227,3 +231,5 @@ public void listarSelecao() {
 	
 
 }
+
+

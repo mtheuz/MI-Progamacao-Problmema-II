@@ -1,4 +1,4 @@
-package model;
+package model.TratamentoDeExcecoesPackage;
 
 import java.io.IOException;
 import java.util.Scanner;

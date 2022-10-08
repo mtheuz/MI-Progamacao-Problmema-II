@@ -1,4 +1,4 @@
-package model;
+package model.TecnicoPackage;
 
 import java.util.List;
 

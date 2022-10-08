@@ -1,4 +1,4 @@
-package model;
+package model.JogadorPackage;
 
 import java.util.List;
 /**

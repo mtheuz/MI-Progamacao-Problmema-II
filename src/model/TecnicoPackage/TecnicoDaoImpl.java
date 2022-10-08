@@ -1,9 +1,12 @@
-package model;
+package model.TecnicoPackage;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import model.SelecaoPackage.Selecao;
+import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
 /**
  *  A classe <b> TecnicoDaoImpl </b> é responsável pelo CRUD de objetos da classe Árbitro
