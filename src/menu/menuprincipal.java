@@ -49,7 +49,8 @@ public class menuprincipal
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
 		
 		Map< String,ArrayList <Selecao> > grupos = new HashMap<String, ArrayList <Selecao>>();
-	
+		
+		
 		grupos.put("A", new ArrayList<Selecao>());
 		grupos.put("B", new ArrayList<Selecao>());
 		grupos.put("C", new ArrayList<Selecao>());
