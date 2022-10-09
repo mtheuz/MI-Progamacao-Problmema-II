@@ -1,4 +1,4 @@
-package model;
+package model.ArbitroPackage;
 
 /**
  * A classe <b> Arbitro </b> serve para criar um objeto que será um cadastro de um Árbitro da copa do mundo no sistema.

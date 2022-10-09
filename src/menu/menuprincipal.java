@@ -1,3 +1,4 @@
+package menu;
 
 /*
 Autores: Matheus Mota e Mailson Alves
@@ -9,9 +10,10 @@ apostilas, e páginas ou documentos eletrônicos da Internet. Qualquer trecho de
 de outra autoria que não a minha está destacado com uma citação para o autor e a fonte
 do código, e estou ciente que estes trechos não serão considerados para fins de avaliação.
 */
-import java.io.IOException;
+
 import java.util.Scanner;
 
+<<<<<<< HEAD:src/menuprincipal.java
 import model.Arbitro;
 import model.ArbitroDaoImpl;
 import model.JogadorDaoImpl;
@@ -22,6 +24,13 @@ import model.Selecao;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+=======
+import model.ArbitroPackage.ArbitroDaoImpl;
+import model.JogadorPackage.JogadorDaoImpl;
+import model.SelecaoPackage.SelecaoDaoImpl;
+import model.TecnicoPackage.TecnicoDaoImpl;
+import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
+>>>>>>> 74c80428eea78100e799e429cd160c1102a79cf6:src/menu/menuprincipal.java
 
 /**
  * Essa classe é a classe principal do programa onde fica o menu principal

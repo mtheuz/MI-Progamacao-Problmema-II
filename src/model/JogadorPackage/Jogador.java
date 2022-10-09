@@ -1,4 +1,4 @@
-package model;
+package model.JogadorPackage;
 
 /**
  * A classe <b> Jogador</b> serve para criar um objeto que será um cadastro de um Jogador da copa do mundo no sistema.

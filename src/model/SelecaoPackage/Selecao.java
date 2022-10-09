@@ -1,13 +1,21 @@
-package model;
+package model.SelecaoPackage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.JogadorPackage.Jogador;
+import model.TecnicoPackage.Tecnico;
 /**
  * A classe <b> Selecao</b> serve para criar um objeto que será um cadastro de uma Seleção da copa do mundo no sistema.
  * @author Mailson
  *	@since 2022
  */
 public class Selecao {
+	/**
+	 * Atributo grupo indica em que grupo a selção está
+	 */
+	private String grupo;
+
 	/**
 	 * Atributo nome da Seleção
 	 */
@@ -71,5 +79,11 @@ public class Selecao {
 		this.listaJogadores = listaJogadores;
 	}
 	
+	public String getGrupo() {
+		return grupo;
+	}
+	public void setGrupo(String grupo) {
+		this.grupo = grupo;
+	}
 	
 }
