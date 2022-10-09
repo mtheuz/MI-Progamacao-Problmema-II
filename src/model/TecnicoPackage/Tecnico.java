@@ -1,4 +1,4 @@
-package model;
+package model.TecnicoPackage;
 
 /**
  * A classe <b> Tecnico </b> serve para criar um objeto que será um cadastro de um Técnico de uma Seleção da copa do mundo no sistema.

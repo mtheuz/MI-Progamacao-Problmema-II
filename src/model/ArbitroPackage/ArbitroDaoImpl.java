@@ -1,8 +1,10 @@
-package model;
+package model.ArbitroPackage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
 /**
  * A classe <b> ArbitroDaoImpl </b> é responsável pelo CRUD de objetos da classe Árbitro

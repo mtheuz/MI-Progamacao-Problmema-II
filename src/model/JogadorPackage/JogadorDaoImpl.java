@@ -1,4 +1,4 @@
-package model;
+package model.JogadorPackage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import model.SelecaoPackage.Selecao;
+import model.SelecaoPackage.SelecaoDaoImpl;
+import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 /**
  *  A classe <b> JogadorDaoImpl </b> é responsável pelo CRUD de objetos da classe Árbitro
  * @author Mailson
