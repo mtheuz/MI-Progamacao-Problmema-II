@@ -13,24 +13,19 @@ do código, e estou ciente que estes trechos não serão considerados para fins 
 
 import java.util.Scanner;
 
-<<<<<<< HEAD:src/menuprincipal.java
-import model.Arbitro;
-import model.ArbitroDaoImpl;
-import model.JogadorDaoImpl;
-import model.SelecaoDaoImpl;
-import model.TecnicoDaoImpl;
-import model.TratamentosExcecoes;
-import model.Selecao;
+
+
+import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
+import model.SelecaoPackage.Selecao;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-=======
 import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
-import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
->>>>>>> 74c80428eea78100e799e429cd160c1102a79cf6:src/menu/menuprincipal.java
+
+
 
 /**
  * Essa classe é a classe principal do programa onde fica o menu principal
