@@ -57,7 +57,7 @@ public class menuprincipal
 		grupos.put("C", new ArrayList<Selecao>());
 		grupos.put("D", new ArrayList<Selecao>());
 		grupos.put("E", new ArrayList<Selecao>());
-		grupos.put("F", new ArrayList<Selecao>());
+		grupos.put("F", new ArrayList<Selecao>()); 
 		grupos.put("G", new ArrayList<Selecao>());
 		grupos.put("H", new ArrayList<Selecao>());
 		
