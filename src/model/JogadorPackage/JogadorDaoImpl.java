@@ -31,7 +31,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 		posicoes.put("RB","Lateral Direito");
 		posicoes.put("LB","Lateral Esquerdo");
 		posicoes.put("CDM","Volante");
-		posicoes.put("CM","Meio Campista");
+		posicoes.put("CM","Meio Campista"); 
 		posicoes.put("ST","Atacante");
 	}
 	

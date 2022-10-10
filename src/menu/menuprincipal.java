@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.HashMap;
 import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
+import model.PartidaPackage.Partida;
+import model.PartidaPackage.PartidaDaoImpl;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
 
@@ -32,7 +34,7 @@ import model.TecnicoPackage.TecnicoDaoImpl;
  * @author Mailson
  * @since 2022
  */
-public class menuprincipal
+public class menuprincipal 
 {
 	
 	/**
@@ -47,7 +49,7 @@ public class menuprincipal
 		TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Técnicos no sistema
 		JogadorDaoImpl jogador = new JogadorDaoImpl(selecao.getListaSelecoes());//Instanciando objeto da Classe responsável pelo CRUD de Jogadores no sistema
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
-		
+		PartidaDaoImpl partida = new PartidaDaoImpl();
 		Map< String,ArrayList <Selecao> > grupos = new HashMap<String, ArrayList <Selecao>>();
 		
 		
@@ -56,11 +58,28 @@ public class menuprincipal
 		grupos.put("C", new ArrayList<Selecao>());
 		grupos.put("D", new ArrayList<Selecao>());
 		grupos.put("E", new ArrayList<Selecao>());
-		grupos.put("F", new ArrayList<Selecao>());
+		grupos.put("F", new ArrayList<Selecao>()); 
 		grupos.put("G", new ArrayList<Selecao>());
 		grupos.put("H", new ArrayList<Selecao>());
-		System.out.println("Bem vindo ao Syscopa 2.0");
 		
+	
+		
+		System.out.println("Bem vindo ao Syscopa 2.0");
+		for(String grupo: grupos.keySet())
+		{
+			System.out.printf("Cadastro do grupo %s: \n", grupo);
+			System.out.println();
+			for(int i=0; i<4; i++)
+			{
+				System.out.printf("Cadastro da Selecao %d do grupo %s:\n", (i+1), grupo);
+				selecao.cadastrarSelecao(grupos.get(grupo));
+				
+			}
+		}
+		
+		System.out.println("Gerando partidas");
+		Map< String,ArrayList <Partida> > partidas = new HashMap<String, ArrayList <Partida>>();
+		partidas = partida.gerarPartidas(grupos);
 	}
 }
 

@@ -25,7 +25,7 @@ public class SelecaoDaoImpl implements SelecaoDAO
  */
 public SelecaoDaoImpl()
 {
-	this.listaSelecoes = new ArrayList<Selecao>();
+	this.listaSelecoes = new ArrayList<Selecao>(); 
 }
 
 /**
@@ -47,7 +47,7 @@ public void setListaSelecoes(ArrayList<Selecao> listaSelecoes) {
  * O limite de cadastros é de 32 seleções na copa do mundo
  */
 @Override
-public void cadastrarSelecao() {
+public void cadastrarSelecao(ArrayList<Selecao> lista) {
 	if(listaSelecoes.size()<32)//Verificando se o limite de cadastros de Seleções foi atingindo
 	{
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();//Instanciando classe para validar dados de entrada no programa
@@ -77,15 +77,16 @@ public void cadastrarSelecao() {
 		
 		selecao.setTecnico(tecnico.cadastrarTecnico());//Chamando método para cadastrar técnico
 		
-		listaSelecoes.add(selecao);//Adicionando seleção a lista
-		JogadorDaoImpl jogador= new JogadorDaoImpl(this.listaSelecoes);//Instanciando classe responsável pelo CRUD de Jogadores no sistema
-		jogador.cadastrarNaselecao(nome); //Chamando método responsável por cadastrar jogador em determinada seleção
+		lista.add(selecao);//Adicionando seleção a lista
+		//JogadorDaoImpl jogador= new JogadorDaoImpl(this.listaSelecoes);//Instanciando classe responsável pelo CRUD de Jogadores no sistema
+		//jogador.cadastrarNaselecao(nome); //Chamando método responsável por cadastrar jogador em determinada seleção
 		
 		System.out.println("Selecao cadastrada com sucesso no sistema");
 	}
 	else {
 		System.out.println("Limite de Selecoes antigido no sistema (32)");
 	}
+	
 	}
 /**
  * Essa função verifica se já existe uma Seleção com o mesmo nome no sistema
