@@ -3,7 +3,9 @@ package model.PartidaPackage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import model.SelecaoPackage.Selecao;
@@ -13,6 +15,7 @@ import model.SelecaoPackage.SelecaoDaoImpl;
 
 public class PartidaDaoImpl implements PartidaDAO{
 	SelecaoDaoImpl selecao = new SelecaoDaoImpl();
+	Map<String,List<Partida>> partidas = new HashMap<String,List<Partida>>();
 	public PartidaDaoImpl(ArrayList<Selecao> selecoes){
 		selecao.setListaSelecoes(selecoes);
 	}
@@ -42,7 +45,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		return coddate;
 	}
 	
-	public void adicionarPartida(String grupo) {
+	public void geraPartidas(String grupo) {
 		List<String> grupoSelecao = new ArrayList<>();
 		List<String> partidas = new ArrayList<>();
 		Scanner entrada = new Scanner(System.in);
@@ -62,16 +65,14 @@ public class PartidaDaoImpl implements PartidaDAO{
 				String selecao2 = grupoSelecao.get(j);
 				System.out.printf("[%d] %s X %s\n",cont,selecao1,selecao2);
 				cont++;
-				partidas.add(grupoSelecao.get(i)+"X"+grupoSelecao.get(j) );
+				List<Partida> partidaGrupo= new ArrayList<Partida>();
+				Partida jogo = new Partida(selecao1,selecao2);
+				jogo.setCodigo(geraid());
+				this.partidas.put(grupo, partidaGrupo);
+				
 				
 			}
 		}
-		
-		int index = entrada.nextInt();
-		System.out.println("Digite a partida que deseja inserir");
-		String[] valores = partidas.get(index).split("X");
-		System.out.println(valores[0]);
-		
 	}
 
 }
