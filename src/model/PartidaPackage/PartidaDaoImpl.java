@@ -12,11 +12,20 @@ import model.SelecaoPackage.Selecao;
 
 
 public class PartidaDaoImpl implements PartidaDAO{
-	public List<Partida> partidas;
+	private Map<String , ArrayList <Partida>> partidas;
 	
 	public PartidaDaoImpl(){
-		this.partidas = new ArrayList<Partida>(); 
+		this.setPartidas(new HashMap<String, ArrayList <Partida>>()); 
 	}
+	
+	public Map<String , ArrayList <Partida>> getPartidas() {
+		return partidas;
+	}
+	
+	public void setPartidas(Map<String , ArrayList <Partida>> partidas) {
+		this.partidas = partidas;
+	}
+	
 	@Override
 	public void inserir() {
 		// TODO Auto-generated method stub
@@ -43,9 +52,10 @@ public class PartidaDaoImpl implements PartidaDAO{
 		return coddate;
 	}
 	
-	public Map<String, ArrayList<Partida>> gerarPartidas(Map<String, ArrayList<Selecao>> grupos) {
+	public void gerarPartidas(Map<String, ArrayList<Selecao>> grupos) {
 		
-		
+		System.out.println("Gerando partidas");
+		System.out.println();
 		Map< String,ArrayList <Partida> > partidas = new HashMap<String, ArrayList <Partida>>();
 	
 		partidas.put("A", new ArrayList<Partida>());
@@ -66,11 +76,11 @@ public class PartidaDaoImpl implements PartidaDAO{
 				for(Selecao selecaoo: lista)
 				{
 					String selecao2 = selecaoo.getNome();
-					if(existeJogo(selecao1, selecao2, partidas.get(grupo))== false)
+					if(existeJogo(selecao1, selecao2, partidas.get(grupo))== false && !selecao1.equals(selecao2))
 					{
 						Partida novaPartida = new Partida();
 						novaPartida.setSelecao1(selecao1);
-						novaPartida.setSelecao1(selecao2);
+						novaPartida.setSelecao2(selecao2);
 						partidas.get(grupo).add(novaPartida);
 					}
 				}
@@ -78,24 +88,39 @@ public class PartidaDaoImpl implements PartidaDAO{
 		}
 		
 		
-		return partidas;
+		this.setPartidas(partidas);
 	}
 	private boolean existeJogo(String selecao1, String selecao2, ArrayList<Partida> listaDePartidas) {
-		if(listaDePartidas.size()>0)
+		
+		for(Partida partida : listaDePartidas)
 		{
-			for(Partida partida : listaDePartidas)
+			if((partida.getSelecao1().equals(selecao1) || partida.getSelecao1().equals(selecao2)) && (partida.getSelecao2().equals(selecao1) || partida.getSelecao2().equals(selecao2)))
 			{
-				if(!(partida.getSelecao1() == selecao1 || partida.getSelecao1() == selecao2 && partida.getSelecao2() == selecao1 || partida.getSelecao2() == selecao2 ))
-				{
-					return true;
-					
-				}
-				return false;
+				return true;
+				
 			}
+			
 		}
 		return false;
-	}
 	
 	}
+	
+	public void listarPartidas()
+	{
+		for(String grupo: partidas.keySet())
+		{
+			System.out.printf("Partidas do grupo %s: \n", grupo);
+			for(Partida jogo : partidas.get(grupo))
+			{
+				System.out.printf("%s X %s \n",jogo.getSelecao1(), jogo.getSelecao2());
+				
+			}
+			System.out.println();
+		}
+		}
+	
+	}
+	
+
 
 

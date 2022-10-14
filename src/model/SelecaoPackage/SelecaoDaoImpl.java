@@ -48,7 +48,7 @@ public void setListaSelecoes(ArrayList<Selecao> listaSelecoes) {
  */
 @Override
 public void cadastrarSelecao(ArrayList<Selecao> lista) {
-	if(listaSelecoes.size()<32)//Verificando se o limite de cadastros de Seleções foi atingindo
+	if(listaSelecoes.size()<32 || lista.size()<4)//Verificando se o limite de cadastros de Seleções foi atingindo
 	{
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();//Instanciando classe para validar dados de entrada no programa
 		Selecao selecao = new Selecao(); //Instanciando classe para cadastrar Seleção no programa
@@ -64,6 +64,7 @@ public void cadastrarSelecao(ArrayList<Selecao> lista) {
 				if(ComparaSelecao(nome)) //Verificando se seleção já foi cadastrada no sistema
 				{
 					selecao.setNome(nome);//Gravando o nome da Seleção
+					
 					break;
 }
 				else
@@ -72,12 +73,13 @@ public void cadastrarSelecao(ArrayList<Selecao> lista) {
 			else
 				System.out.println("Nome invalido, tente novamente");
 		}
-		TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando classe responsável pelo CRUD de Técnicos no sistema
-		tecnico.setLista(listaSelecoes);//Igualidando a lista de seleções à lista que está dentro da classe técnico para não acessar externamente
+		//TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando classe responsável pelo CRUD de Técnicos no sistema
+		//tecnico.setLista(listaSelecoes);//Igualidando a lista de seleções à lista que está dentro da classe técnico para não acessar externamente
 		
-		selecao.setTecnico(tecnico.cadastrarTecnico());//Chamando método para cadastrar técnico
+		//selecao.setTecnico(tecnico.cadastrarTecnico());//Chamando método para cadastrar técnico
 		
 		lista.add(selecao);//Adicionando seleção a lista
+		listaSelecoes.add(selecao);
 		//JogadorDaoImpl jogador= new JogadorDaoImpl(this.listaSelecoes);//Instanciando classe responsável pelo CRUD de Jogadores no sistema
 		//jogador.cadastrarNaselecao(nome); //Chamando método responsável por cadastrar jogador em determinada seleção
 		
