@@ -49,38 +49,25 @@ public class menuprincipal
 		TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Técnicos no sistema
 		JogadorDaoImpl jogador = new JogadorDaoImpl(selecao.getListaSelecoes());//Instanciando objeto da Classe responsável pelo CRUD de Jogadores no sistema
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
-		PartidaDaoImpl partida = new PartidaDaoImpl();
+
 		Map< String,ArrayList <Selecao> > grupos = new HashMap<String, ArrayList <Selecao>>();
 		
-		
-		grupos.put("A", new ArrayList<Selecao>());
-		grupos.put("B", new ArrayList<Selecao>());
-		grupos.put("C", new ArrayList<Selecao>());
-		grupos.put("D", new ArrayList<Selecao>());
-		grupos.put("E", new ArrayList<Selecao>());
-		grupos.put("F", new ArrayList<Selecao>()); 
-		grupos.put("G", new ArrayList<Selecao>());
-		grupos.put("H", new ArrayList<Selecao>());
-		
-	
-		
-		System.out.println("Bem vindo ao Syscopa 2.0");
-		for(String grupo: grupos.keySet())
+		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
+		int continua = 0;// variável para condicionar while do menu principal 
+		System.out.println("Bem vindo ao Syscopa!");
+		while(continua ==0)// repetição do menu principal
 		{
-			System.out.printf("Cadastro do grupo %s: \n", grupo);
+			
+			//Exibindo opções do menu
 			System.out.println();
-			for(int i=0; i<4; i++)
-			{
-				System.out.printf("Cadastro da Selecao %d do grupo %s:\n", (i+1), grupo);
-				selecao.cadastrarSelecao(grupos.get(grupo));
-				
-			}
-		}
+			System.out.println("MENU:");
+			System.out.println("1- Selecoes 2- Jogadores 3- Tecnicos 4- Arbitros 5- Encerrar");
+			System.out.println("Digite uma opcao:");
+			
+			int escolha = tratamento.validaInt(0,5); //Leitura da entrada de inteiro valido(de 1 a 5)
 		
-		System.out.println("Gerando partidas");
-		Map< String,ArrayList <Partida> > partidas = new HashMap<String, ArrayList <Partida>>();
-		partidas = partida.gerarPartidas(grupos);
 	}
+}
 }
 
 	
