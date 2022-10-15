@@ -66,6 +66,89 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.printf("A seleção %s fez gol?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
 		int respGols = entrada.nextInt();
 		if(respGols == 1) {
+			System.out.printf("Quantos jogadores Marcaram pelo %s?", partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
+			int quantidadeGolsJogadores = entrada.nextInt();
+			for (int i = 0; i < quantidadeGolsJogadores; i++) {
+				final String nomeDaSelecao = partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1();
+				jogadores.listarJogadores(nomeDaSelecao);
+				System.out.println("Digite o código do jogador:");
+				String codigo = entrada.next();
+				System.out.println("Digite a quantidade de Gols que ele marcou: ");
+				String gols = entrada.next();
+				jogadores.atualizarDadosJogador(codigo, 5, gols, nomeDaSelecao);
+				partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao1(Integer.parseInt(gols));
+			}
+			
+		}
+		System.out.printf("A seleção %s fez gol?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
+		int respGols2 = entrada.nextInt();
+		if(respGols2 == 1) {
+			System.out.printf("Quantos jogadores Marcaram pelo %s?", partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
+			int quantidadeGolsJogadores = entrada.nextInt();
+			for (int i = 0; i < quantidadeGolsJogadores; i++) {
+				final String nomeDaSelecao = partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2();
+				jogadores.listarJogadores(nomeDaSelecao);
+				System.out.println("Digite o código do jogador que marcou:");
+				String codigo = entrada.next();
+				System.out.println("Digite a quantidade de Gols que ele marcou: ");
+				String gols = entrada.next();
+				jogadores.atualizarDadosJogador(codigo, 5, gols, nomeDaSelecao);
+				partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao2(Integer.parseInt(gols));
+			}
+			
+		}
+		
+		System.out.printf("Os jogadores da(o) seleção %s receberam cartões?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
+		int respCartoaAmarelo1 = entrada.nextInt();
+		if(respCartoaAmarelo1 == 1) {
+			System.out.printf("Quantos jogadores receberam cartões? ");
+			int quantidadeDeCartoes= entrada.nextInt();
+			for (int i = 0; i < quantidadeDeCartoes; i++) {
+				final String nomeDaSelecao = partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1();
+				jogadores.listarJogadores(nomeDaSelecao);
+				System.out.println("Digite o código do jogador que recebeu o cartão:");
+				String codigo = entrada.next();
+				System.out.println("[1]Cartão Amarelo\n[2]Cartão Vermelho");
+				int cartao = entrada.nextInt();
+				if(cartao == 1) {
+					System.out.println("Digite a quantidade de cartões");
+					String cartaoAmarelo = entrada.next();
+					jogadores.atualizarDadosJogador(codigo, 3, cartaoAmarelo, nomeDaSelecao);
+					partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao1(Integer.parseInt(cartaoAmarelo));
+				}
+				else if(cartao == 2) {
+					jogadores.atualizarDadosJogador(codigo, 3, "1", codigo);
+					partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao1(1);
+				}
+				
+			}
+			
+		}
+		
+		System.out.printf("Os jogadores da(o) seleção %s receberam cartões?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
+		int respCartoaAmarelo2 = entrada.nextInt();
+		if(respCartoaAmarelo2 == 1) {
+			System.out.printf("Quantos jogadores receberam cartões? ");
+			int quantidadeDeCartoes= entrada.nextInt();
+			for (int i = 0; i < quantidadeDeCartoes; i++) {
+				final String nomeDaSelecao = partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2();
+				jogadores.listarJogadores(nomeDaSelecao);
+				System.out.println("Digite o código do jogador que recebeu o cartão:");
+				String codigo = entrada.next();
+				System.out.println("[1]Cartão Amarelo\n[2]Cartão Vermelho");
+				int cartao = entrada.nextInt();
+				if(cartao == 1) {
+					System.out.println("Digite a quantidade de cartões");
+					String cartaoAmarelo = entrada.next();
+					jogadores.atualizarDadosJogador(codigo, 3, cartaoAmarelo, nomeDaSelecao);
+					partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao2(Integer.parseInt(cartaoAmarelo));
+				}
+				else if(cartao == 2) {
+					jogadores.atualizarDadosJogador(codigo, 3, "1", codigo);
+					partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao2(1);
+				}
+				
+			}
 			
 		}
 		
@@ -73,10 +156,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 		partidas.get(grupos[numPartida]).get(indicePartida).setData(data.get(1)+ "/" + data.get(2) + "/" + data.get(3));
 		partidas.get(grupos[numPartida]).get(indicePartida).setHorario(data.get(1) + ":" + data.get(2));
 		partidas.get(grupos[numPartida]).get(indicePartida).setLocal(estadios[local]);
-		
-		
-		
-		
 		
 	}
 
