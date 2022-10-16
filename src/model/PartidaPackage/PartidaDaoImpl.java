@@ -4,12 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
-
 import model.JogadorPackage.JogadorDaoImpl;
 import model.SelecaoPackage.Selecao;
 import model.SelecaoPackage.SelecaoDaoImpl;
@@ -61,8 +58,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 		for (int i = 0; i < estadios.length; i++) {
 			System.out.printf("[%d]%s",i,estadios[i]);
 		}
-		int local = entrada.nextInt();
 		
+		int local = entrada.nextInt();
 		System.out.printf("A seleção %s fez gol?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
 		int respGols = entrada.nextInt();
 		if(respGols == 1) {
@@ -124,7 +121,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 			
 		}
-		
 		System.out.printf("Os jogadores da(o) seleção %s receberam cartões?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
 		int respCartoaAmarelo2 = entrada.nextInt();
 		if(respCartoaAmarelo2 == 1) {
@@ -151,12 +147,10 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 			
 		}
-		
 		partidas.get(grupos[numPartida]).get(indicePartida).setCodigo(geraid());
 		partidas.get(grupos[numPartida]).get(indicePartida).setData(data.get(1)+ "/" + data.get(2) + "/" + data.get(3));
 		partidas.get(grupos[numPartida]).get(indicePartida).setHorario(data.get(1) + ":" + data.get(2));
 		partidas.get(grupos[numPartida]).get(indicePartida).setLocal(estadios[local]);
-		
 	}
 
 	@Override
@@ -195,7 +189,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 		}
 	}
-	
 	private List<String> organizaGrupo(String grupo) {
 		List<String> grupoSelecao = new ArrayList<>();
 				for(Selecao selecao: selecao.getListaSelecoes()) {
@@ -205,7 +198,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 		}
 		return grupoSelecao;
 	}
-	
 	private void imprimeGrupos(){
 		String[] grupos = {"A","B","C","D","E","F","G"};
 		for (int i = 0; i < grupos.length; i++) {
@@ -218,7 +210,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 		}
 	}
-	
 	public void listarPartida(String grupo) {
 		List<Partida> jogo = partidas.get(grupo);
 		for (int i = 0; i < jogo.size(); i++) {
