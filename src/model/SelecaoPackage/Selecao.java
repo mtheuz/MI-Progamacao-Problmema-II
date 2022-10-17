@@ -34,6 +34,10 @@ public class Selecao {
 	public Selecao(){
 		this.listaJogadores = new ArrayList<Jogador>();
 	}
+	public Selecao(String nomeSelecao, String grupo) {
+		this.nome = nomeSelecao;
+		this.grupo = grupo;
+	}
 	/**
 	 * Consultar o nome da seleção 
 	 * @return String

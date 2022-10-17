@@ -15,10 +15,10 @@ import model.SelecaoPackage.SelecaoDaoImpl;
 
 
 public class PartidaDaoImpl implements PartidaDAO{
-	SelecaoDaoImpl selecao = new SelecaoDaoImpl();
-	JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
-	Map<String,List<Partida>> partidas = new HashMap<String,List<Partida>>();
-	String[] estadios = {"Al Bayt", "Khalifa International", "Al Thumama", "Ahmad Bin Ali",
+	private SelecaoDaoImpl selecao = new SelecaoDaoImpl();
+	private JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+	private Map<String,List<Partida>> partidas = new HashMap<String,List<Partida>>();
+	private String[] estadios = {"Al Bayt", "Khalifa International", "Al Thumama", "Ahmad Bin Ali",
 			"Lusail", "Ras Abu Aboud (974)", "Education City", "Al Janoub"};
 	
 	public PartidaDaoImpl(ArrayList<Selecao> selecoes){
@@ -199,7 +199,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		}
 		return grupoSelecao;
 	}
-	private void imprimeGrupos(){
+	public void imprimeGrupos(){
 		String[] grupos = {"A","B","C","D","E","F","G"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("[%d]Grupo %s",i,grupos[i]);

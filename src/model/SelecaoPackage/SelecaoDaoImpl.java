@@ -46,6 +46,40 @@ public void setListaSelecoes(ArrayList<Selecao> listaSelecoes) {
  * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
  * O limite de cadastros é de 32 seleções na copa do mundo
  */
+
+public void cadastrarNomesDeTodasSelecoes()
+{
+	TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
+	ArrayList<Selecao> lista = new ArrayList<Selecao>();
+	//String[] grupos = {"A","B","C","D","E","F","G","H"};
+	String[] grupos = {"A","B"};
+	System.out.println("Cadastro dos grupos:\n");
+	for(String grupo:grupos)
+	{
+		
+		for(int i=0; i<4;i++)
+		{
+			System.out.printf("Digite o nome da selecao %d do grupo %s:\n",(i+1), grupo);
+			while(true)
+			{
+				String nomeSelecao = tratamento.EntradaString();
+				if(ComparaSelecao(nomeSelecao))
+				{
+					Selecao selecao = new Selecao(nomeSelecao, grupo);
+					lista.add(selecao);
+					setListaSelecoes(lista);
+					break;
+				}
+				System.out.println("Essa selecao ja foi cadastrada");
+				System.out.println("Tente novamente:");
+			}
+		}
+	}
+	
+	
+}
+
+
 @Override
 public void cadastrarSelecao(ArrayList<Selecao> lista) {
 	if(listaSelecoes.size()<32)//Verificando se o limite de cadastros de Seleções foi atingindo

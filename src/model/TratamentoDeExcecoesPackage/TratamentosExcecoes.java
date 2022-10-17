@@ -70,6 +70,28 @@ public class TratamentosExcecoes {
 		}
 		return false;
 		}
+	public String EntradaString() {
+		while(true)
+			try
+			{
+				Scanner entrada = new Scanner(System.in);
+				String nome = entrada.next();
+				if(validaNome(nome)) 
+				{
+					return nome;
+				}
+				else
+					{
+					System.out.println("Tente novamente");
+					}
+					
+			}
+			catch(Exception erro){
+				System.out.println("Entrada Invalida, tente novamente");
+				continue;
+		}
+		
+	}
 	
 	
 
