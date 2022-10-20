@@ -17,6 +17,8 @@ import java.util.Scanner;
 
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 import model.SelecaoPackage.Selecao;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -40,8 +42,9 @@ public class menuprincipal
 	/**
 	 * 
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) 
+	public static void main(String[] args) throws IOException 
 	{
 		//Instanciando objetos que serão usadas para invocar métodos nas opções do menu
 		ArbitroDaoImpl juiz = new ArbitroDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Árbitros no sistema
@@ -52,7 +55,8 @@ public class menuprincipal
 		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
-		selecao.cadastrarNomesDeTodasSelecoes();
+		//selecao.cadastrarNomesDeTodasSelecoes();
+		selecao.leArquivoSelecoes();
 		
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
@@ -85,8 +89,12 @@ public class menuprincipal
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Partida:");
-				System.out.println("1- Cadastrar Partidas 2- Editar 3- Excluir 4- Listar por Grupo 5- Listar Todas 5- Voltar");
-				
+				System.out.println("1- Cadastrar Partidas 2- Editar 3- Excluir 4- Listar por Grupo 5- Listar Todas 6- Voltar");
+				int escolha0 = tratamento.validaInt(0,6);
+				if(escolha0==1)
+				{
+					partidas.inserir();
+				}
 				break;
 			
 			
