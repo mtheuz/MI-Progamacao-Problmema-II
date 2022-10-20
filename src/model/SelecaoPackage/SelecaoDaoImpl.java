@@ -228,7 +228,40 @@ public void listarSelecao() {
 		System.out.println("Ainda nao foram cadastradas Selecoes no sistema");
 		
 	}
+
+public void criarSelecoes() {
+	String[] grupos = {"A","B","C","D","E","F","G","H"};
+	String[] selecoes = {"Alemanha","Arábia Saudita","Argentina","Austrália","Bélgica",
+			"Brasil",
+			"Camarões",
+			"Canadá",
+			"Catar",
+			"Coreia do Sul",
+			"Costa Rica",
+			"Croácia",
+			"Dinamarca",
+			"Equador",
+			"Espanha",
+			"Estados Unidos",
+			"França",
+			"Gana",
+			"Holanda",
+			"Inglaterra",
+			"Irã",
+			"Japão",
+			"Marrocos",
+			"México",
+			"País de Gales",
+			"Polônia",
+			"Portugal",
+			"Senegal",
+			"Sérvia",
+			"Suíça",
+			"Tunísia",
+			"Uruguai"
+};
 	
+}
 
 }
 
