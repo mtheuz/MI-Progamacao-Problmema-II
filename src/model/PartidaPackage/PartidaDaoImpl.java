@@ -37,12 +37,13 @@ public class PartidaDaoImpl implements PartidaDAO{
 		//Partida
 		//Falta inserir os dados
 		
-		String[] dataformat = {"Dia","Mês","Ano"};
+		String[] dataformat = {"Dia","Mes","Ano"};
 		List<String> data = new ArrayList<String>();
 		for (int i = 0; i < dataformat.length; i++) {
 			System.out.printf("Digite o %s",dataformat[i]);
 			String entradaData = entrada.next();
 			data.add(entradaData);
+			System.out.println("");
 			
 		}
 		List<String> hora = new ArrayList<String>();
@@ -51,16 +52,17 @@ public class PartidaDaoImpl implements PartidaDAO{
 			System.out.printf("Digite o(a) %s",horaformat[i]);
 			String entradaData = entrada.next();
 			hora.add(entradaData);
+			System.out.println("");
 			
 		}
 		
 		System.out.println("Digite o local da partida.");
 		for (int i = 0; i < estadios.length; i++) {
-			System.out.printf("[%d]%s",i,estadios[i]);
+			System.out.printf("[%d]%s\n",i,estadios[i]);
 		}
 		
 		int local = entrada.nextInt();
-		System.out.printf("A seleção %s fez gol?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
+		System.out.printf("A seleção %s fez gol?\n[0]Nao\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
 		int respGols = entrada.nextInt();
 		if(respGols == 1) {
 			System.out.printf("Quantos jogadores Marcaram pelo %s?", partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
@@ -174,7 +176,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 	
 
 	public void geraPartidas() {
-		String[] grupos = {"A","B","C","D","E","F","G","H"};
+		//String[] grupos = {"A","B","C","D","E","F","G","H"};
+		String[] grupos = {"A","B"};
 		for (int i = 0; i < grupos.length; i++) {
 			List<String> grupoSelecao = organizaGrupo(grupos[i]);
 			List<Partida> partidaGrupo= new ArrayList<Partida>();
@@ -226,7 +229,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 	
 	public void listarTodasPartidas() {
 		System.out.println("[Lista de Partidas]");
-		String[] grupos = {"A","B","C","D","E","F","G"};
+		//String[] grupos = {"A","B","C","D","E","F","G"};
+		String[] grupos = {"A","B"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("Grupo [%s]\n",grupos[i]);
 			listarPartida(grupos[i]);
