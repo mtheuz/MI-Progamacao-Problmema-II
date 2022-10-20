@@ -55,7 +55,7 @@ public class menuprincipal
 		selecao.cadastrarNomesDeTodasSelecoes();
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
-		partidas.listarTodasPartidas(null);
+		partidas.listarTodasPartidas();
 		
 		
 		

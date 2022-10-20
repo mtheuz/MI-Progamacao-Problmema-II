@@ -50,7 +50,7 @@ public void setListaSelecoes(ArrayList<Selecao> listaSelecoes) {
 public void cadastrarNomesDeTodasSelecoes()
 {
 	TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
-	ArrayList<Selecao> lista = new ArrayList<Selecao>();
+
 	//String[] grupos = {"A","B","C","D","E","F","G","H"};
 	String[] grupos = {"A","B"};
 	System.out.println("Cadastro dos grupos:\n");
@@ -66,8 +66,7 @@ public void cadastrarNomesDeTodasSelecoes()
 				if(ComparaSelecao(nomeSelecao))
 				{
 					Selecao selecao = new Selecao(nomeSelecao, grupo);
-					lista.add(selecao);
-					setListaSelecoes(lista);
+					this.listaSelecoes.add(selecao);
 					break;
 				}
 				System.out.println("Essa selecao ja foi cadastrada");
@@ -129,10 +128,13 @@ public void cadastrarSelecao(ArrayList<Selecao> lista) {
  */
 public boolean ComparaSelecao(String nome) {
 	//Percorrendo a lista de seleções
+	if(this.listaSelecoes.size()> 1) {
 	for(int i=0; i<listaSelecoes.size();i++)
 	{
 		if(((Selecao) listaSelecoes.get(i)).getNome().toUpperCase().equals(nome.toUpperCase()))
 			return false;
+	}
+	return true;
 	}
 	return true;
 	

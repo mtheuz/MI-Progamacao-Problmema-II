@@ -178,15 +178,17 @@ public class PartidaDaoImpl implements PartidaDAO{
 		for (int i = 0; i < grupos.length; i++) {
 			List<String> grupoSelecao = organizaGrupo(grupos[i]);
 			List<Partida> partidaGrupo= new ArrayList<Partida>();
-			for(i = 0; i < grupoSelecao.size(); i++) {
-				for(int j = i+1; j < (grupoSelecao.size()); j++) {
-					String selecao1 = grupoSelecao.get(i);
+			for(int c = 0; c < grupoSelecao.size(); c++) {
+				for(int j = c+1; j < (grupoSelecao.size()); j++) {
+					String selecao1 = grupoSelecao.get(c);
 					String selecao2 = grupoSelecao.get(j);
 					Partida jogo = new Partida(selecao1,selecao2);
 					partidaGrupo.add(jogo);
 					this.partidas.put(grupos[i], partidaGrupo);
 					
 				}
+				
+				
 			}
 		}
 	}
@@ -200,18 +202,21 @@ public class PartidaDaoImpl implements PartidaDAO{
 		return grupoSelecao;
 	}
 	public void imprimeGrupos(){
+		System.out.println("[Lista de Grupos]");
 		String[] grupos = {"A","B","C","D","E","F","G"};
 		for (int i = 0; i < grupos.length; i++) {
-			System.out.printf("[%d]Grupo %s",i,grupos[i]);
+			System.out.printf("[%d]Grupo %s\n",i,grupos[i]);
 			for(Selecao selecao: selecao.getListaSelecoes()) {
 				if(selecao.getGrupo().equals(grupos[i])) {
-					System.out.printf("%s",selecao.getNome());
+					System.out.printf("%s\n",selecao.getNome());
 				}
 			
 			}
 		}
+		System.out.println("");
 	}
 	public void listarPartida(String grupo) {
+		System.out.println("[Lista de Partidas]");
 		List<Partida> jogo = partidas.get(grupo);
 		for (int i = 0; i < jogo.size(); i++) {
 			System.out.printf("[%d] %s X %s\n",i,jogo.get(i).getSelecao1(),jogo.get(i).getSelecao2());
@@ -219,7 +224,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 		
 	}
 	
-	public void listarTodasPartidas(Map<String,List<Partida>> patidas) {
+	public void listarTodasPartidas() {
+		System.out.println("[Lista de Partidas]");
 		String[] grupos = {"A","B","C","D","E","F","G"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("Grupo [%s]\n",grupos[i]);
@@ -227,6 +233,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			System.out.println("");
 			
 		}
+		System.out.println("");
 	}
 }
 
