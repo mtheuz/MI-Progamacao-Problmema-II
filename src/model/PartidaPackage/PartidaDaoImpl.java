@@ -15,8 +15,8 @@ import model.SelecaoPackage.SelecaoDaoImpl;
 
 
 public class PartidaDaoImpl implements PartidaDAO{
-	private SelecaoDaoImpl selecao = new SelecaoDaoImpl();
-	private JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+	SelecaoDaoImpl selecao = new SelecaoDaoImpl();
+	JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
 	private Map<String,List<Partida>> partidas = new HashMap<String,List<Partida>>();
 	private String[] estadios = {"Al Bayt", "Khalifa International", "Al Thumama", "Ahmad Bin Ali",
 			"Lusail", "Ras Abu Aboud (974)", "Education City", "Al Janoub"};
@@ -174,7 +174,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 	
 
 	public void geraPartidas() {
-		String[] grupos = {"A","B","C","D","E","F","G","H"};
+		//String[] grupos = {"A","B","C","D","E","F","G","H"};
+		String[] grupos = {"A","B"};
 		for (int i = 0; i < grupos.length; i++) {
 			List<String> grupoSelecao = organizaGrupo(grupos[i]);
 			List<Partida> partidaGrupo= new ArrayList<Partida>();
@@ -219,7 +220,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		
 	}
 	
-	public void listarTodasPartidas(Map<String,List<Partida>> patidas) {
+	public void listarTodasPartidas(){
 		String[] grupos = {"A","B","C","D","E","F","G"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("Grupo [%s]\n",grupos[i]);

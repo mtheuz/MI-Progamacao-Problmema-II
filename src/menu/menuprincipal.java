@@ -53,9 +53,10 @@ public class menuprincipal
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
 		selecao.cadastrarNomesDeTodasSelecoes();
+		
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
-		partidas.listarTodasPartidas(null);
+		partidas.listarTodasPartidas();
 		
 		
 		
@@ -69,10 +70,10 @@ public class menuprincipal
 			//Exibindo opções do menu
 			System.out.println();
 			System.out.println("MENU:");
-			System.out.println("1-Partidas 2-Selecoes 3- Jogadores 4- Tecnicos 5- Arbitros 6- Encerrar");
+			System.out.println("1-Partidas 2-Selecoes 3- Jogadores 4- Tecnicos 5- Arbitros 6- Pesquisas 7- Encerrar");
 			System.out.println("Digite uma opcao:");
 			
-			int escolha = tratamento.validaInt(0,6); //Leitura da entrada de inteiro valido(de 1 a 5)
+			int escolha = tratamento.validaInt(0,7); //Leitura da entrada de inteiro valido(de 1 a 7)
 			
 			
 
