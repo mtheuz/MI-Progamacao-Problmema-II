@@ -84,8 +84,12 @@ public class menuprincipal
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Partida:");
-				System.out.println("1- Cadastrar Partidas 2- Editar 3- Excluir 4- Listar por Grupo 5- Listar Todas 5- Voltar");
-				
+				System.out.println("1- Cadastrar Partidas 2- Editar 3- Excluir 4- Listar por Grupo 5- Listar Todas 6- Voltar");
+				int escolha0 = tratamento.validaInt(0,6);
+				if(escolha0==1)
+				{
+					partidas.inserir();
+				}
 				break;
 			
 			

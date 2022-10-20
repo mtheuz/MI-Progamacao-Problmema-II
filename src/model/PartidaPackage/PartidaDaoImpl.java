@@ -217,7 +217,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.println("");
 	}
 	public void listarPartida(String grupo) {
-		System.out.println("[Lista de Partidas]");
+		
 		List<Partida> jogo = partidas.get(grupo);
 		for (int i = 0; i < jogo.size(); i++) {
 			System.out.printf("[%d] %s X %s\n",i,jogo.get(i).getSelecao1(),jogo.get(i).getSelecao2());
@@ -229,7 +229,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 	public void listarTodasPartidas() {
 		System.out.println("[Lista de Partidas]");
 
-		String[] grupos = {"A","B","C","D","E","F","G"};
+		String[] grupos = {"A","B"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("Grupo [%s]\n",grupos[i]);
 			listarPartida(grupos[i]);
