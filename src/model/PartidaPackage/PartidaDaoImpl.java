@@ -229,7 +229,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 	public void listarTodasPartidas() {
 		System.out.println("[Lista de Partidas]");
 
-		String[] grupos = {"A","B"};
+		String[] grupos = {"A","B","C","D","E","F","G","H"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("Grupo [%s]\n",grupos[i]);
 			listarPartida(grupos[i]);

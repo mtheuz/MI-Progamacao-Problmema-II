@@ -1,5 +1,6 @@
 package model.SelecaoPackage;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,10 +43,7 @@ public void setListaSelecoes(ArrayList<Selecao> listaSelecoes) {
 	this.listaSelecoes = listaSelecoes;
 }
 
-/**
- * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
- * O limite de cadastros é de 32 seleções na copa do mundo
- */
+
 
 public void cadastrarNomesDeTodasSelecoes()
 {
@@ -78,7 +76,34 @@ public void cadastrarNomesDeTodasSelecoes()
 	
 }
 
-
+public void leArquivoSelecoes() throws IOException
+{
+	FileInputStream stream = new FileInputStream("selecoes.txt");
+    InputStreamReader reader = new InputStreamReader(stream);
+    BufferedReader br = new BufferedReader(reader);
+    String linha = br.readLine();
+    String[] grupos = {"A","B","C","D","E","F","G","H"};
+    
+    while(linha != null) 
+    {
+    	
+    	for(String grupo: grupos)
+    	{
+	    	for(int i =0; i<4; i++)
+	    	{
+	    		Selecao selecao = new Selecao(linha, grupo);
+				this.listaSelecoes.add(selecao);
+		        linha = br.readLine();
+		        if(linha != null)
+		        	break;
+	    	}
+    	}
+    }
+}
+/**
+ * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
+ * O limite de cadastros é de 32 seleções na copa do mundo
+ */
 @Override
 public void cadastrarSelecao(ArrayList<Selecao> lista) {
 	if(listaSelecoes.size()<32)//Verificando se o limite de cadastros de Seleções foi atingindo
