@@ -37,32 +37,37 @@ public class PartidaDaoImpl implements PartidaDAO{
 		//Partida
 		//Falta inserir os dados
 		
+		System.out.printf("|Partida: %s X %s|",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1(),
+				partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
+		System.out.println("\n[Digite a data da partida]");
 		String[] dataformat = {"Dia","Mes","Ano"};
 		List<String> data = new ArrayList<String>();
 		for (int i = 0; i < dataformat.length; i++) {
-			System.out.printf("Digite o %s",dataformat[i]);
+			System.out.printf("Digite o %s: ",dataformat[i]);
 			String entradaData = entrada.next();
 			data.add(entradaData);
-			System.out.println("");
 			
 		}
+		System.out.println("");
+		
 		List<String> hora = new ArrayList<String>();
 		String[] horaformat = {"Hora","Minuto"};
+		System.out.println("[Digite o horario da partida]");
 		for (int i = 0; i < horaformat.length; i++) {
-			System.out.printf("Digite o(a) %s",horaformat[i]);
+			System.out.printf("Digite o(a) %s: ",horaformat[i]);
 			String entradaData = entrada.next();
 			hora.add(entradaData);
-			System.out.println("");
-			
 		}
+		System.out.println("");
 		
-		System.out.println("Digite o local da partida.");
+		System.out.println("[Digite o local da partida]");
 		for (int i = 0; i < estadios.length; i++) {
 			System.out.printf("[%d]%s\n",i,estadios[i]);
 		}
+		System.out.println("");
 		
 		int local = entrada.nextInt();
-		System.out.printf("A seleção %s fez gol?\n[0]Nao\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
+		System.out.printf("A selecao %s fez gol?\n[0]Nao\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
 		int respGols = entrada.nextInt();
 		if(respGols == 1) {
 			System.out.printf("Quantos jogadores Marcaram pelo %s?", partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
@@ -70,7 +75,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			for (int i = 0; i < quantidadeGolsJogadores; i++) {
 				final String nomeDaSelecao = partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1();
 				jogadores.listarJogadores(nomeDaSelecao);
-				System.out.println("Digite o código do jogador:");
+				System.out.println("Digite o codigo do jogador:");
 				String codigo = entrada.next();
 				System.out.println("Digite a quantidade de Gols que ele marcou: ");
 				String gols = entrada.next();
@@ -79,7 +84,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 			
 		}
-		System.out.printf("A seleção %s fez gol?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
+		System.out.printf("A selecao %s fez gol?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
 		int respGols2 = entrada.nextInt();
 		if(respGols2 == 1) {
 			System.out.printf("Quantos jogadores Marcaram pelo %s?", partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
@@ -97,20 +102,20 @@ public class PartidaDaoImpl implements PartidaDAO{
 			
 		}
 		
-		System.out.printf("Os jogadores da(o) seleção %s receberam cartões?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
+		System.out.printf("Os jogadores da(o) selecao %s receberam cartoes?\n[0]Nao\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1());
 		int respCartoaAmarelo1 = entrada.nextInt();
 		if(respCartoaAmarelo1 == 1) {
-			System.out.printf("Quantos jogadores receberam cartões? ");
+			System.out.printf("Quantos jogadores receberam cartoes? ");
 			int quantidadeDeCartoes= entrada.nextInt();
 			for (int i = 0; i < quantidadeDeCartoes; i++) {
 				final String nomeDaSelecao = partidas.get(grupos[numPartida]).get(indicePartida).getSelecao1();
 				jogadores.listarJogadores(nomeDaSelecao);
-				System.out.println("Digite o código do jogador que recebeu o cartão:");
+				System.out.println("Digite o código do jogador que recebeu o cartao:");
 				String codigo = entrada.next();
 				System.out.println("[1]Cartão Amarelo\n[2]Cartão Vermelho");
 				int cartao = entrada.nextInt();
 				if(cartao == 1) {
-					System.out.println("Digite a quantidade de cartões");
+					System.out.println("Digite a quantidade de cartoes");
 					String cartaoAmarelo = entrada.next();
 					jogadores.atualizarDadosJogador(codigo, 3, cartaoAmarelo, nomeDaSelecao);
 					partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao1(Integer.parseInt(cartaoAmarelo));
@@ -123,20 +128,20 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 			
 		}
-		System.out.printf("Os jogadores da(o) seleção %s receberam cartões?\n[0]Não\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
+		System.out.printf("Os jogadores da(o) selecao %s receberam cartoes?\n[0]Nao\n[1]Sim",partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2());
 		int respCartoaAmarelo2 = entrada.nextInt();
 		if(respCartoaAmarelo2 == 1) {
-			System.out.printf("Quantos jogadores receberam cartões? ");
+			System.out.printf("Quantos jogadores receberam cartoes? ");
 			int quantidadeDeCartoes= entrada.nextInt();
 			for (int i = 0; i < quantidadeDeCartoes; i++) {
 				final String nomeDaSelecao = partidas.get(grupos[numPartida]).get(indicePartida).getSelecao2();
 				jogadores.listarJogadores(nomeDaSelecao);
-				System.out.println("Digite o código do jogador que recebeu o cartão:");
+				System.out.println("Digite o codigo do jogador que recebeu o cartao:");
 				String codigo = entrada.next();
 				System.out.println("[1]Cartão Amarelo\n[2]Cartão Vermelho");
 				int cartao = entrada.nextInt();
 				if(cartao == 1) {
-					System.out.println("Digite a quantidade de cartões");
+					System.out.println("Digite a quantidade de cartoes");
 					String cartaoAmarelo = entrada.next();
 					jogadores.atualizarDadosJogador(codigo, 3, cartaoAmarelo, nomeDaSelecao);
 					partidas.get(grupos[numPartida]).get(indicePartida).setGolsSelecao2(Integer.parseInt(cartaoAmarelo));
@@ -150,8 +155,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 			
 		}
 		partidas.get(grupos[numPartida]).get(indicePartida).setCodigo(geraid());
-		partidas.get(grupos[numPartida]).get(indicePartida).setData(data.get(1)+ "/" + data.get(2) + "/" + data.get(3));
-		partidas.get(grupos[numPartida]).get(indicePartida).setHorario(data.get(1) + ":" + data.get(2));
+		partidas.get(grupos[numPartida]).get(indicePartida).setData(data.get(0)+ "/" + data.get(1) + "/" + data.get(2));
+		partidas.get(grupos[numPartida]).get(indicePartida).setHorario(data.get(0) + ":" + data.get(1));
 		partidas.get(grupos[numPartida]).get(indicePartida).setLocal(estadios[local]);
 	}
 
@@ -176,8 +181,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 	
 
 	public void geraPartidas() {
-		//String[] grupos = {"A","B","C","D","E","F","G","H"};
-		String[] grupos = {"A","B"};
+		String[] grupos = {"A","B","C","D","E","F","G","H"};
 		for (int i = 0; i < grupos.length; i++) {
 			List<String> grupoSelecao = organizaGrupo(grupos[i]);
 			List<Partida> partidaGrupo= new ArrayList<Partida>();
@@ -206,7 +210,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 	}
 	public void imprimeGrupos(){
 		System.out.println("[Lista de Grupos]");
-		String[] grupos = {"A","B","C","D","E","F","G"};
+		//String[] grupos = {"A","B","C","D","E","F","G"};
+		String[] grupos = {"A","B"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("[%d]Grupo %s\n",i,grupos[i]);
 			for(Selecao selecao: selecao.getListaSelecoes()) {
@@ -219,17 +224,18 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.println("");
 	}
 	public void listarPartida(String grupo) {
-		System.out.println("[Lista de Partidas]");
 		List<Partida> jogo = partidas.get(grupo);
 		for (int i = 0; i < jogo.size(); i++) {
 			System.out.printf("[%d] %s X %s\n",i,jogo.get(i).getSelecao1(),jogo.get(i).getSelecao2());
 		}
+		System.out.println("");
 		
 	}
 	
 	public void listarTodasPartidas() {
 		System.out.println("[Lista de Partidas]");
-		String[] grupos = {"A","B","C","D","E","F","G"};
+		//String[] grupos = {"A","B","C","D","E","F","G"};
+		String[] grupos = {"A","B"};
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("Grupo [%s]\n",grupos[i]);
 			listarPartida(grupos[i]);
