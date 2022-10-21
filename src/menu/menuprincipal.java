@@ -61,10 +61,6 @@ public class menuprincipal
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
 		partidas.listarTodasPartidas();
-		partidas.inserir();
-		
-		
-		
 		
 		
 		int continua = 0;// variável para condicionar while do menu principal 
