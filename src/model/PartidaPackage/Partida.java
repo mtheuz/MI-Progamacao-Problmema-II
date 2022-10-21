@@ -18,7 +18,18 @@ public class Partida {
 	private int cartoesVermelhosSelecao2;
 	private int cartoesAmarelosSelecao1;
 	private int cartoesAmarelosSelecao2;
+	private boolean situacao;
 	
+	public boolean isSituacao() {
+		return situacao;
+	}
+
+
+	public void setSituacao(boolean situacao) {
+		this.situacao = situacao;
+	}
+
+
 	public int getGolsSelecao1() {
 		return golsSelecao1;
 	}
@@ -120,5 +131,6 @@ public class Partida {
 	public Partida(String selecao1,String selecao2) {
 		this.selecao1 = selecao1;
 		this.selecao2 = selecao2;
+		this.situacao = false;
 	}
 }
