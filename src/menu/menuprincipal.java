@@ -61,7 +61,7 @@ public class menuprincipal
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
 		partidas.listarTodasPartidas();
-		partidas.inserir();
+		
 		
 		
 		
