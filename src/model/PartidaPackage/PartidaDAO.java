@@ -5,6 +5,9 @@ public interface PartidaDAO {
 	public void inserir();
 	public void listar();
 	public void deletar();
-	void deletar(String codigo);
+	
+
+	public void deletar(String codigo);
+
 
 }
