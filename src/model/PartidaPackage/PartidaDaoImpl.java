@@ -157,11 +157,14 @@ public class PartidaDaoImpl implements PartidaDAO{
 	}
 	@Override
 	public void inserir() {
+		
 		String[] grupos = {"A","B","C","D","E","F","G","H"};
+		
 		Scanner entrada = new Scanner(System.in);
 		imprimeGrupos();
 		System.out.println("Digite o indice grupo que deseja inserir a partida");
 		int numPartida = entrada.nextInt();
+		
 		int opcao = 1;
 		//
 		do {
@@ -169,34 +172,58 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.println("Digite o indice da partida que deseja inserir");
 		int indicePartida = entrada.nextInt();
 		//
+		
+		
+		
+				
 		final Partida partida = this.partidas.get(grupos[numPartida]).get(indicePartida);
-		System.out.printf("|Partida: %s X %s|",partida.getSelecao1(),partida.getSelecao2());
-		List<String> data = inputData();
-		System.out.println("");
-		//
-		List<String> hora = inputHora();
-		System.out.println("");
-		//
-		System.out.println("");
-		int local = inputLocal();
-		inputGols(partida);
-		System.out.println("");
-		inputCartoes(partida);
-		//
-		partida.setCodigo(geraid());
-		partida.setData(data.get(0)+ "/" + data.get(1) + "/" + data.get(2));
-		partida.setHorario(hora.get(0) + ":" + hora.get(1));
-		partida.setLocal(estadios[local]);
-		partida.setSituacao(true);
-		//
-		System.out.println("");
-		System.out.println("-----------------Partida Gerada-----------------");
-		mostrarPartida(grupos[numPartida], indicePartida);
+		if(verificaCadastroCompleto(partida.getSelecao1()) && verificaCadastroCompleto(partida.getSelecao2()))
+			
+		{
+			System.out.printf("|Partida: %s X %s|",partida.getSelecao1(),partida.getSelecao2());
+			List<String> data = inputData();
+			System.out.println("");
+			//
+			List<String> hora = inputHora();
+			System.out.println("");
+			//
+			System.out.println("");
+			int local = inputLocal();
+			inputGols(partida);
+			System.out.println("");
+			inputCartoes(partida);
+			//
+			partida.setCodigo(geraid());
+			partida.setData(data.get(0)+ "/" + data.get(1) + "/" + data.get(2));
+			partida.setHorario(hora.get(0) + ":" + hora.get(1));
+			partida.setLocal(estadios[local]);
+			partida.setSituacao(true);
+			//
+			System.out.println("");
+			System.out.println("-----------------Partida Gerada-----------------");
+			mostrarPartida(grupos[numPartida], indicePartida);
+		}
+		else {
+			System.out.println("Uma das selecoes da partida ou ambas nao foram cadastradas por completo no sistema");
+			System.out.println("Cadastre as selecoes antes de cadastrar a partida");
+		}
 		System.out.println("\nDeseja cadastar outra partida?\n[0]Nao\n[1]Sim");
 		opcao = entrada.nextInt();
 		} while (opcao != 0);
 	}
 
+
+	private boolean verificaCadastroCompleto(String selecaoo) {
+		ArrayList listaSelecoes = selecao.getListaSelecoes();
+		for(int i=0; i<listaSelecoes.size(); i++)
+		{
+			if(((Selecao) listaSelecoes.get(i)).equals(selecaoo) && ((Selecao) listaSelecoes.get(i)).getListaJogadores() != null )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void deletar(String codigo) {
@@ -332,11 +359,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.println("");
 		
 	}
-	@Override
-	public void deletar() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void atualizar(String codigo) {
 		listarTodasPartidasCodigo();
@@ -414,6 +436,8 @@ public class PartidaDaoImpl implements PartidaDAO{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 	
 	

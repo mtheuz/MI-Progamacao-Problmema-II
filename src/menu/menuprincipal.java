@@ -85,11 +85,28 @@ public class menuprincipal
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Partida:");
-				System.out.println("1- Cadastrar Partidas 2- Editar 3- Excluir 4- Listar por Grupo 5- Listar Todas 6- Voltar");
-				int escolha0 = tratamento.validaInt(0,6);
+				System.out.println("1- Cadastrar Partidas 2- Editar 3- Listar por Grupo 4- Cancelar Partida 5-Voltar");
+				int escolha0 = tratamento.validaInt(0,5);
+				
 				if(escolha0==1)
 				{
 					partidas.inserir();
+				}
+				if(escolha0 == 2)
+				{
+					partidas.atualizar(null);
+				}
+				if(escolha0 == 3)
+				{
+					partidas.listarTodasPartidas();
+				}
+				if(escolha0== 4)
+				{
+					partidas.deletar(null);
+				}
+				if(escolha0== 5)
+				{
+					continue;
 				}
 				break;
 			
@@ -97,13 +114,13 @@ public class menuprincipal
 			case 2:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Selecao:");
-				System.out.println("1- Cadastrar 2- Editar 3- Excluir 4- Listar 5- Voltar");
+				System.out.println("1- Cadastrar Selecao 2-Editar Selecao 3- Listar Selecoes 4- Voltar");
 				int escolha1 = tratamento.validaInt(0,5);//Leitura da entrada de inteiro valido(de 1 a 5)
 				
 				
 				if(escolha1 == 1)
 				{
-					
+					selecao.cadastrarSelecao(null);
 				}
 				
 				else if (escolha1 == 2)
