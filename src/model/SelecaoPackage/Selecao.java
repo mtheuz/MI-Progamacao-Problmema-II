@@ -31,10 +31,9 @@ public class Selecao {
 	/**
 	 * Construtor padrão da classe 
 	 */
-	public Selecao(){
-		this.listaJogadores = new ArrayList<Jogador>();
-	}
+
 	public Selecao(String nomeSelecao, String grupo) {
+		this.listaJogadores = new ArrayList<Jogador>();
 		this.nome = nomeSelecao;
 		this.grupo = grupo;
 	}

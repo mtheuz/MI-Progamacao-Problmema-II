@@ -1,10 +1,9 @@
 package model.SelecaoPackage;
 
+// for reading file data  
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import model.JogadorPackage.JogadorDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
@@ -94,7 +93,7 @@ public void leArquivoSelecoes() throws IOException
 	    		Selecao selecao = new Selecao(linha, grupo);
 				this.listaSelecoes.add(selecao);
 		        linha = br.readLine();
-		        if(linha != null)
+		        if(linha == null)
 		        	break;
 	    	}
     	}
@@ -290,7 +289,8 @@ public void listarSelecao() {
 		System.out.println("Ainda nao foram cadastradas Selecoes no sistema");
 		
 	}
-	
+
+
 
 }
 
