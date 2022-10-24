@@ -2,9 +2,13 @@ package model.SelecaoPackage;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import model.JogadorPackage.JogadorDaoImpl;
+import model.PartidaPackage.Partida;
 import model.TecnicoPackage.TecnicoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
@@ -94,7 +98,7 @@ public void leArquivoSelecoes() throws IOException
 	    		Selecao selecao = new Selecao(linha, grupo);
 				this.listaSelecoes.add(selecao);
 		        linha = br.readLine();
-		        if(linha != null)
+		        if(linha == null)
 		        	break;
 	    	}
     	}
@@ -103,49 +107,50 @@ public void leArquivoSelecoes() throws IOException
 /**
  * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
  * O limite de cadastros é de 32 seleções na copa do mundo
+ * @param Partida 
+ * @param map 
  */
 @Override
-public void cadastrarSelecao(ArrayList<Selecao> lista) {
-	if(listaSelecoes.size()<32)//Verificando se o limite de cadastros de Seleções foi atingindo
-	{
+public void cadastrarSelecao() {
+	
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();//Instanciando classe para validar dados de entrada no programa
-		Selecao selecao = new Selecao(); //Instanciando classe para cadastrar Seleção no programa
-		String nome;
-		while(true)
-		{
+	
 			
-			System.out.println("Digite o nome da Selecao que deseja cadastrar:");
-			Scanner nomeSelecao = new Scanner(System.in);
-			nome = nomeSelecao.nextLine();//Lendo o nome da Seleção
-			if(tratamento.validaNome(nome)) //Verificando se entrada é válida
-			{
-				if(ComparaSelecao(nome)) //Verificando se seleção já foi cadastrada no sistema
-				{
-					selecao.setNome(nome);//Gravando o nome da Seleção
-					break;
-}
-				else
-					System.out.println("Essa Selecao ja foi cadastrada no sistema");
-			}
-			else
-				System.out.println("Nome invalido, tente novamente");
+		System.out.println("Digite o nome da Selecao que deseja completar o cadastro:");
+		
+		String nome = tratamento.EntradaString();
+		
+		int indice = buscaSelecao(nome);
+		Selecao selecao = new Selecao();
+		if(indice != -1)
+		{
+			selecao = listaSelecoes.get(indice);
 		}
-		TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando classe responsável pelo CRUD de Técnicos no sistema
-		tecnico.setLista(listaSelecoes);//Igualidando a lista de seleções à lista que está dentro da classe técnico para não acessar externamente
+		else
+			selecao=null;
+		if(selecao != null)
+		{
+			System.out.println("Concluir o cadastro: \n");
+			TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando classe responsável pelo CRUD de Técnicos no sistema
+			tecnico.setLista(listaSelecoes);//Igualidando a lista de seleções à lista que está dentro da classe técnico para não acessar externamente
+			
+			selecao.setTecnico(tecnico.cadastrarTecnico());//Chamando método para cadastrar técnico
+			System.out.println("Tecnico cadastrado com sucesso!\n");
+			
+			JogadorDaoImpl jogador= new JogadorDaoImpl(this.listaSelecoes);//Instanciando classe responsável pelo CRUD de Jogadores no sistema
+			jogador.cadastrarNaselecao(nome); //Chamando método responsável por cadastrar jogador em determinada seleção
+			listaSelecoes.set(indice, selecao);
+			System.out.println("Selecao cadastrada com sucesso no sistema!");	
+		}
+		else
+			System.out.println("Nemhuma Selecao com esse nome foi cadastrada no sistema");
 		
-		selecao.setTecnico(tecnico.cadastrarTecnico());//Chamando método para cadastrar técnico
-		
-		lista.add(selecao);//Adicionando seleção a lista
-		//JogadorDaoImpl jogador= new JogadorDaoImpl(this.listaSelecoes);//Instanciando classe responsável pelo CRUD de Jogadores no sistema
-		//jogador.cadastrarNaselecao(nome); //Chamando método responsável por cadastrar jogador em determinada seleção
-		
-		System.out.println("Selecao cadastrada com sucesso no sistema");
-	}
-	else {
-		System.out.println("Limite de Selecoes antigido no sistema (32)");
 	}
 	
-	}
+
+
+
+
 /**
  * Essa função verifica se já existe uma Seleção com o mesmo nome no sistema
  * @param nome

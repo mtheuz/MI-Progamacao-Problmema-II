@@ -37,6 +37,7 @@ public class Selecao {
 	public Selecao(String nomeSelecao, String grupo) {
 		this.nome = nomeSelecao;
 		this.grupo = grupo;
+		
 	}
 	/**
 	 * Consultar o nome da seleção 

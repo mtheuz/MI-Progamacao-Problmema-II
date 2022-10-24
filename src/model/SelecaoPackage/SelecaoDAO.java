@@ -1,6 +1,10 @@
 package model.SelecaoPackage;
 
 import java.util.List;
+import java.util.Map;
+
+import model.PartidaPackage.Partida;
+
 import java.util.ArrayList;
 
 /**
@@ -10,10 +14,23 @@ import java.util.ArrayList;
  */
 public interface SelecaoDAO 
 {
-	public void cadastrarSelecao(ArrayList<Selecao> lista);
+	void cadastrarSelecao();
 	public void editarSelecao();
 	public void apagarSelecao();
 	public void listarSelecao();
+	/**
+	 * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
+	 * O limite de cadastros é de 32 seleções na copa do mundo
+	 * @param map 
+	 */
+	/**
+	 * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
+	 * O limite de cadastros é de 32 seleções na copa do mundo
+	 * @param Partida 
+	 * @param map 
+	 */
+	
+	
 	
 
 }
