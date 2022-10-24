@@ -14,10 +14,15 @@ import model.SelecaoPackage.SelecaoDaoImpl;
 public class PartidaDaoImpl implements PartidaDAO{
 	private SelecaoDaoImpl selecao = new SelecaoDaoImpl();
 	private JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+	
 	private Map<String,List<Partida>> partidas = new HashMap<String,List<Partida>>();
+	
 	private String[] estadios = {"Al Bayt", "Khalifa International", "Al Thumama", "Ahmad Bin Ali",
 			"Lusail", "Ras Abu Aboud (974)", "Education City", "Al Janoub"};
 	
+	public Map<String,List<Partida>> getPartidas() {
+		return partidas;
+	}
 	public PartidaDaoImpl(ArrayList<Selecao> selecoes){
 		selecao.setListaSelecoes(selecoes);
 	}
@@ -213,13 +218,14 @@ public class PartidaDaoImpl implements PartidaDAO{
 	}
 
 
-	private boolean verificaCadastroCompleto(String selecaoo) {
-		ArrayList listaSelecoes = selecao.getListaSelecoes();
-		for(int i=0; i<listaSelecoes.size(); i++)
+	private boolean verificaCadastroCompleto(String nome) {
+		ArrayList<Selecao> listaSelecoes = selecao.getListaSelecoes();
+		for(Selecao selecao : listaSelecoes)
 		{
-			if(((Selecao) listaSelecoes.get(i)).equals(selecaoo) && ((Selecao) listaSelecoes.get(i)).getListaJogadores() != null )
+			if(selecao.getNome().equals(nome))
 			{
-				return true;
+				if(selecao.getListaJogadores() != null)
+					return true;
 			}
 		}
 		return false;

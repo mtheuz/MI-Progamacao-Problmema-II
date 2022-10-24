@@ -40,9 +40,8 @@ public class Jogador {
 	 * @param nome
 	 * @param posicao
 	 */
-	public Jogador(String nome, String posicao) {
+	public Jogador(String nome) {
 		this.nome = nome;
-		this.posicao = posicao;
 		this.golsMarcados = 0;
 		this.cartoesAmarelos = 0;
 		this.cartoesVermelhos = 0;

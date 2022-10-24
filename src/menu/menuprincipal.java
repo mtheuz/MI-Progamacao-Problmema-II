@@ -50,14 +50,16 @@ public class menuprincipal
 		ArbitroDaoImpl juiz = new ArbitroDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Árbitros no sistema
 		SelecaoDaoImpl selecao = new SelecaoDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Seleções no sistema
 		TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Técnicos no sistema
+		tecnico.setLista(selecao.getListaSelecoes());
 		JogadorDaoImpl jogador = new JogadorDaoImpl(selecao.getListaSelecoes());//Instanciando objeto da Classe responsável pelo CRUD de Jogadores no sistema
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
 		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
 		//selecao.cadastrarNomesDeTodasSelecoes();
-		selecao.leArquivoSelecoes();
 		
+		selecao.leArquivoSelecoes();
+		jogador.transformaEmMap();
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
 		partidas.listarTodasPartidas();
@@ -120,7 +122,8 @@ public class menuprincipal
 				
 				if(escolha1 == 1)
 				{
-					selecao.cadastrarSelecao(null);
+					selecao.cadastrarSelecao();
+					
 				}
 				
 				else if (escolha1 == 2)
@@ -130,7 +133,7 @@ public class menuprincipal
 				
 				else if (escolha1 == 3)
 				{
-					selecao.apagarSelecao(); //Chamando método do DAO para apagar Seleção
+					
 				}
 				else if (escolha1 == 4)
 				{
@@ -151,7 +154,7 @@ public class menuprincipal
 				int escolha5 = tratamento.validaInt(1, 5);
 				if(escolha5 == 1)
 				{
-					jogador.cadastrar();
+					//jogador.cadastrar();
 					}
 					
 				else if(escolha5 == 2)
@@ -262,8 +265,8 @@ public class menuprincipal
 				else if(escolha5 == 4)
 				{	
 					selecao.listarSelecao();
-					System.out.println("Digite o nome da selecao que deseja listar os jogadores");
-					String nomeSelecao = entrada.next();
+					System.out.println("Digite o indice da selecao que deseja listar os jogadores");
+					int nomeSelecao = entrada.nextInt();
 					jogador.listarJogadoresDados(nomeSelecao);
 				}
 				else if(escolha == 5) {

@@ -7,11 +7,11 @@ import java.util.List;
  * @sice 2022
  */
 public interface JogadorDAO {
-	public void cadastrar();
+	public void cadastrar(String nome, String nomeDaSelecao);
 	public boolean deletarJogador(String codigo,String selecaoBusca);
 	public boolean atualizarDadosJogador(String codigo, int opcaco,String alteração,String nomeSelecao);
 	public boolean inserirJogador(Jogador jogador, String indexnomeSelecao);
-	public void listarJogadoresDados(String nomeSelecao);
+	public void listarJogadoresDados(int nomeSelecao);
 	public void listarJogadores(String nomeSelecao);
 	public void listarPosicoes();
 	void imprimirJogador(String codigo);
