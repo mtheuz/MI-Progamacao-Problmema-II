@@ -183,7 +183,7 @@ public class menuprincipal
 						jogador.imprimirJogador(codigo);
 						System.out.println("Digite o nome do jogador: ");
 						String nome = entrada.next();
-						jogador.atualizarDadosJogador(codigo, opcao, nome,nomeSelecao);
+						jogador.atualizarNome(codigo,nome,nomeSelecao);
 					}
 					
 					else if(opcao == 2) {
@@ -194,7 +194,7 @@ public class menuprincipal
 						jogador.listarPosicoes();
 						System.out.println("Digite a posicao: ");
 						String posicao = entrada.next();
-						jogador.atualizarDadosJogador(codigo, opcao, posicao,nomeSelecao);
+						jogador.atualizarPosicao(codigo,nomeSelecao,posicao);
 					}
 					else if(opcao == 3) {
 						jogador.imprimirJogador(codigo);
@@ -205,12 +205,12 @@ public class menuprincipal
 						if(opcaoCartao == 1) {
 							System.out.println("Digite a quantidade de cartoes amarelos");
 							String cartoesAmarelos = entrada.next();
-							jogador.atualizarDadosJogador(codigo, opcao, "-"+cartoesAmarelos,nomeSelecao);
+							jogador.atulizarCartoesAmarelos(codigo, nomeSelecao, cartoesAmarelos);
 						}
 						else if(opcaoCartao == 2){
 							System.out.println("Digite a quantidade de cartoes amarelos");
 							String cartoesAmarelos = entrada.next();
-							jogador.atualizarDadosJogador(codigo, opcao, cartoesAmarelos,nomeSelecao);
+							jogador.atulizarCartoesAmarelos(codigo, nomeSelecao, cartoesAmarelos);
 						}
 						
 						
@@ -224,12 +224,12 @@ public class menuprincipal
 						if(opcaoCartao == 1) {
 							System.out.println("Digite a quantidade de cartoes vermelhos");
 							String cartoesVermelhos= entrada.next();
-							jogador.atualizarDadosJogador(codigo, opcao, "-"+cartoesVermelhos,nomeSelecao);
+							jogador.atualizarCartoesVermelhos(codigo, nomeSelecao, "-"+cartoesVermelhos);
 						}
 						else if(opcaoCartao == 2){
 							System.out.println("Digite a quantidade de cartoes amarelos");
 							String cartoesVermelhos = entrada.next();
-							jogador.atualizarDadosJogador(codigo, opcao, cartoesVermelhos,nomeSelecao);
+							jogador.atualizarCartoesVermelhos(codigo, nomeSelecao, cartoesVermelhos);
 						}
 					}
 					else if(opcao == 5) {
@@ -241,12 +241,12 @@ public class menuprincipal
 						if(opcaoCartao == 1) {
 							System.out.println("Digite a quantidade de gols");
 							String gols= entrada.next();
-							jogador.atualizarDadosJogador(codigo, opcao, "-"+gols,nomeSelecao);
+							jogador.atualizarGolsMarcados(codigo, nomeSelecao, "-"+gols);
 						}
 						else if(opcaoCartao == 2){
 							System.out.println("Digite a quantidade de gols");
 							String gols = entrada.next();
-							jogador.atualizarDadosJogador(codigo, opcao, gols,nomeSelecao);
+							jogador.atualizarGolsMarcados(codigo, nomeSelecao, gols);
 					}
 					}
 					
