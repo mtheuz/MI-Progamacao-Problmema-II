@@ -140,32 +140,25 @@ public class JogadorDaoImpl implements JogadorDAO{
 		final int numeroTotalDeJogadores = 26;
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 		//verifica se a lista de jogadores já está cheiajogadores 
-		
-		try
-		{
-			if( selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size() < numeroTotalDeJogadores) {
-				//Verifica se o jogador já foi cadastrado
+		if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size() < numeroTotalDeJogadores) {
+			//Verifica se o jogador já foi cadastrado
+			if(comparaJogador(jogador,nomeSelecao))
+				System.out.println("Esse jogador já foi cadastrado");
+			else {
+				jogador.setCode(geraid(jogador));
+				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
 				
-				if(comparaJogador(jogador,nomeSelecao))
-					System.out.println("Esse jogador já foi cadastrado");
-				else {
-					jogador.setCode(geraid(jogador));
-					selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-					
-				}
-			}else
-				return false;
-		}
-		catch(Exception erro)
-		{
-			jogador.setCode(geraid(jogador));
-			selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-			
-		}
+			}
+		}else
+			return false;
 		System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
 		return true;
 		
 	}
+		
+		
+		
+	
 	
 	/**
 	 * O método deletarJogador é responsável por excluir o jogador da lista de jogadores
