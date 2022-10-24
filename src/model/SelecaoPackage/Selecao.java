@@ -28,13 +28,19 @@ public class Selecao {
 	 * Atributo técnico é um objeto da classe Tecnico
 	 */
 	private Tecnico tecnico;
+	
+	public Selecao()
+	{
+		this.nome= "";
+	}
+	
+	
 	/**
 	 * Construtor padrão da classe 
 	 */
-	public Selecao(){
-		this.listaJogadores = new ArrayList<Jogador>();
-	}
+
 	public Selecao(String nomeSelecao, String grupo) {
+		this.listaJogadores = new ArrayList<Jogador>();
 		this.nome = nomeSelecao;
 		this.grupo = grupo;
 		

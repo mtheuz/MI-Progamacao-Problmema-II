@@ -1,11 +1,16 @@
 package model.JogadorPackage;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.SelecaoPackage.Selecao;
 import model.SelecaoPackage.SelecaoDaoImpl;
@@ -38,51 +43,37 @@ public class JogadorDaoImpl implements JogadorDAO{
 	/**
 	 * O método cadastrar é responsável por cadastrar a quantidade desejada de jogadores em uma Seleção no sistema
 	 */
-	public void cadastrar() {
+	public void cadastrar(String nomeJoagador,String nomeDaSelecao) {
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
 		Scanner entrada = new Scanner(System.in);
 
 		//boolean listar = selecao.listarSelecao();
-		String selecaobusca = "";
+		String selecaoInput = "";
 		int quantidadeJogadores = 0;
 	
 		if(selecao.getListaSelecoes().size()> 0) {
-		selecao.listarSelecao();
-		System.out.println("Digite o nome da Selecao que deseja inserir o jogador");
-		selecaobusca = entrada.nextLine();
-		System.out.println("Digite a quantidade de jogadores que deseja cadastrar");
-		quantidadeJogadores = entrada.nextInt();
+		//selecao.listarSelecao();
+		//System.out.println("Digite o indice da Selecao que deseja inserir o jogador");
+		//int selecaobusca = entrada.nextInt();
+		selecaoInput = nomeDaSelecao;
+		//System.out.println("Digite a quantidade de jogadores que deseja cadastrar");
+		//quantidadeJogadores = entrada.nextInt();
 		}
 		//verifica se já existe selecao escolhida
-		if(!selecao.ComparaSelecao(selecaobusca)) { 
-			for (int i = 0; i < quantidadeJogadores; i++) {
+		if(nomeDaSelecao != null) {
+		if(!selecao.ComparaSelecao(selecaoInput)) { 
 				
-				System.out.println("Digite o nome do Jogador: ");
-				String nome = entrada.next();
+				//System.out.println("Digite o nome do Jogador: ");
+				String nome = nomeJoagador;
 				
-				listarPosicoes();
-				String pos = entrada.next();
-				pos = posicoes.get(pos.toUpperCase());
+				//listarPosicoes();
+				//String pos = entrada.next();
+				//pos = posicoes.get(pos.toUpperCase());
 				//cria o objeto jogador
-				Jogador novoJogador = new Jogador(nome,pos); 
+				Jogador novoJogador = new Jogador(nome); 
+				inserirJogador(novoJogador,selecaoInput); 
 				
-				System.out.println("Quantidade de gols: ");
-				int gols = entrada.nextInt();
-				novoJogador.setGolsMarcados(gols);
-				
-				System.out.println("Quantidade de cartoes amarelo");
-				int cartoesAmarelos = entrada.nextInt();
-				novoJogador.setCartoesAmarelos(cartoesAmarelos);
-				
-				System.out.println("Quantidade de cartoes vermelhos");
-				int cartoesVermelho = entrada.nextInt();
-				novoJogador.setCartoesVermelhos(cartoesVermelho);
-				
-				//insere na lista de jogadores na seleçao escolhida
-				inserirJogador(novoJogador,selecaobusca); 
-				
-				
-			}
+		}
 		}
 		else {
 			System.out.println("Ainda nao foram cadastradas Selecoes no sistema");
@@ -109,22 +100,10 @@ public class JogadorDaoImpl implements JogadorDAO{
 					String nome = entrada.next();
 					
 					listarPosicoes();
-					String pos = entrada.next();
-					pos = posicoes.get(pos.toUpperCase());
+					//String pos = entrada.next();
+					//pos = posicoes.get(pos.toUpperCase());
 					//cria o objeto jogador
-					Jogador novoJogador = new Jogador(nome,pos); 
-					
-					System.out.println("Quantidade de gols: ");
-					int gols = tratamento.validaInt();
-					novoJogador.setGolsMarcados(gols);
-					
-					System.out.println("Quantidade de cartoes amarelo");
-					int cartoesAmarelos = tratamento.validaInt();
-					novoJogador.setCartoesAmarelos(cartoesAmarelos);
-					
-					System.out.println("Quantidade de cartoes vermelhos");
-					int cartoesVermelho = tratamento.validaInt();
-					novoJogador.setCartoesVermelhos(cartoesVermelho);
+					Jogador novoJogador = new Jogador(nome); 
 					
 					//insere na lista de jogadores na seleçao
 					inserirJogador(novoJogador,nomeSelecao); 
@@ -139,6 +118,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 	public boolean inserirJogador(Jogador jogador, String nomeSelecao) {
 		final int numeroTotalDeJogadores = 26;
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+
 		//verifica se a lista de jogadores já está cheiajogadores 
 		if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size() < numeroTotalDeJogadores) {
 			//Verifica se o jogador já foi cadastrado
@@ -152,6 +132,31 @@ public class JogadorDaoImpl implements JogadorDAO{
 		}else
 			return false;
 		System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
+		try
+		{
+			if( listaJogadores == null || listaJogadores.size() < numeroTotalDeJogadores) {
+				//Verifica se o jogador já foi cadastrado
+				
+				if(comparaJogador(jogador,nomeSelecao))
+					System.out.println("Esse jogador já foi cadastrado");
+				else {
+					jogador.setCode(geraid(jogador));
+					selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
+					
+				}
+			}else
+				return false;
+		}
+		catch(Exception erro)
+		{
+			jogador.setCode(geraid(jogador));
+			selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
+			
+		}
+		//System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+
 		return true;
 		
 	}
@@ -192,12 +197,13 @@ public class JogadorDaoImpl implements JogadorDAO{
 		//busca o indice do jogador
 		int index = buscarJogador(codigo); 
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
 		if(index != -1 ) {
 			imprimirJogador(codigo);
 			switch (opcao) {
 			//Editar nome
 			case 1:
-				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().get(index).setNome(alteracao);
+				listaJogadores.get(index).setNome(alteracao);
 				imprimirJogador(codigo);
 				System.out.println("O jogador foi atualizado na base dados!");
 				return true;
@@ -205,7 +211,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 			case 2:
 				for(Map.Entry<String, String> pos: posicoes.entrySet()){
 					if(alteracao.equals(pos.getValue())) {
-						selecao.getListaSelecoes().get(index).getListaJogadores().get(index).setPosicao(alteracao);
+						listaJogadores.get(index).setPosicao(alteracao);
 						imprimirJogador(codigo);
 						System.out.println("O jogador foi atualizado na base dados!");
 						return true;
@@ -216,9 +222,9 @@ public class JogadorDaoImpl implements JogadorDAO{
 				}
 			//Editar Numero de cartoes amarelos
 			case 3:
-				if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().get(index).getCartoesAmarelos() != 0) {
+				if(listaJogadores.get(index).getCartoesAmarelos() != 0) {
 					
-					selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().get(index).setCartoesAmarelos(Integer.parseInt(alteracao));
+					listaJogadores.get(index).setCartoesAmarelos(Integer.parseInt(alteracao));
 					imprimirJogador(codigo);
 					System.out.println("O jogador foi atualizado na base dados!");
 					return true;
@@ -229,8 +235,8 @@ public class JogadorDaoImpl implements JogadorDAO{
 				}
 			//Editar Numero de cartoes vermelhos
 			case 4:
-				if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().get(index).getCartoesVermelhos() != 0) {
-					selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().get(index).setCartoesVermelhos(Integer.parseInt(alteracao));
+				if(listaJogadores.get(index).getCartoesVermelhos() != 0) {
+					listaJogadores.get(index).setCartoesVermelhos(Integer.parseInt(alteracao));
 					imprimirJogador(codigo);
 					System.out.println("O jogador foi atualizado na base dados!");
 					return true;
@@ -240,8 +246,8 @@ public class JogadorDaoImpl implements JogadorDAO{
 				}
 			//Editar quantidade de gols
 			case 5:
-				if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().get(index).getGolsMarcados() != 0) {
-					selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().get(index).setGolsMarcados(Integer.parseInt(alteracao));
+				if(listaJogadores.get(index).getGolsMarcados() != 0) {
+					listaJogadores.get(index).setGolsMarcados(Integer.parseInt(alteracao));
 					imprimirJogador(codigo);
 					System.out.println("O jogador foi atualizado na base dados!");
 					return true;
@@ -285,9 +291,11 @@ public class JogadorDaoImpl implements JogadorDAO{
 
 
 	private int buscarJogador(String codigo) {
-		for(int index = 0; index < selecao.getListaSelecoes().size();index++) {
-			for (int ijogador = 0; ijogador < selecao.getListaSelecoes().get(index).getListaJogadores().size(); ijogador++) {
-				if(selecao.getListaSelecoes().get(index).getListaJogadores().get(ijogador).getCode().equals(codigo)) {
+		final List<Selecao> listaSelecao = selecao.getListaSelecoes();
+		for(int index = 0; index < listaSelecao.size();index++) {
+			var listaJogador = listaSelecao.get(index).getListaJogadores();
+			for (int ijogador = 0; ijogador < listaJogador.size(); ijogador++) {
+				if(listaJogador.get(ijogador).getCode().equals(codigo)) {
 					return ijogador;
 				}
 				
@@ -305,8 +313,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 	//Lista todos os jogadores
 
 	@Override
-	public void listarJogadoresDados(String nomeSelecao) {
-		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+	public void listarJogadoresDados(int selecaoBusca) {
 		System.out.println("Lista de jogadores:");
 		System.out.println();
 		if(selecaoBusca != -1) {
@@ -345,11 +352,12 @@ public class JogadorDaoImpl implements JogadorDAO{
 	@Override
 	public void listarJogadores(String nomeSelecao) {
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
-		System.out.println("Lista de jogadores");
+		System.out.printf("Lista de jogadores [%s]\n", nomeSelecao);
 		if(selecaoBusca != -1) {
 			if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size()> 0) {
 			for(Jogador jogador: selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores()) {
 				System.out.printf("%s - %s \n",jogador.getCode(),jogador.getNome());
+				
 				}
 			}
 			else {
@@ -359,6 +367,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 		else {
 			System.out.println("Selecao nao cadastrada");
 		}
+		System.out.println("");
 	}
 
 	/**
@@ -413,8 +422,16 @@ public class JogadorDaoImpl implements JogadorDAO{
 	 */
 
 
+
 	private boolean comparaJogador(Jogador jogador, String nomeSelecao) {
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
+		if(listaJogadores != null) {
+			for(Jogador player : listaJogadores) {
+				if(player.equals(jogador)){
+					return true;
+				}
+		}
 		if(selecao.getListaSelecoes()!= null)
 		{
 			return false;
@@ -424,9 +441,33 @@ public class JogadorDaoImpl implements JogadorDAO{
 			if(player.equals(jogador)){
 				return true;
 			}
-		}
+		}}
 		return false;
 	}
+	
+	public void transformaEmMap() {  
+		ObjectMapper mapper = new ObjectMapper();
+	  
+	    File fileObj = new File("selecoesJogadores.json");  
+	    try {   
+	        Map<String, List<String>> mapJson = mapper.readValue(  
+	                fileObj, new TypeReference<Map<String, List<String>>>() {  
+	        }); 
+	        for (int i = 0; i < selecao.getListaSelecoes().size(); i++) {
+	        	String nomeSelecao = "";
+				for (Map.Entry<String, List<String>> selecaoMap : mapJson.entrySet()) {
+					nomeSelecao = selecaoMap.getKey();
+					if(selecao.getListaSelecoes().get(i).getNome().equals(selecaoMap.getKey())) {
+						for(int j =0; j< selecaoMap.getValue().size();j++) {
+							cadastrar(selecaoMap.getValue().get(j),selecaoMap.getKey());
+						}
+				}
+					}
+			}
+	    } catch (Exception e) {   
+	        e.printStackTrace();  
+	    }   
+	    }
 
 	
 

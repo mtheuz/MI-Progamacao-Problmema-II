@@ -1,12 +1,12 @@
 package model.SelecaoPackage;
 
+// for reading file data  
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
-
 import model.JogadorPackage.JogadorDaoImpl;
 import model.PartidaPackage.Partida;
 import model.TecnicoPackage.TecnicoDaoImpl;
@@ -295,7 +295,8 @@ public void listarSelecao() {
 		System.out.println("Ainda nao foram cadastradas Selecoes no sistema");
 		
 	}
-	
+
+
 
 }
 

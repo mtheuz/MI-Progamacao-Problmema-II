@@ -57,8 +57,9 @@ public class menuprincipal
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
 		//selecao.cadastrarNomesDeTodasSelecoes();
-		selecao.leArquivoSelecoes();
 		
+		selecao.leArquivoSelecoes();
+		jogador.transformaEmMap();
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
 		partidas.listarTodasPartidas();
@@ -153,7 +154,7 @@ public class menuprincipal
 				int escolha5 = tratamento.validaInt(1, 5);
 				if(escolha5 == 1)
 				{
-					jogador.cadastrar();
+					//jogador.cadastrar();
 					}
 					
 				else if(escolha5 == 2)
@@ -264,8 +265,8 @@ public class menuprincipal
 				else if(escolha5 == 4)
 				{	
 					selecao.listarSelecao();
-					System.out.println("Digite o nome da selecao que deseja listar os jogadores");
-					String nomeSelecao = entrada.next();
+					System.out.println("Digite o indice da selecao que deseja listar os jogadores");
+					int nomeSelecao = entrada.nextInt();
 					jogador.listarJogadoresDados(nomeSelecao);
 				}
 				else if(escolha == 5) {
