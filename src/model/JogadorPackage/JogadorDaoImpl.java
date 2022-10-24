@@ -118,6 +118,21 @@ public class JogadorDaoImpl implements JogadorDAO{
 	public boolean inserirJogador(Jogador jogador, String nomeSelecao) {
 		final int numeroTotalDeJogadores = 26;
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+
+		//verifica se a lista de jogadores já está cheiajogadores 
+		if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size() < numeroTotalDeJogadores) {
+			//Verifica se o jogador já foi cadastrado
+			if(comparaJogador(jogador,nomeSelecao))
+				System.out.println("Esse jogador já foi cadastrado");
+			else {
+				jogador.setCode(geraid(jogador));
+				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
+				
+			}
+		}else
+			return false;
+		System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
 		try
 		{
@@ -141,9 +156,14 @@ public class JogadorDaoImpl implements JogadorDAO{
 			
 		}
 		//System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+
 		return true;
 		
 	}
+		
+		
+		
+	
 	
 	/**
 	 * O método deletarJogador é responsável por excluir o jogador da lista de jogadores
@@ -400,6 +420,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 	 * @param nomeSelecao
 	 * @return boolean
 	 */
+
 
 
 	private boolean comparaJogador(Jogador jogador, String nomeSelecao) {

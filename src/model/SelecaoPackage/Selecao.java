@@ -28,6 +28,9 @@ public class Selecao {
 	 * Atributo técnico é um objeto da classe Tecnico
 	 */
 	private Tecnico tecnico;
+	
+	
+	
 	/**
 	 * Construtor padrão da classe 
 	 */
