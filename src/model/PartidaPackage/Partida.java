@@ -133,4 +133,7 @@ public class Partida {
 		this.selecao2 = selecao2;
 		this.situacao = false;
 	}
+
+
+	
 }

@@ -91,7 +91,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 		
 		System.out.println("Digite a quantidade de jogadores que deseja cadastrar");
 		int quantidadeJogadores = tratamento.validaInt();
-		if(quantidadeJogadores<22)
+		if(quantidadeJogadores<=22)
 		{
 			//verifica se já existe selecao escolhida
 				for (int i = 0; i < quantidadeJogadores; i++) {
@@ -112,25 +112,34 @@ public class JogadorDaoImpl implements JogadorDAO{
 		else
 		System.out.println("Quantidade superior ao permitido para uma selecao na copa (22 jogadores)");
 	}
-	//Insere o Jogador na lista de jogadores
+	//Insere o Jogador na lista de jogadores 
 
 	@Override
 	public boolean inserirJogador(Jogador jogador, String nomeSelecao) {
 		final int numeroTotalDeJogadores = 26;
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
-		//verifica se a lista de jogadores já está cheiajogadores 
-		if(listaJogadores == null || listaJogadores.size() < numeroTotalDeJogadores) {
-			//Verifica se o jogador já foi cadastrado
-			if(comparaJogador(jogador,nomeSelecao))
-				System.out.println("Esse jogador já foi cadastrado");
-			else {
-				jogador.setCode(geraid(jogador));
-				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
+		try
+		{
+			if( listaJogadores == null || listaJogadores.size() < numeroTotalDeJogadores) {
+				//Verifica se o jogador já foi cadastrado
 				
-			}
-		}else
-			return false;
+				if(comparaJogador(jogador,nomeSelecao))
+					System.out.println("Esse jogador já foi cadastrado");
+				else {
+					jogador.setCode(geraid(jogador));
+					selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
+					
+				}
+			}else
+				return false;
+		}
+		catch(Exception erro)
+		{
+			jogador.setCode(geraid(jogador));
+			selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
+			
+		}
 		//System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
 		return true;
 		
@@ -402,7 +411,16 @@ public class JogadorDaoImpl implements JogadorDAO{
 					return true;
 				}
 		}
+		if(selecao.getListaSelecoes()!= null)
+		{
+			return false;
 		}
+			
+		for(Jogador player : selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores()) {
+			if(player.equals(jogador)){
+				return true;
+			}
+		}}
 		return false;
 	}
 	

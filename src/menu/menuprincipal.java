@@ -50,6 +50,7 @@ public class menuprincipal
 		ArbitroDaoImpl juiz = new ArbitroDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Árbitros no sistema
 		SelecaoDaoImpl selecao = new SelecaoDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Seleções no sistema
 		TecnicoDaoImpl tecnico = new TecnicoDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Técnicos no sistema
+		tecnico.setLista(selecao.getListaSelecoes());
 		JogadorDaoImpl jogador = new JogadorDaoImpl(selecao.getListaSelecoes());//Instanciando objeto da Classe responsável pelo CRUD de Jogadores no sistema
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
 		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
@@ -121,7 +122,8 @@ public class menuprincipal
 				
 				if(escolha1 == 1)
 				{
-					selecao.cadastrarSelecao(null);
+					selecao.cadastrarSelecao();
+					
 				}
 				
 				else if (escolha1 == 2)
@@ -131,7 +133,7 @@ public class menuprincipal
 				
 				else if (escolha1 == 3)
 				{
-					selecao.apagarSelecao(); //Chamando método do DAO para apagar Seleção
+					
 				}
 				else if (escolha1 == 4)
 				{

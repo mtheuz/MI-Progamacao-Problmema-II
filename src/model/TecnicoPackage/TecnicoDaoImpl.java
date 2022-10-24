@@ -18,27 +18,40 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	/**
 	 * O atributo lsita é uma copia da lista de seleções
 	 */
-	static ArrayList<Selecao> lista; /*Esse atributo é uma copia da lista de seleções*/
+	static ArrayList<Selecao> listaSelecoes; /*Esse atributo é uma copia da lista de seleções*/
 	
+	private ArrayList<Tecnico> listaTecnicos;
 	
+	public ArrayList<Tecnico> getListaTecnicos() {
+		return listaTecnicos;
+	
+	}
+	public void setListaTecnicos(ArrayList<Tecnico> listaTecnicos) {
+		this.listaTecnicos = listaTecnicos;
+	
+	}
 	/**
 	 * Método que retorna a lista de Seleções
 	 * @return arrraylist
 	 */
-	public ArrayList<Selecao> getLista() {
-		return lista;
+	public ArrayList<Selecao> getListaSeleoes() {
+		return listaSelecoes;
 	}
 	/**
 	 * Método que define a lista de Seleções no campo TecnincoDaoImpl.lista
 	 * @param lista
 	 */
-	public void setLista(ArrayList<Selecao> lista) {
-		this.lista = lista;
+	public void setLista(ArrayList<Selecao> listaSelecoes) {
+		this.listaSelecoes = listaSelecoes;
 	}	
 	
 	/**
 	 * O método cadastrarTencico é responsável por cadastrar um novo técnico no sistema
 	 */
+	public TecnicoDaoImpl()
+	{
+		this.listaTecnicos = new ArrayList<Tecnico>(); 
+	}
 	@Override
 	public Tecnico cadastrarTecnico() 
 	{
@@ -77,6 +90,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 				break;
 			}
 		}		
+		listaTecnicos.add(tecnico);
 		return tecnico; //retorna o o objeto para ser inserido na sua respectiva Seleção
 	}
 	
@@ -84,7 +98,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	 * O método cadastrarTencicoSemSelecao é responsável por cadastrar um novo técnico para alguma Seleção que esteja sem Técnico no sistema
 	 */
 	public void cadastrarTecnicoSemSelecao() {
-		if(lista!= null)
+		if(listaSelecoes!= null)
 		{
 			if( checarSelecoesSemTecnico())
 			{
@@ -133,11 +147,11 @@ public class TecnicoDaoImpl implements TecnicoDAO
 					int teste =0; //Essa variavel auxilia em caso de erro de busca
 					if(tratamento.validaNome(nome))//verificando se a entrada de string é válida
 					{
-						for(int i=0; i<lista.size();i++)  //Laço para localizar a seleção pesquisada e verificar se ela está sem Tecnico
+						for(int i=0; i<listaSelecoes.size();i++)  //Laço para localizar a seleção pesquisada e verificar se ela está sem Tecnico
 						{
-							if(((Selecao) lista.get(i)).getNome().equals(nome) && ((Selecao) lista.get(i)).getTecnico().getNome().equals("Sem Tecnico"))
+							if(((Selecao) listaSelecoes.get(i)).getNome().equals(nome) && ((Selecao) listaSelecoes.get(i)).getTecnico().getNome().equals("Sem Tecnico"))
 							{
-								((Selecao) lista.get(i)).setTecnico(tecnico); //Salvando o técnico no cadastro da seleção
+								((Selecao)listaSelecoes.get(i)).setTecnico(tecnico); //Salvando o técnico no cadastro da seleção
 								System.out.println("Tecnico adicionado com sucesso!");
 								teste =1; //Atualiza para sair do while true
 								break; //Saindo do For
@@ -169,10 +183,10 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	 */
 	private boolean checarSelecoesSemTecnico() {
 		//Laço para percorrer os cadastros de técnicos
-		for(int i=0; i<lista.size();i++)
+		for(int i=0; i<listaSelecoes.size();i++)
 		{
 			//Verificando se alguma seleção está sem Técnico
-			if(((Selecao) lista.get(i)).getTecnico().getNome().equals("Sem Tecnico"));
+			if(((Selecao) listaSelecoes.get(i)).getTecnico().getNome().equals("Sem Tecnico"));
 				return true;
 		}
 		
@@ -190,7 +204,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 		
 		listarTecnico(); //Listando os cadastros
 		
-		if(lista!= null) //Caso a lista não estiver vazia
+		if(listaSelecoes!= null) //Caso a lista não estiver vazia
 		{
 			String nomeTecnico;
 			while(true)
@@ -218,7 +232,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 						if(ComparaTecnico(nome))//Verificando se já existe algum técnico com esse nome
 					
 						{
-							((Selecao) lista.get(indice)).getTecnico().setNome(nome); /*metodo setter para definir novo nome do cadastro no campo nome do objeto*/
+							((Selecao) listaSelecoes.get(indice)).getTecnico().setNome(nome); /*metodo setter para definir novo nome do cadastro no campo nome do objeto*/
 							System.out.println("Nome do Tecnico atualizado com sucesso!");
 							break;
 						}
@@ -240,7 +254,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 					if(tratamento.validaNome(nacionalidadeTec))
 					{
 						
-						((Selecao) lista.get(indice)).getTecnico().setNacionalidade(nacionalidadeTec); /*metodo setter para definir novo nome do cadastro no campo nome do objeto*/
+						((Selecao) listaSelecoes.get(indice)).getTecnico().setNacionalidade(nacionalidadeTec); /*metodo setter para definir novo nome do cadastro no campo nome do objeto*/
 						System.out.println("Nacionalidade do Tecnico atualizado com sucesso!");
 						break;
 					}
@@ -268,9 +282,9 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	private int buscaTecnico(String nomeTecnico) 
 	{
 		
-		for(int i=0; i<lista.size();i++) /*Laço para procurar Tecnico nos cadastros*/
+		for(int i=0; i<listaSelecoes.size();i++) /*Laço para procurar Tecnico nos cadastros*/
 		{
-			if(((Selecao) lista.get(i)).getTecnico().getNome().toUpperCase().equals(nomeTecnico.toUpperCase())) /*verificação de cada cada cadastro na lista com o nome a ser procurado*/
+			if(((Selecao) listaSelecoes.get(i)).getTecnico().getNome().toUpperCase().equals(nomeTecnico.toUpperCase())) /*verificação de cada cada cadastro na lista com o nome a ser procurado*/
 			{
 				return i; /*A função retorna o indice do cadastro na lista, caso encontre*/
 			}
@@ -288,7 +302,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	@Override
 	public void apagarTecnico() {
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
-		if(lista!=null)
+		if(listaSelecoes!=null)
 		{
 			listarTecnico();
 			String nomeTecnico;
@@ -304,7 +318,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 			if(indice != -1)/*caso encontre algum resultado*/
 			{
 				Tecnico tecnico = new Tecnico();
-				((Selecao) lista.get(indice)).setTecnico(tecnico);
+				((Selecao) listaSelecoes.get(indice)).setTecnico(tecnico);
 				System.out.println("Tecnico removido do sistema com sucesso!");
 				
 			}
@@ -324,13 +338,13 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	@Override
 	public void listarTecnico() 
 	{
-		if(lista!= null)
+		if(listaSelecoes!= null)
 		{	
 			System.out.println("Lista de Tecnicos:");
 			System.out.println();
-			for(int i=0; i< lista.size(); i++)
+			for(int i=0; i< listaSelecoes.size(); i++)
 			{
-				System.out.println("["+(i+1)+"]"+((Selecao) lista.get(i)).getNome()+ " Tecnico: " +((Selecao) lista.get(i)).getTecnico().getNome()  );
+				System.out.println("["+(i+1)+"]"+((Selecao) listaSelecoes.get(i)).getNome()+ " Tecnico: " +((Selecao) listaSelecoes.get(i)).getTecnico().getNome()  );
 			}
 			System.out.println();
 		return;
@@ -344,11 +358,11 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	 * @return
 	 */
 	private boolean ComparaTecnico(String nome) {
-		if(lista == null)
+		if(listaTecnicos == null)
 			return true;
-		for(int i=0; i<lista.size();i++)
+		for(int i=0; i<listaTecnicos.size();i++)
 		{
-			if(((Selecao) lista.get(i)).getTecnico().getNome().toUpperCase().equals(nome.toUpperCase()))
+			if(((Tecnico) listaTecnicos.get(i)).getNome().toUpperCase().equals(nome.toUpperCase()))
 				return false;
 		}
 		return true;

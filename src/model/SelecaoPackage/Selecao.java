@@ -36,6 +36,7 @@ public class Selecao {
 		this.listaJogadores = new ArrayList<Jogador>();
 		this.nome = nomeSelecao;
 		this.grupo = grupo;
+		
 	}
 	/**
 	 * Consultar o nome da seleção 
