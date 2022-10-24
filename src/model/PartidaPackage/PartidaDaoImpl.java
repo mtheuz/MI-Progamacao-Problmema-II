@@ -10,10 +10,12 @@ import java.util.Scanner;
 import model.JogadorPackage.JogadorDaoImpl;
 import model.SelecaoPackage.Selecao;
 import model.SelecaoPackage.SelecaoDaoImpl;
+import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
 public class PartidaDaoImpl implements PartidaDAO{
 	private SelecaoDaoImpl selecao = new SelecaoDaoImpl();
 	private JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+	TratamentosExcecoes tratamento = new TratamentosExcecoes();
 	
 	private Map<String,List<Partida>> partidas = new HashMap<String,List<Partida>>();
 	
@@ -45,37 +47,54 @@ public class PartidaDaoImpl implements PartidaDAO{
 		Scanner entrada = new Scanner(System.in);
 		List<String> hora = new ArrayList<String>();
 		String[] horaformat = {"Hora","Minuto"};
-		System.out.println("[Digite o horario da partida]");
+		System.out.println("[Digite o horario da partida] formato: hh");
+		int controle = 0;
+		
 		for (int i = 0; i < horaformat.length; i++) {
 			System.out.printf("Digite o(a) %s: ",horaformat[i]);
 			String entradaData = entrada.next();
-			hora.add(entradaData);
+		do {
+			if(entradaData.length() == 2 || !tratamento.validaNome(entradaData)) {
+				hora.add(entradaData);
+				controle = 1;
+			}
+			else {
+				System.err.println("Entrada inválida");
+			}
+		}while(controle!=1);
 		}
+		
 		return hora;
 	}
 	
-	private void inputGols(Partida partida) {
+	
+	private boolean inputGols(Partida partida) {
 		
 		Scanner entrada = new Scanner(System.in);
 		System.out.printf("A selecao %s fez gol?\n[0]Nao\n[1]Sim",partida.getSelecao1());
-		int respGols = entrada.nextInt();
+		int respGols = tratamento.validaInt(0,1);
 		if(respGols == 1) {
 			System.out.printf("Quantos jogadores marcaram pelo %s?", partida.getSelecao1());
 			int quantidadeGolsJogadores = entrada.nextInt();
 			for (int i = 0; i < quantidadeGolsJogadores; i++) {
 				final String nomeDaSelecao = partida.getSelecao1();
 				jogadores.listarJogadores(nomeDaSelecao);
-				System.out.println("Digite o codigo do jogador:");
 				String codigo = entrada.next();
+				if(jogadores.verificaExistencia(codigo)) {
 				System.out.println("Digite a quantidade de Gols que ele marcou: ");
 				String gols = entrada.next();
-				jogadores.atualizarDadosJogador(codigo, 5, gols, nomeDaSelecao);
+				jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
 				partida.setGolsSelecao1(Integer.parseInt(gols));
+				return true;
+				}
+				System.out.println("Jogador não Cadastrado");
+				return false;
+				}
 			}
-			
-		}
+		
+		
 		System.out.printf("A selecao %s fez gol?\n[0]Nao\n[1]Sim",partida.getSelecao2());
-		int respGols2 = entrada.nextInt();
+		int respGols2 = tratamento.validaInt(0,1);
 		if(respGols2 == 1) {
 			System.out.printf("Quantos jogadores Marcaram pelo %s?", partida.getSelecao2());
 			int quantidadeGolsJogadores = entrada.nextInt();
@@ -86,18 +105,19 @@ public class PartidaDaoImpl implements PartidaDAO{
 				String codigo = entrada.next();
 				System.out.println("Digite a quantidade de Gols que ele marcou: ");
 				String gols = entrada.next();
-				jogadores.atualizarDadosJogador(codigo, 5, gols, nomeDaSelecao);
+				jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
 				partida.setGolsSelecao2(Integer.parseInt(gols));
 			}
 			
 		}
+		return false;
 	}
 	
 	private void inputCartoes(Partida partida) {
 		
 		Scanner entrada = new Scanner(System.in);
 		System.out.printf("Os jogadores da(o) selecao %s receberam cartoes?\n[0]Nao\n[1]Sim",partida.getSelecao1());
-		int respCartoaAmarelo1 = entrada.nextInt();
+		int respCartoaAmarelo1 = tratamento.validaInt(0,1);
 		if(respCartoaAmarelo1 == 1) {
 			System.out.printf("Quantos jogadores receberam cartoes? ");
 			int quantidadeDeCartoes= entrada.nextInt();
@@ -108,15 +128,15 @@ public class PartidaDaoImpl implements PartidaDAO{
 				String codigo = entrada.next();
 				System.out.println("[1]Cartao Amarelo\n[2]Cartao Vermelho");
 				int cartao = entrada.nextInt();
+				System.out.println("Digite a quantidade de cartoes");
+				String cartaoAmarelo = entrada.next();
 				if(cartao == 1) {
-					System.out.println("Digite a quantidade de cartoes");
-					String cartaoAmarelo = entrada.next();
-					jogadores.atualizarDadosJogador(codigo, 3, cartaoAmarelo, nomeDaSelecao);
-					partida.setGolsSelecao1(Integer.parseInt(cartaoAmarelo));
+					jogadores.atulizarCartoesAmarelos(codigo, nomeDaSelecao, cartaoAmarelo);
+					partida.setCartoesAmarelosSelecao1(Integer.parseInt(cartaoAmarelo));
 				}
 				else if(cartao == 2) {
-					jogadores.atualizarDadosJogador(codigo, 3, "1", codigo);
-					partida.setGolsSelecao1(1);
+					jogadores.atualizarCartoesVermelhos(codigo, nomeDaSelecao, cartaoAmarelo);
+					partida.setCartoesAmarelosSelecao1(1);
 				}
 				
 			}
@@ -124,7 +144,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			
 		}
 		System.out.printf("Os jogadores da(o) selecao %s receberam cartoes?\n[0]Nao\n[1]Sim",partida.getSelecao2());
-		int respCartoaAmarelo2 = entrada.nextInt();
+		int respCartoaAmarelo2 = tratamento.validaInt(0,1);
 		if(respCartoaAmarelo2 == 1) {
 			System.out.printf("Quantos jogadores receberam cartoes? ");
 			int quantidadeDeCartoes= entrada.nextInt();
@@ -135,15 +155,15 @@ public class PartidaDaoImpl implements PartidaDAO{
 				String codigo = entrada.next();
 				System.out.println("[1]Cartao Amarelo\n[2]Cartao Vermelho");
 				int cartao = entrada.nextInt();
+				System.out.println("Digite a quantidade de cartoes");
+				String cartaoAmarelo = entrada.next();
 				if(cartao == 1) {
-					System.out.println("Digite a quantidade de cartoes");
-					String cartaoAmarelo = entrada.next();
-					jogadores.atualizarDadosJogador(codigo, 3, cartaoAmarelo, nomeDaSelecao);
-					partida.setGolsSelecao2(Integer.parseInt(cartaoAmarelo));
+					jogadores.atulizarCartoesAmarelos(codigo, nomeDaSelecao, cartaoAmarelo);
+					partida.setCartoesAmarelosSelecao1(Integer.parseInt(cartaoAmarelo));
 				}
 				else if(cartao == 2) {
-					jogadores.atualizarDadosJogador(codigo, 3, "1", codigo);
-					partida.setGolsSelecao2(1);
+					jogadores.atualizarCartoesVermelhos(codigo, nomeDaSelecao, cartaoAmarelo);
+					partida.setCartoesAmarelosSelecao1(1);
 				}
 				
 			}
@@ -157,7 +177,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			System.out.printf("[%d]%s\n",i,estadios[i]);
 		}
 		System.out.println("");
-		int local = entrada.nextInt();
+		int local = tratamento.validaInt(0,estadios.length);
 		return local;
 	}
 	@Override
@@ -168,14 +188,13 @@ public class PartidaDaoImpl implements PartidaDAO{
 		Scanner entrada = new Scanner(System.in);
 		imprimeGrupos();
 		System.out.println("Digite o indice grupo que deseja inserir a partida");
-		int numPartida = entrada.nextInt();
-		
+		int numPartida = tratamento.validaInt(0,grupos.length);
 		int opcao = 1;
 		//
 		do {
 		listarPartida(grupos[numPartida]);
 		System.out.println("Digite o indice da partida que deseja inserir");
-		int indicePartida = entrada.nextInt();
+		int indicePartida = tratamento.validaInt(0,6);
 		//
 		
 		

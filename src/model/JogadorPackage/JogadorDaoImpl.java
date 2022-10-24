@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import model.SelecaoPackage.Selecao;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
@@ -91,7 +89,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 		
 		System.out.println("Digite a quantidade de jogadores que deseja cadastrar");
 		int quantidadeJogadores = tratamento.validaInt();
-		if(quantidadeJogadores<=22)
+		if(quantidadeJogadores<=26)
 		{
 			//verifica se já existe selecao escolhida
 				for (int i = 0; i < quantidadeJogadores; i++) {
@@ -138,7 +136,6 @@ public class JogadorDaoImpl implements JogadorDAO{
 		{
 			if( listaJogadores == null || listaJogadores.size() < numeroTotalDeJogadores) {
 				//Verifica se o jogador já foi cadastrado
-				
 				if(comparaJogador(jogador,nomeSelecao))
 					System.out.println("Esse jogador já foi cadastrado");
 				else {
@@ -190,79 +187,81 @@ public class JogadorDaoImpl implements JogadorDAO{
 
 
 	
-
-	@Override
-	//Atualiza o jogador na base de dados
-	public boolean atualizarDadosJogador(String codigo,int opcao, String alteracao,String nomeSelecao) {
-		//busca o indice do jogador
+	public boolean atualizarPosicao(String codigo, String nomeSelecao, String alteracao) {
 		int index = buscarJogador(codigo); 
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
-		if(index != -1 ) {
-			imprimirJogador(codigo);
-			switch (opcao) {
-			//Editar nome
-			case 1:
-				listaJogadores.get(index).setNome(alteracao);
+		for(Map.Entry<String, String> pos: posicoes.entrySet()){
+			if(alteracao.equals(pos.getValue())) {
+				listaJogadores.get(index).setPosicao(alteracao);
 				imprimirJogador(codigo);
 				System.out.println("O jogador foi atualizado na base dados!");
 				return true;
-			//Editar Posicao
-			case 2:
-				for(Map.Entry<String, String> pos: posicoes.entrySet()){
-					if(alteracao.equals(pos.getValue())) {
-						listaJogadores.get(index).setPosicao(alteracao);
-						imprimirJogador(codigo);
-						System.out.println("O jogador foi atualizado na base dados!");
-						return true;
-					}else {
-						System.out.println("Valor digitado invalido");
-						return false;
-					}
+			}else {
+				System.out.println("Valor digitado invalido");
+				
 				}
-			//Editar Numero de cartoes amarelos
-			case 3:
-				if(listaJogadores.get(index).getCartoesAmarelos() != 0) {
-					
-					listaJogadores.get(index).setCartoesAmarelos(Integer.parseInt(alteracao));
-					imprimirJogador(codigo);
-					System.out.println("O jogador foi atualizado na base dados!");
-					return true;
-				}
-				else {
-					System.out.println("Esse jogador nao possui cartao amarelo");
-					return false;
-				}
-			//Editar Numero de cartoes vermelhos
-			case 4:
-				if(listaJogadores.get(index).getCartoesVermelhos() != 0) {
-					listaJogadores.get(index).setCartoesVermelhos(Integer.parseInt(alteracao));
-					imprimirJogador(codigo);
-					System.out.println("O jogador foi atualizado na base dados!");
-					return true;
-				}
-				else {
-					return false;
-				}
-			//Editar quantidade de gols
-			case 5:
-				if(listaJogadores.get(index).getGolsMarcados() != 0) {
-					listaJogadores.get(index).setGolsMarcados(Integer.parseInt(alteracao));
-					imprimirJogador(codigo);
-					System.out.println("O jogador foi atualizado na base dados!");
-					return true;
-				}
-				else {
-					return false;
-				}
-			default:
-				System.out.println("Opcao inválida: ERRO AO ATUALIZAR");
-				return false;
 			}
-			
-		}
 		return false;
+		}
+	
+	public boolean atualizarNome(String codigo, String nomeSelecao, String alteracao) {
+		int index = buscarJogador(codigo); 
+		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
+		listaJogadores.get(index).setNome(alteracao);
+		imprimirJogador(codigo);
+		System.out.println("O jogador foi atualizado na base dados!");
+		return true;
 	}
+	
+	public boolean atulizarCartoesAmarelos(String codigo, String nomeSelecao, String alteracao) {
+		int index = buscarJogador(codigo); 
+		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
+		if(listaJogadores.get(index).getCartoesAmarelos() != 0) {
+			
+			listaJogadores.get(index).setCartoesAmarelos(Integer.parseInt(alteracao));
+			imprimirJogador(codigo);
+			System.out.println("O jogador foi atualizado na base dados!");
+			return true;
+		}
+		else {
+			System.out.println("Esse jogador nao possui cartao amarelo");
+			return false;
+		}
+	}
+	
+	public boolean atualizarCartoesVermelhos(String codigo, String nomeSelecao, String alteracao) {
+		int index = buscarJogador(codigo); 
+		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
+		if(listaJogadores.get(index).getCartoesVermelhos() != 0) {
+			listaJogadores.get(index).setCartoesVermelhos(Integer.parseInt(alteracao));
+			imprimirJogador(codigo);
+			System.out.println("O jogador foi atualizado na base dados!");
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean atualizarGolsMarcados(String codigo, String nomeSelecao, String alteracao) {
+		int index = buscarJogador(codigo); 
+		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
+		if(listaJogadores.get(index).getGolsMarcados() != 0) {
+			listaJogadores.get(index).setGolsMarcados(Integer.parseInt(alteracao));
+			imprimirJogador(codigo);
+			System.out.println("O jogador foi atualizado na base dados!");
+			return true;
+		}
+		else {
+			return false;
+	}
+		}
+	
 
 	/**
 	 * A função gerarid gera um id para ser usado como codigo no cadastro de jogador
@@ -276,7 +275,6 @@ public class JogadorDaoImpl implements JogadorDAO{
 	private String geraid(Jogador jogador) {
 		LocalDateTime dataagr = LocalDateTime.now();
 	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmss");
-
 	    String coddate = dataagr.format(formato);
 		return coddate;
 	}
@@ -305,6 +303,20 @@ public class JogadorDaoImpl implements JogadorDAO{
 		return -1;
 	}
 	
+	public boolean verificaExistencia(String codigo) {
+		final List<Selecao> listaSelecao = selecao.getListaSelecoes();
+		for(int index = 0; index < listaSelecao.size();index++) {
+			var listaJogador = listaSelecao.get(index).getListaJogadores();
+			for (int ijogador = 0; ijogador < listaJogador.size(); ijogador++) {
+				if(listaJogador.get(ijogador).getCode().equals(codigo)) {
+					return true;
+				}
+				
+			}
+		
+	}
+		return false;
+	}
 
 	/**
 	 * O método listarjogadoresDados lista os jogadores e seus dados cadastrados no sistema
@@ -314,8 +326,8 @@ public class JogadorDaoImpl implements JogadorDAO{
 
 	@Override
 	public void listarJogadoresDados(int selecaoBusca) {
-		System.out.println("Lista de jogadores:");
-		System.out.println();
+		System.out.printf("Lista de jogadores [%s]:",selecao.getListaSelecoes().get(selecaoBusca));
+		System.out.println("");
 		if(selecaoBusca != -1) {
 			if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size()> 0) {
 				for(Jogador jogador: selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores()) {
@@ -461,9 +473,11 @@ public class JogadorDaoImpl implements JogadorDAO{
 						for(int j =0; j< selecaoMap.getValue().size();j++) {
 							cadastrar(selecaoMap.getValue().get(j),selecaoMap.getKey());
 						}
-				}
 					}
+				}
 			}
+	      
+	        
 	    } catch (Exception e) {   
 	        e.printStackTrace();  
 	    }   
