@@ -31,7 +31,8 @@ public class Selecao {
 	
 	public Selecao()
 	{
-		this.nome= "";
+		
+		this.listaJogadores = new ArrayList<Jogador>();
 	}
 	
 	
