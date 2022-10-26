@@ -22,11 +22,10 @@ public class TratamentosExcecoes {
 			try
 			{
 				Scanner entrada = new Scanner(System.in);
-				int escolha = entrada.nextInt();
-				if(escolha <=maximo || escolha>minimo)
-					return escolha;
+				String escolha = entrada.next();
+				if(isInt(escolha) && (Integer.parseInt(escolha) <=maximo || Integer.parseInt(escolha)>minimo) )
+					return Integer.parseInt(escolha);
 				else
-					System.out.println("Escolha entre 1 e "+ maximo);
 				System.out.println("Tente novamente");
 			}
 			catch(Exception erro){
@@ -70,6 +69,16 @@ public class TratamentosExcecoes {
 		}
 		return false;
 		}
+	
+	public boolean isInt(String nome) {
+		
+		if(nome.matches("[a-zA-Z\s]+"))
+		{
+			return false;
+		}
+		return true;
+		}
+	
 	public String EntradaString() {
 		while(true)
 			try

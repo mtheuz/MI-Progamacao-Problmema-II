@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
 import model.PartidaPackage.Partida;
@@ -57,12 +59,10 @@ public class menuprincipal
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
 		//selecao.cadastrarNomesDeTodasSelecoes();
-		
+		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
 		jogador.transformaEmMap();
 		partidas.geraPartidas();
-		partidas.imprimeGrupos();
-		partidas.listarTodasPartidas();
 
 		
 		int continua = 0;// variável para condicionar while do menu principal 
@@ -87,6 +87,7 @@ public class menuprincipal
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Partida:");
+				partidas.listarTodasPartidas();
 				System.out.println("1- Cadastrar Partidas 2- Editar 3- Listar por Grupo 4- Cancelar Partida 5-Voltar");
 				int escolha0 = tratamento.validaInt(0,5);
 				
@@ -102,9 +103,17 @@ public class menuprincipal
 				{
 					partidas.listarTodasPartidas();
 				}
-				if(escolha0== 4)
-				{
-					partidas.deletar(null);
+				if(escolha0== 4)	
+					
+				{	Scanner entrada = new Scanner(System.in);
+					String[] grupos = {"A","B","C","D","E","F","G","H"};
+					partidas.listarTodasPartidas();
+					System.out.println("Informe o grupo: ");
+					String grupo = tratamento.EntradaString();
+					partidas.listarPartidaCodigo(grupo.toUpperCase());;
+					System.out.println("Informe o codigo da partida que deseja resetar");
+					String codigo = entrada.next();
+					partidas.deletar(codigo);
 				}
 				if(escolha0== 5)
 				{
@@ -267,7 +276,7 @@ public class menuprincipal
 					selecao.listarSelecao();
 					System.out.println("Digite o indice da selecao que deseja listar os jogadores");
 					int nomeSelecao = entrada.nextInt();
-					jogador.listarJogadoresDados(nomeSelecao);
+					jogador.listarJogadoresDados(nomeSelecao-1);
 				}
 				else if(escolha == 5) {
 					continue;

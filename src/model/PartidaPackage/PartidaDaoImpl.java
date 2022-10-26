@@ -47,7 +47,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		Scanner entrada = new Scanner(System.in);
 		List<String> hora = new ArrayList<String>();
 		String[] horaformat = {"Hora","Minuto"};
-		System.out.println("[Digite o horario da partida] formato: hh");
+		System.out.println("[Digite o horario da partida]");
 		int controle = 0;
 		
 		for (int i = 0; i < horaformat.length; i++) {
@@ -88,8 +88,9 @@ public class PartidaDaoImpl implements PartidaDAO{
 				return true;
 				}
 				System.out.println("Jogador não Cadastrado");
-				return false;
+				quantidadeGolsJogadores++;
 				}
+				return false;
 			}
 		
 		
@@ -103,13 +104,18 @@ public class PartidaDaoImpl implements PartidaDAO{
 				jogadores.listarJogadores(nomeDaSelecao);
 				System.out.println("Digite o codigo do jogador que marcou:");
 				String codigo = entrada.next();
-				System.out.println("Digite a quantidade de Gols que ele marcou: ");
-				String gols = entrada.next();
-				jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
-				partida.setGolsSelecao2(Integer.parseInt(gols));
-			}
-			
-		}
+				if(jogadores.verificaExistencia(codigo)) {
+					System.out.println("Digite a quantidade de Gols que ele marcou: ");
+					String gols = entrada.next();
+					jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
+					partida.setGolsSelecao2(Integer.parseInt(gols));
+					return true;
+					}
+					System.out.println("Jogador não Cadastrado");
+					quantidadeGolsJogadores++;
+					}
+					return false;			
+					}
 		return false;
 	}
 	
@@ -127,7 +133,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 				System.out.println("Digite o código do jogador que recebeu o cartao:");
 				String codigo = entrada.next();
 				System.out.println("[1]Cartao Amarelo\n[2]Cartao Vermelho");
-				int cartao = entrada.nextInt();
+				int cartao = tratamento.validaInt(0,1);
 				System.out.println("Digite a quantidade de cartoes");
 				String cartaoAmarelo = entrada.next();
 				if(cartao == 1) {
@@ -217,7 +223,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			System.out.println("");
 			inputCartoes(partida);
 			//
-			partida.setCodigo(geraid());
+			
 			partida.setData(data.get(0)+ "/" + data.get(1) + "/" + data.get(2));
 			partida.setHorario(hora.get(0) + ":" + hora.get(1));
 			partida.setLocal(estadios[local]);
@@ -225,14 +231,14 @@ public class PartidaDaoImpl implements PartidaDAO{
 			//
 			System.out.println("");
 			System.out.println("-----------------Partida Gerada-----------------");
-			mostrarPartida(grupos[numPartida], indicePartida);
+			mostrarPartida(grupos[numPartida], partida.getCodigo());
 		}
 		else {
 			System.out.println("Uma das selecoes da partida ou ambas nao foram cadastradas por completo no sistema");
 			System.out.println("Cadastre as selecoes antes de cadastrar a partida");
 		}
 		System.out.println("\nDeseja cadastar outra partida?\n[0]Nao\n[1]Sim");
-		opcao = entrada.nextInt();
+		opcao = tratamento.validaInt(0, 1);
 		} while (opcao != 0);
 	}
 
@@ -267,15 +273,17 @@ public class PartidaDaoImpl implements PartidaDAO{
 					dPartida.setCartoesVermelhosSelecao2(-1*dPartida.getCartoesVermelhosSelecao2());
 					dPartida.setGolsSelecao1(-1*dPartida.getGolsSelecao1());
 					dPartida.setGolsSelecao2(-1*dPartida.getGolsSelecao2());
+					mostrarPartida(partida.getKey(), codigo);
 					
 				}
 			}
 		}
+		
 	}
 	
 	private String geraid() {
 		LocalDateTime dataagr = LocalDateTime.now();
-	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmss");
+	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmssnn");
 	    String coddate = dataagr.format(formato);
 		return coddate;
 	}
@@ -291,6 +299,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 					String selecao1 = grupoSelecao.get(c);
 					String selecao2 = grupoSelecao.get(j);
 					Partida jogo = new Partida(selecao1,selecao2);
+					jogo.setCodigo(geraid());
 					partidaGrupo.add(jogo);
 					this.partidas.put(grupos[i], partidaGrupo);
 					
@@ -310,7 +319,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 	public void imprimeGrupos(){
 
 		System.out.println("[Lista de Grupos]");
-		String[] grupos = {"A","B","C","D","E","F","G"};
+		String[] grupos = {"A","B","C","D","E","F","G","H"};
 		//String[] grupos = {"A","B"};
 
 		for (int i = 0; i < grupos.length; i++) {
@@ -337,12 +346,12 @@ public class PartidaDaoImpl implements PartidaDAO{
 	
 	public void listarTodasPartidas() {
 		System.out.println("[Lista de Partidas]");
-		String[] grupos = {"A","B","C","D","E","F","G"};
+		String[] grupos = {"A","B","C","D","E","F","G","H"};
 
 		//String[] grupos = {"A","B"};
 
 		for (int i = 0; i < grupos.length; i++) {
-			System.out.printf("Grupo [%s]\n",grupos[i]);
+			System.out.printf("{%d} -- Grupo [%s]\n",i,grupos[i]);
 			listarPartida(grupos[i]);
 			System.out.println("");
 			
@@ -351,16 +360,26 @@ public class PartidaDaoImpl implements PartidaDAO{
 	}
 	
 	
-	private void mostrarPartida(String grupo, int indice) {
-		final Partida partida = this.partidas.get(grupo).get(indice);
-		System.out.printf("Codigo da Partida: %s\n",partida.getCodigo());
-		System.out.printf("|%s X %s|\n",partida.getSelecao1(),partida.getSelecao2());
-		System.out.printf("Placar: [%d X %d]\n",partida.getGolsSelecao1(),partida.getGolsSelecao2());
-		System.out.printf("Local: %s\n", partida.getLocal());
-		System.out.printf("Data: %s\n", partida.getData());
-		System.out.printf("Horaio: %s\n", partida.getHorario());
+	public void mostrarPartida(String grupo, String codigo) {
+		for (Map.Entry<String, List<Partida>> mpartida : partidas.entrySet()) {
+			for (int i = 0; i < mpartida.getValue().size(); i++) {
+				if(mpartida.getValue().get(i).getCodigo().equals(codigo)) {
+					final Partida partida = this.partidas.get(grupo).get(i);
+					System.out.printf("Codigo da Partida: %s\n",partida.getCodigo());
+					System.out.printf("|%s X %s|\n",partida.getSelecao1(),partida.getSelecao2());
+					System.out.printf("Placar: [%d X %d]\n",partida.getGolsSelecao1(),partida.getGolsSelecao2());
+					System.out.printf("Local: %s\n", partida.getLocal());
+					System.out.printf("Data: %s\n", partida.getData());
+					System.out.printf("Horaio: %s\n", partida.getHorario());
+					System.out.println("---------------------------------------\n");
+				
+				}
+				}
+			}
 		
 	}
+	
+	
 	
 	private void listarTodasPartidasCodigo() {
 		System.out.println("[Lista de Partidas]");
@@ -375,10 +394,10 @@ public class PartidaDaoImpl implements PartidaDAO{
 	}
 	
 	
-	private void listarPartidaCodigo(String grupo) {
+	public void listarPartidaCodigo(String grupo) {
 		List<Partida> jogo = partidas.get(grupo);
 		for (int i = 0; i < jogo.size(); i++) {
-			if(jogo.get(i).isSituacao())
+			if(!jogo.get(i).isSituacao())
 			System.out.printf("[%s] %s X %s\n",jogo.get(i).getCodigo(),jogo.get(i).getSelecao1(),jogo.get(i).getSelecao2());
 		}
 		System.out.println("");

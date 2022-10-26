@@ -133,7 +133,12 @@ public class JogadorDaoImpl implements JogadorDAO{
 		}
 		catch(Exception erro)
 		{
-			jogador.setCode(geraid(jogador));
+			try {
+				jogador.setCode(geraid(jogador));
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
 			
 		}
@@ -248,13 +253,15 @@ public class JogadorDaoImpl implements JogadorDAO{
 	 * O id é gerado pela data e hora do cadastro
 	 * @param jogador
 	 * @return String
+	 * @throws InterruptedException 
 	 */
 
 	//Gera o id do jogador com base na data
 
-	private String geraid(Jogador jogador) {
+	private String geraid(Jogador jogador) throws InterruptedException {
 		LocalDateTime dataagr = LocalDateTime.now();
-	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmss");
+		Thread.sleep(10);
+	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmnn");
 	    String coddate = dataagr.format(formato);
 		return coddate;
 	}
@@ -306,12 +313,13 @@ public class JogadorDaoImpl implements JogadorDAO{
 
 	@Override
 	public void listarJogadoresDados(int selecaoBusca) {
-		System.out.printf("Lista de jogadores [%s]:",selecao.getListaSelecoes().get(selecaoBusca));
-		System.out.println("");
+		System.out.printf("Lista de jogadores [%s]:",selecao.getListaSelecoes().get(selecaoBusca).getNome());
+		System.out.println("\n");
 		if(selecaoBusca != -1) {
 			if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size()> 0) {
 				for(Jogador jogador: selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores()) {
-					System.out.printf("%s - %s \n"
+					System.out.printf("Id: %s \n"
+							+ "Nome: %s \n"
 							+ "Posicao: %s"
 							+ "\nGols marcados: %d"
 							+ "\nQuantidade de cartoes Amarelos: %d"
