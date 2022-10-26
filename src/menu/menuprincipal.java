@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
 import model.PartidaPackage.Partida;
@@ -57,12 +59,10 @@ public class menuprincipal
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
 		//selecao.cadastrarNomesDeTodasSelecoes();
-		
+		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
 		//jogador.transformaEmMap();
 		partidas.geraPartidas();
-		partidas.imprimeGrupos();
-		partidas.listarTodasPartidas();
 
 		
 		int continua = 0;// variável para condicionar while do menu principal 
@@ -87,6 +87,7 @@ public class menuprincipal
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Partida:");
+				partidas.listarTodasPartidas();
 				System.out.println("1- Cadastrar Partidas 2- Editar 3- Listar por Grupo 4- Cancelar Partida 5-Voltar");
 				int escolha0 = tratamento.validaInt(0,5);
 				
@@ -102,9 +103,17 @@ public class menuprincipal
 				{
 					partidas.listarTodasPartidas();
 				}
-				if(escolha0== 4)
-				{
-					partidas.deletar(null);
+				if(escolha0== 4)	
+					
+				{	Scanner entrada = new Scanner(System.in);
+					String[] grupos = {"A","B","C","D","E","F","G","H"};
+					partidas.listarTodasPartidas();
+					System.out.println("Informe o grupo: ");
+					String grupo = tratamento.EntradaString();
+					partidas.listarPartidaCodigo(grupo.toUpperCase());;
+					System.out.println("Informe o codigo da partida que deseja resetar");
+					String codigo = entrada.next();
+					partidas.deletar(codigo);
 				}
 				if(escolha0== 5)
 				{
@@ -116,8 +125,8 @@ public class menuprincipal
 			case 2:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Selecao:");
-				System.out.println("1- Cadastrar Selecao 2-Editar Selecao 3- Listar Selecoes 4- Voltar");
-				int escolha1 = tratamento.validaInt(0,5);//Leitura da entrada de inteiro valido(de 1 a 5)
+				System.out.println("1- Cadastrar ou Editar Selecao 2- Listar Selecoes 3- Voltar");
+				int escolha1 = tratamento.validaInt(0,3);//Leitura da entrada de inteiro valido(de 1 a 5)
 				
 				
 				if(escolha1 == 1)
@@ -128,21 +137,14 @@ public class menuprincipal
 				
 				else if (escolha1 == 2)
 				{
-					selecao.editarSelecao();//Chamando método do DAO para editar Seleção
+					selecao.listarSelecao();
 				}
 				
 				else if (escolha1 == 3)
 				{
-					
-				}
-				else if (escolha1 == 4)
-				{
-					selecao.listarSelecao(); //Chamando método do DAO para listar Seleções
-				}
-				else if(escolha == 5) // Volta para parte anterior do menun
-				{
 					continue;
 				}
+				
 			break;
 			
 			
@@ -154,111 +156,23 @@ public class menuprincipal
 				int escolha5 = tratamento.validaInt(1, 5);
 				if(escolha5 == 1)
 				{
-					//jogador.cadastrar();
-					}
+					jogador.cadastrarUmJogador();
+				}
 					
 				else if(escolha5 == 2)
 				{
-					System.out.println("Digite o nome da selecao do Jogador");
-					selecao.listarSelecao();
-					String nomeSelecao = entrada.next();
-					jogador.listarJogadores(nomeSelecao);
-					System.out.println("Digite o Codigo do jogador: ");
-					String codigo = entrada.next();
-					jogador.imprimirJogador(nomeSelecao);
+					jogador.editarJogador();
 					
-					
-					System.out.println("Opcoes para update");
-					System.out.println("1- Editar nome"
-			
-							+ "\n2- Editar posicao"
-							+ "\n3- Editar Numero de cartoes amarelos"
-							+ "\n4- Editar Numero de cartoes vermelho"
-							+ "\n5- Editar Gols marcados");
-					System.out.println("Digite a opcao que deseja alterar: ");
-					int opcao = entrada.nextInt();
-					
-					if(opcao == 1) {
-						
-						jogador.imprimirJogador(codigo);
-						System.out.println("Digite o nome do jogador: ");
-						String nome = entrada.next();
-						jogador.atualizarNome(codigo,nome,nomeSelecao);
-					}
-					
-					else if(opcao == 2) {
-						
-						System.out.println("Digite o nome da selecao que deseja alterar o jogador");
-						String selecaobusca = entrada.nextLine();
-						jogador.imprimirJogador(codigo);
-						jogador.listarPosicoes();
-						System.out.println("Digite a posicao: ");
-						String posicao = entrada.next();
-						jogador.atualizarPosicao(codigo,nomeSelecao,posicao);
-					}
-					else if(opcao == 3) {
-						jogador.imprimirJogador(codigo);
-						System.out.println("O que deseja fazer?"
-								+ "\n[1] Retirar cartao"
-								+ "\n[2] Adicionar cartao");
-						int opcaoCartao = entrada.nextInt();
-						if(opcaoCartao == 1) {
-							System.out.println("Digite a quantidade de cartoes amarelos");
-							String cartoesAmarelos = entrada.next();
-							jogador.atulizarCartoesAmarelos(codigo, nomeSelecao, cartoesAmarelos);
-						}
-						else if(opcaoCartao == 2){
-							System.out.println("Digite a quantidade de cartoes amarelos");
-							String cartoesAmarelos = entrada.next();
-							jogador.atulizarCartoesAmarelos(codigo, nomeSelecao, cartoesAmarelos);
-						}
-						
-						
-					}
-					else if(opcao == 4) {
-						jogador.imprimirJogador(codigo);
-						System.out.println("O que deseja fazer?"
-								+ "\n[1] Retirar cartao"
-								+ "\n[2] Adicionar cartao");
-						int opcaoCartao = entrada.nextInt();
-						if(opcaoCartao == 1) {
-							System.out.println("Digite a quantidade de cartoes vermelhos");
-							String cartoesVermelhos= entrada.next();
-							jogador.atualizarCartoesVermelhos(codigo, nomeSelecao, "-"+cartoesVermelhos);
-						}
-						else if(opcaoCartao == 2){
-							System.out.println("Digite a quantidade de cartoes amarelos");
-							String cartoesVermelhos = entrada.next();
-							jogador.atualizarCartoesVermelhos(codigo, nomeSelecao, cartoesVermelhos);
-						}
-					}
-					else if(opcao == 5) {
-						jogador.imprimirJogador(codigo);
-						System.out.println("O que deseja fazer?"
-								+ "\n[1] Retirar cartao"
-								+ "\n[2] Adicionar cartao");
-						int opcaoCartao = entrada.nextInt();
-						if(opcaoCartao == 1) {
-							System.out.println("Digite a quantidade de gols");
-							String gols= entrada.next();
-							jogador.atualizarGolsMarcados(codigo, nomeSelecao, "-"+gols);
-						}
-						else if(opcaoCartao == 2){
-							System.out.println("Digite a quantidade de gols");
-							String gols = entrada.next();
-							jogador.atualizarGolsMarcados(codigo, nomeSelecao, gols);
-					}
-					}
 					
 				}
 				else if(escolha5 == 3) {
 					selecao.listarSelecao();
-					System.out.println("Digite o nome da selecao que deseja listar os jogadores");
-					String nomeSelecao = entrada.next();
-					jogador.listarJogadores(nomeSelecao);
+					System.out.println("Digite o indice da selecao que deseja excluir um jogador");
+					int indiceSelecao = tratamento.validaInt(1, selecao.getListaSelecoes().size());
+					jogador.listarJogadores(selecao.getListaSelecoes().get(indiceSelecao).getNome());
 					System.out.println("Digite o Codigo do jogador: ");
 					String codigo = entrada.next();
-					jogador.deletarJogador(codigo,nomeSelecao);
+					jogador.deletarJogador(codigo,selecao.getListaSelecoes().get(indiceSelecao).getNome());
 
 
 				}
@@ -266,8 +180,9 @@ public class menuprincipal
 				{	
 					selecao.listarSelecao();
 					System.out.println("Digite o indice da selecao que deseja listar os jogadores");
-					int nomeSelecao = entrada.nextInt();
-					jogador.listarJogadoresDados(nomeSelecao);
+					int indiceSelecao = tratamento.validaInt(1, selecao.getListaSelecoes().size());
+					jogador.listarJogadores(selecao.getListaSelecoes().get(indiceSelecao).getNome());
+					
 				}
 				else if(escolha == 5) {
 					continue;

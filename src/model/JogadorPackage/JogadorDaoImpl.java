@@ -38,6 +38,39 @@ public class JogadorDaoImpl implements JogadorDAO{
 		posicoes.put("ST","Atacante");
 	}
 	
+@Override	
+public void cadastrarUmJogador() 
+	{
+	TratamentosExcecoes tratamento = new TratamentosExcecoes();
+	Scanner entrada = new Scanner(System.in);
+	System.out.println("Em qual selecao deseja cadastrar um novo jogador?");
+	selecao.listarSelecao();
+	System.out.println("Digite o indice referente a selecao que deseja cadastrar um novo jogador");
+	int escolha = tratamento.validaInt(1,selecao.getListaSelecoes().size());
+	ArrayList<Selecao> listaSelecoes = selecao.getListaSelecoes();
+	Selecao selecao = listaSelecoes.get(escolha);
+	if(selecao.getListaJogadores().size()<26)
+	{
+		System.out.printf("Cadastro de novo jogador na selecao %s\n", selecao.getNome());
+		System.out.println("Digite o nome do Jogador: ");
+		String nome = tratamento.EntradaString();
+		
+		listarPosicoes();
+		String pos = entrada.next();
+		pos = posicoes.get(pos.toUpperCase());
+		//cria o objeto jogador
+		Jogador novoJogador = new Jogador(nome);
+		novoJogador.setPosicao(pos);
+		inserirJogador(novoJogador,selecao.getNome()); 
+	}
+	else
+	{
+		System.out.println("A lista de jogadores desta selecao ja esta completa!");
+	}
+	
+	}
+	
+	
 	/**
 	 * O método cadastrar é responsável por cadastrar a quantidade desejada de jogadores em uma Seleção no sistema
 	 */
@@ -117,13 +150,18 @@ public class JogadorDaoImpl implements JogadorDAO{
 		final int numeroTotalDeJogadores = 26;
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 
+
 		//verifica se a lista de jogadores já está cheiajogadores 
 		if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size() < numeroTotalDeJogadores) {
 			//Verifica se o jogador já foi cadastrado
 			if(comparaJogador(jogador,nomeSelecao))
 				System.out.println("Esse jogador já foi cadastrado");
 			else {
-				jogador.setCode(geraid(jogador));
+				try {
+					jogador.setCode(geraid(jogador));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
 				System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
 				return true;
@@ -132,9 +170,6 @@ public class JogadorDaoImpl implements JogadorDAO{
 			return false;
 		
 		 return false;
-		
-
-		
 		
 	}
 		
@@ -248,13 +283,15 @@ public class JogadorDaoImpl implements JogadorDAO{
 	 * O id é gerado pela data e hora do cadastro
 	 * @param jogador
 	 * @return String
+	 * @throws InterruptedException 
 	 */
 
 	//Gera o id do jogador com base na data
 
-	private String geraid(Jogador jogador) {
+	private String geraid(Jogador jogador) throws InterruptedException {
 		LocalDateTime dataagr = LocalDateTime.now();
-	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmss");
+		Thread.sleep(10);
+	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmnn");
 	    String coddate = dataagr.format(formato);
 		return coddate;
 	}
@@ -306,12 +343,13 @@ public class JogadorDaoImpl implements JogadorDAO{
 
 	@Override
 	public void listarJogadoresDados(int selecaoBusca) {
-		System.out.printf("Lista de jogadores [%s]:",selecao.getListaSelecoes().get(selecaoBusca));
-		System.out.println("");
+		System.out.printf("Lista de jogadores [%s]:",selecao.getListaSelecoes().get(selecaoBusca).getNome());
+		System.out.println("\n");
 		if(selecaoBusca != -1) {
 			if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size()> 0) {
 				for(Jogador jogador: selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores()) {
-					System.out.printf("%s - %s \n"
+					System.out.printf("Id: %s \n"
+							+ "Nome: %s \n"
 							+ "Posicao: %s"
 							+ "\nGols marcados: %d"
 							+ "\nQuantidade de cartoes Amarelos: %d"
@@ -353,7 +391,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 				}
 			}
 			else {
-				System.out.println("Não existe jogador cadastrado");
+				System.out.println("Nao existe jogador cadastrado");
 			}
 		}
 		else {
@@ -463,6 +501,84 @@ public class JogadorDaoImpl implements JogadorDAO{
 	    }   
 	    }
 
+	@Override
+	public void editarJogador() 
+	{
+		TratamentosExcecoes tratamento = new TratamentosExcecoes();
+		Scanner entrada = new Scanner(System.in);
+		
+		
+		selecao.listarSelecao();
+		System.out.println("Digite o indice da selecao que deseja editar um jogador");
+		int indiceSelecao = tratamento.validaInt(1,selecao.getListaSelecoes().size());
+		
+		
+		if(selecao.getListaSelecoes().get(indiceSelecao).getListaJogadores().size()>0)
+		{
+			listarJogadores(selecao.getListaSelecoes().get(indiceSelecao).getNome());
+			System.out.println("Digite o Codigo do jogador: ");
+			String codigo = entrada.next();
+			imprimirJogador(selecao.getListaSelecoes().get(indiceSelecao).getNome());
+			imprimirJogador(codigo);
+			
+			System.out.println("Opcoes para update");
+			System.out.println("1- Editar nome, 2- Editar Posicao");
+			System.out.println("Digite a opcao que deseja alterar: ");
+			
+			int opcao = tratamento.validaInt(1,2);
+			
+			if(opcao == 1) {
+				
+				
+				System.out.println("Digite o novo nome do jogador: ");
+				String nome = tratamento.EntradaString();
+				ArrayList<Selecao> listaSelecoes =selecao.getListaSelecoes();
+				for(Selecao selecao : listaSelecoes)
+				{
+					for(Jogador jogador : selecao.getListaJogadores())
+					{
+						if(jogador.getCode().equals(codigo))
+						{
+							jogador.setNome(nome);
+							System.out.println("Nome atualizado com sucesso!");
+						}
+					}
+				}
+				
+			}
+			
+			else if(opcao == 2) {
+				
+				
+				
+				listarPosicoes();
+				System.out.println("Digite a nova posicao: ");
+				String posicao = tratamento.EntradaString();
+				ArrayList<Selecao> listaSelecoes =selecao.getListaSelecoes();
+				for(Selecao selecao : listaSelecoes)
+				{
+					for(Jogador jogador : selecao.getListaJogadores())
+					{
+						if(jogador.getCode().equals(codigo))
+						{
+							jogador.setPosicao(posicao);
+							System.out.println("Posicao atualizada com sucesso!");
+						}
+					}
+				}
+				
+				
+			}
+			
+			
+		else
+			System.out.println("Sem jogadores cadastrados nesta selecao");
+	}
+	
+	}
+}
 	
 
-}
+	
+
+

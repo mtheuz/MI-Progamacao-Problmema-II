@@ -14,5 +14,7 @@ public interface JogadorDAO {
 	public void listarJogadores(String nomeSelecao);
 	public void listarPosicoes();
 	void imprimirJogador(String codigo);
+	void cadastrarUmJogador();
+	void editarJogador();
 
 }

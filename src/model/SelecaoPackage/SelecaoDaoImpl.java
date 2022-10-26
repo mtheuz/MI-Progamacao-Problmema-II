@@ -139,6 +139,7 @@ public void cadastrarSelecao() {
 			
 			JogadorDaoImpl jogador= new JogadorDaoImpl(this.listaSelecoes);//Instanciando classe responsável pelo CRUD de Jogadores no sistema
 			jogador.cadastrarNaselecao(nome); //Chamando método responsável por cadastrar jogador em determinada seleção
+			
 			listaSelecoes.set(indice, selecao);
 			System.out.println("Selecao cadastrada com sucesso no sistema!");	
 		}
@@ -234,7 +235,7 @@ public void editarSelecao() {
  * @return int
  */
 public int buscaSelecao(String nomeSelecao) {
-	for(int i=0; i<listaSelecoes.size();i++) /*Laço para procurar Tecnico nos cadastros*/
+	for(int i=0; i<getListaSelecoes().size();i++) /*Laço para procurar Tecnico nos cadastros*/
 	{
 		if(( listaSelecoes.get(i)).getNome().toUpperCase().equals(nomeSelecao.toUpperCase())) /*verificação de cada cada cadastro na lista com o nome a ser procurado*/
 		{
@@ -286,7 +287,7 @@ public void listarSelecao() {
 		//Percorrendo a lista de cadastros
 		for(int i=0; i< listaSelecoes.size(); i++)
 		{
-			System.out.println("["+(i+1)+"]"+((Selecao) listaSelecoes.get(i)).getNome()); // Imprimindo o nome da Seleção
+			System.out.println("["+(i)+"]"+((Selecao) listaSelecoes.get(i)).getNome()); // Imprimindo o nome da Seleção
 		}
 		System.out.println();
 		

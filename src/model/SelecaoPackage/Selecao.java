@@ -46,7 +46,8 @@ public class Selecao {
 		this.listaJogadores = new ArrayList<Jogador>();
 		this.nome = nomeSelecao;
 		this.grupo = grupo;
-		
+		this.tecnico = new Tecnico();
+		tecnico.setNome("Sem Tecnico");
 	}
 	/**
 	 * Consultar o nome da seleção 

@@ -1,9 +1,6 @@
 package model.PartidaPackage;
 
-import java.util.ArrayList;
-import java.util.Map;
 
-import model.SelecaoPackage.Selecao;
 
 public class Partida { 
 	private String codigo;

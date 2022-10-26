@@ -344,7 +344,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 			System.out.println();
 			for(int i=0; i< listaSelecoes.size(); i++)
 			{
-				System.out.println("["+(i+1)+"]"+((Selecao) listaSelecoes.get(i)).getNome()+ " Tecnico: " +((Selecao) listaSelecoes.get(i)).getTecnico().getNome()  );
+				System.out.println("["+(i)+"]"+((Selecao) listaSelecoes.get(i)).getNome()+ " : " +((Selecao) listaSelecoes.get(i)).getTecnico().getNome()  );
 			}
 			System.out.println();
 		return;
