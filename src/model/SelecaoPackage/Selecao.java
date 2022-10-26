@@ -28,11 +28,13 @@ public class Selecao {
 	 * Atributo técnico é um objeto da classe Tecnico
 	 */
 	private Tecnico tecnico;
-	
 	public Selecao()
 	{
+
 		
 		this.listaJogadores = new ArrayList<Jogador>();
+		this.nome = "";
+
 	}
 	
 	

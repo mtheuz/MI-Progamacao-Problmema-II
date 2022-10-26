@@ -59,7 +59,7 @@ public class menuprincipal
 		//selecao.cadastrarNomesDeTodasSelecoes();
 		
 		selecao.leArquivoSelecoes();
-		jogador.transformaEmMap();
+		//jogador.transformaEmMap();
 		partidas.geraPartidas();
 		partidas.imprimeGrupos();
 		partidas.listarTodasPartidas();
