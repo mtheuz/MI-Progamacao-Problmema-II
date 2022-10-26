@@ -203,33 +203,21 @@ public class JogadorDaoImpl implements JogadorDAO{
 	public boolean atulizarCartoesAmarelos(String codigo, String nomeSelecao, String alteracao) {
 		int index = buscarJogador(codigo); 
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
-		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
-		if(listaJogadores.get(index).getCartoesAmarelos() != 0) {
-			
-			listaJogadores.get(index).setCartoesAmarelos(Integer.parseInt(alteracao));
-			imprimirJogador(codigo);
-			System.out.println("O jogador foi atualizado na base dados!");
-			return true;
-		}
-		else {
-			System.out.println("Esse jogador nao possui cartao amarelo");
-			return false;
-		}
+		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();			
+		listaJogadores.get(index).setCartoesAmarelos(Integer.parseInt(alteracao));
+		imprimirJogador(codigo);
+		System.out.println("O jogador foi atualizado na base dados!");
+		return true;
 	}
 	
 	public boolean atualizarCartoesVermelhos(String codigo, String nomeSelecao, String alteracao) {
 		int index = buscarJogador(codigo); 
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
-		if(listaJogadores.get(index).getCartoesVermelhos() != 0) {
-			listaJogadores.get(index).setCartoesVermelhos(Integer.parseInt(alteracao));
-			imprimirJogador(codigo);
-			System.out.println("O jogador foi atualizado na base dados!");
-			return true;
-		}
-		else {
-			return false;
-		}
+		listaJogadores.get(index).setCartoesVermelhos(Integer.parseInt(alteracao));
+		imprimirJogador(codigo);
+		System.out.println("O jogador foi atualizado na base dados!");
+		return true;
 	}
 	
 	public boolean atualizarGolsMarcados(String codigo, String nomeSelecao, String alteracao) {
@@ -275,7 +263,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 	 */
 
 
-	private int buscarJogador(String codigo) {
+	public int buscarJogador(String codigo) {
 		final List<Selecao> listaSelecao = selecao.getListaSelecoes();
 		for(int index = 0; index < listaSelecao.size();index++) {
 			var listaJogador = listaSelecao.get(index).getListaJogadores();

@@ -234,9 +234,9 @@ public void editarSelecao() {
  * @return int
  */
 public int buscaSelecao(String nomeSelecao) {
-	for(int i=0; i<listaSelecoes.size();i++) /*Laço para procurar Tecnico nos cadastros*/
+	for(int i=0; i<this.listaSelecoes.size();i++) /*Laço para procurar Tecnico nos cadastros*/
 	{
-		if(( listaSelecoes.get(i)).getNome().toUpperCase().equals(nomeSelecao.toUpperCase())) /*verificação de cada cada cadastro na lista com o nome a ser procurado*/
+		if(( this.listaSelecoes.get(i)).getNome().toUpperCase().equals(nomeSelecao.toUpperCase())) /*verificação de cada cada cadastro na lista com o nome a ser procurado*/
 		{
 			return i; /*A função retorna o indice do cadastro na lista, caso encontre*/
 		}
