@@ -50,23 +50,23 @@ public class JogadorDaoImpl implements JogadorDAO{
 		int quantidadeJogadores = 0;
 	
 		if(selecao.getListaSelecoes().size()> 0) {
-		//selecao.listarSelecao();
-		//System.out.println("Digite o indice da Selecao que deseja inserir o jogador");
-		//int selecaobusca = entrada.nextInt();
+		selecao.listarSelecao();
+		System.out.println("Digite o indice da Selecao que deseja inserir o jogador");
+		int selecaobusca = entrada.nextInt();
 		selecaoInput = nomeDaSelecao;
-		//System.out.println("Digite a quantidade de jogadores que deseja cadastrar");
-		//quantidadeJogadores = entrada.nextInt();
+		System.out.println("Digite a quantidade de jogadores que deseja cadastrar");
+		quantidadeJogadores = entrada.nextInt();
 		}
 		//verifica se já existe selecao escolhida
 		if(nomeDaSelecao != null) {
 		if(!selecao.ComparaSelecao(selecaoInput)) { 
 				
-				//System.out.println("Digite o nome do Jogador: ");
+				System.out.println("Digite o nome do Jogador: ");
 				String nome = nomeJoagador;
 				
-				//listarPosicoes();
-				//String pos = entrada.next();
-				//pos = posicoes.get(pos.toUpperCase());
+				listarPosicoes();
+				String pos = entrada.next();
+				pos = posicoes.get(pos.toUpperCase());
 				//cria o objeto jogador
 				Jogador novoJogador = new Jogador(nome); 
 				inserirJogador(novoJogador,selecaoInput); 
@@ -98,8 +98,8 @@ public class JogadorDaoImpl implements JogadorDAO{
 					String nome = entrada.next();
 					
 					listarPosicoes();
-					//String pos = entrada.next();
-					//pos = posicoes.get(pos.toUpperCase());
+					String pos = entrada.next();
+					pos = posicoes.get(pos.toUpperCase());
 					//cria o objeto jogador
 					Jogador novoJogador = new Jogador(nome); 
 					
@@ -125,36 +125,16 @@ public class JogadorDaoImpl implements JogadorDAO{
 			else {
 				jogador.setCode(geraid(jogador));
 				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-				
+				System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+				return true;
 			}
 		}else
 			return false;
-		System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+		
+		return false;
+		
 
-		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
-		try
-		{
-			if( listaJogadores == null || listaJogadores.size() < numeroTotalDeJogadores) {
-				//Verifica se o jogador já foi cadastrado
-				if(comparaJogador(jogador,nomeSelecao))
-					System.out.println("Esse jogador já foi cadastrado");
-				else {
-					jogador.setCode(geraid(jogador));
-					selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-					
-				}
-			}else
-				return false;
-		}
-		catch(Exception erro)
-		{
-			jogador.setCode(geraid(jogador));
-			selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-			
-		}
-		//System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
-
-		return true;
+		
 		
 	}
 		
