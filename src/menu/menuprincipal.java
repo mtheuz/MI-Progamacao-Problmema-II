@@ -250,15 +250,19 @@ public class menuprincipal
 				}
 				break;
 			case 6:
+				
+			
+			case 7:
+				
 				continua = -1; //Atualizando a variavel que sai do while do menu princiapl
 				
 				break; // Saída do menu principal
+			
+		
+			}
 			}
 			
-			
-		}
-			
-			System.out.println("Fim");
+			System.out.println("Fim do programa");
 			
 			
 				
