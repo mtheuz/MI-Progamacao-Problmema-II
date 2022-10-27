@@ -28,6 +28,7 @@ import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
 import model.PartidaPackage.Partida;
 import model.PartidaPackage.PartidaDaoImpl;
+import model.PesquisasPackage.Pesquisas;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
 
@@ -56,6 +57,7 @@ public class menuprincipal
 		JogadorDaoImpl jogador = new JogadorDaoImpl(selecao.getListaSelecoes());//Instanciando objeto da Classe responsável pelo CRUD de Jogadores no sistema
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
 		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
+		Pesquisas pesquisas = new Pesquisas();
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
 		//selecao.cadastrarNomesDeTodasSelecoes();
@@ -250,8 +252,8 @@ public class menuprincipal
 				}
 				break;
 			case 6:
-				
-			
+				pesquisas.main();
+				break;
 			case 7:
 				
 				continua = -1; //Atualizando a variavel que sai do while do menu princiapl
