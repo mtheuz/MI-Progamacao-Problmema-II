@@ -64,13 +64,12 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 		}while(controle!=1);
 		}
-		
 		return hora;
 	}
 	
 	
 	private boolean inputGols(Partida partida) {
-		
+		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
 		Scanner entrada = new Scanner(System.in);
 		System.out.printf("A selecao %s fez gol?\n[0]Nao\n[1]Sim\n",partida.getSelecao1());
 		int respGols = tratamento.validaInt(0,1);
@@ -80,22 +79,21 @@ public class PartidaDaoImpl implements PartidaDAO{
 			for (int i = 0; i < quantidadeGolsJogadores; i++) {
 				final String nomeDaSelecao = partida.getSelecao1();
 				jogadores.listarJogadores(nomeDaSelecao);
-				
+				System.out.println("Digite o codigo do jogador que marcou:");
 				String codigo = entrada.next();
 				if(jogadores.verificaExistencia(codigo)) {
-				System.out.println("Digite a quantidade de Gols que ele marcou: ");
-				String gols = entrada.next();
-				List<String> gols1 = new ArrayList<String>();
-				gols1.add(codigo);
-				gols1.add(gols);
-				jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
-				partida.setGolsSelecao1(gols1);
-				return true;
+					System.out.println("Digite a quantidade de Gols que ele marcou: ");
+					String gols = entrada.next();
+					List<String> gols1 = new ArrayList<String>();
+					gols1.add(codigo);
+					gols1.add(gols);
+					jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
+					partida.setGolsSelecao1(gols1);
+				}else {
+					System.out.println("Jogador nao Cadastrado");
+					quantidadeGolsJogadores++;
+					}
 				}
-				System.out.println("Jogador não Cadastrado");
-				quantidadeGolsJogadores++;
-				}
-				return false;
 			}
 		
 		
@@ -117,14 +115,14 @@ public class PartidaDaoImpl implements PartidaDAO{
 					gols2.add(gols);
 					jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
 					partida.setGolsSelecao2(gols2);
-					
-					return true;
-					}
-					System.out.println("Jogador não Cadastrado");
+	
+				}else {
+					System.out.println("Jogador nao Cadastrado");
 					quantidadeGolsJogadores++;
 					}
-					return false;			
-					}
+				}
+			}
+		
 		return false;
 	}
 	
@@ -229,7 +227,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 		
 		
 		
-				
 		final Partida partida = this.partidas.get(grupos[numPartida]).get(indicePartida);
 		if(verificaCadastroCompleto(partida.getSelecao1()) && verificaCadastroCompleto(partida.getSelecao2()))
 			
@@ -386,7 +383,13 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.println("");
 	}
 	
-	
+	private int somaGols(List<List<String>> listaGols) {
+		int gols = 0;
+		for(List<String> jogador: listaGols) {
+			gols += Integer.parseInt(jogador.get(1));
+		}
+		return gols;
+	}
 	public void mostrarPartida(String grupo, String codigo) {
 		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
 		for (Map.Entry<String, List<Partida>> mpartida : partidas.entrySet()) {
@@ -395,53 +398,79 @@ public class PartidaDaoImpl implements PartidaDAO{
 					final Partida partida = this.partidas.get(grupo).get(i);
 					System.out.printf("Codigo da Partida: %s\n",partida.getCodigo());
 					System.out.printf("|%s X %s|\n",partida.getSelecao1(),partida.getSelecao2());
-					System.out.printf("Placar: [%d X %d]\n",partida.getGolsSelecao1(),partida.getGolsSelecao2());
+					System.out.printf("Placar: [%d X %d]\n",somaGols(partida.getGolsSelecao1()),somaGols(partida.getGolsSelecao2()));
 					System.out.printf("Local: %s\n", partida.getLocal());
 					System.out.printf("Data: %s\n", partida.getData());
 					System.out.printf("Horaio: %s\n", partida.getHorario());
+					System.out.println("\n");
+					
+					
+					if(partida.getGolsSelecao1().size()>0)
+						System.out.printf("Gols [%s] \n",partida.getSelecao1());
+					for(List<String> jogador: partida.getGolsSelecao1()) {
+						if(jogador.size()> 0) {
+							System.out.printf("%s - [%s] Gols\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+							}	
+						}
+				
+					
+					if(partida.getGolsSelecao2().size()>0)
+						System.out.printf("Gols [%s] \n",partida.getSelecao2());
+					for(List<String> jogador: partida.getGolsSelecao2()) {
+						if(jogador.size()> 0) {
+							System.out.printf("%s - [%s] Gols\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+							}	
+						}
+					
 					System.out.printf("Cartoes Amarelos [%s]:\n", partida.getSelecao1());
+					if(partida.getCartoesAmarelosSelecao1().size()>0) {
 					for(List<String> jogador: partida.getCartoesAmarelosSelecao1()) {
 						if(jogador.size()> 0) {
 							System.out.printf("%s - [%s] Cartao amarelo\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+							}	
 						}
-						else {
-							System.out.printf("Nenhum jogador da [%s] recebeu cartão amarelo!\n",partida.getSelecao1());
-						}
-						
+					}else {
+						System.out.printf("0\n");
 					}
 					
+					
 					System.out.printf("Cartoes Amarelos [%s]:\n", partida.getSelecao2());
+					if(partida.getCartoesAmarelosSelecao2().size()>0) {
 					for(List<String> jogador: partida.getCartoesAmarelosSelecao2()) {
 						if(jogador.size()> 0 ) {
 							System.out.printf("%s - [%s] Cartao Amarelo\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+							}
 						}
-						else {
-							System.out.printf("Nenhum jogador da [%s] recebeu cartão amarelo!\n",partida.getSelecao2());
-						}
-						
+					}else {
+						System.out.printf("0\n");
 					}
 					
 					System.out.printf("Cartoes Vermelhos [%s]:\n", partida.getSelecao1());
+					if(partida.getCartoesVermelhosSelecao1().size()>0) {
 					for(List<String> jogador: partida.getCartoesVermelhosSelecao1()) {
 						if(jogador.size()> 0) {
 							System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+							}
 						}
-						else {
-							System.out.printf("Nenhum jogador da [%s] recebeu cartão vermelho",partida.getSelecao1());
-						}
-						
+					}else {
+						System.out.printf("0\n");
 					}
 					
+					
 					System.out.printf("Cartoes Vermelhos [%s]:\n", partida.getSelecao2());
+					if(partida.getCartoesVermelhosSelecao2().size()>0) {
 					for(List<String> jogador: partida.getCartoesVermelhosSelecao2()) {
 						if(jogador.size()> 0) {
 							System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+							}
 						}
-						else {
-							System.out.printf("Nenhum jogador da [%s] recebeu cartão vermelho",partida.getSelecao2());
-						}
-						
+					}else{
+						System.out.printf("0\n");
 					}
+					
+					System.out.println("\n");
+					
+					
 					System.out.println("---------------------------------------\n");
 				
 				}
