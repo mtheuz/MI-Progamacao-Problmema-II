@@ -45,8 +45,9 @@ public class menuprincipal
 	 * 
 	 * @param args
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException, InterruptedException 
 	{
 		//Instanciando objetos que serão usadas para invocar métodos nas opções do menu
 		ArbitroDaoImpl juiz = new ArbitroDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Árbitros no sistema
@@ -61,7 +62,7 @@ public class menuprincipal
 		//selecao.cadastrarNomesDeTodasSelecoes();
 		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
-		//jogador.transformaEmMap();
+		jogador.transformaEmMap();
 		partidas.geraPartidas();
 
 		
@@ -73,7 +74,7 @@ public class menuprincipal
 			//Exibindo opções do menu
 			System.out.println();
 			System.out.println("MENU:");
-			System.out.println("1-Partidas 2-Selecoes 3- Jogadores 4- Tecnicos 5- Arbitros 6- Pesquisas 7- Encerrar");
+			System.out.println("[1]Partidas\n[2]Selecoes\n[3]Jogadores\n[4]Tecnicos\n[5]Arbitros\n[6]Pesquisas\n[7]Encerrar\n");
 			System.out.println("Digite uma opcao:");
 			
 			int escolha = tratamento.validaInt(0,7); //Leitura da entrada de inteiro valido(de 1 a 7)
@@ -87,8 +88,7 @@ public class menuprincipal
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Partida:");
-				partidas.listarTodasPartidas();
-				System.out.println("1- Cadastrar Partidas 2- Editar 3- Listar por Grupo 4- Cancelar Partida 5-Voltar");
+				System.out.println("[1]Cadastrar\n[2]Editar\n[3]Listar por Grupo\n[4]Cancelar Partida\n[5]Voltar\n");
 				int escolha0 = tratamento.validaInt(0,5);
 				
 				if(escolha0==1)
@@ -125,7 +125,7 @@ public class menuprincipal
 			case 2:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Selecao:");
-				System.out.println("1- Cadastrar ou Editar Selecao 2- Listar Selecoes 3- Voltar");
+				System.out.println("[1]Cadastrar ou Editar Selecao\n [2]Listar Selecoes\n [3]Voltar\n");
 				int escolha1 = tratamento.validaInt(0,3);//Leitura da entrada de inteiro valido(de 1 a 5)
 				
 				
@@ -150,7 +150,7 @@ public class menuprincipal
 			
 			case 3:
 				System.out.println("Opcoes para Jogador:");
-				System.out.println("1- Cadastrar \n2- Editar \n3- Excluir \n4- Listar \n5- Voltar");
+				System.out.println("[1]Cadastrar \n[2]Editar \n[3]Excluir \n[4]Listar \n[5]Voltar");
 				
 				Scanner entrada = new Scanner(System.in);
 				int escolha5 = tratamento.validaInt(1, 5);
@@ -193,7 +193,7 @@ public class menuprincipal
 			case 4:/* Caso o usuário escolha a opção 4, irão aparecer as opções referentes a Técnico.*/
 				
 				System.out.println("Opcoes para Tecnico:"); /*Lista de opções para esse menu*/
-				System.out.println(" 1- Cadastrar Tecnico 2- Editar 3- Excluir 4- Listar 5- Voltar");
+				System.out.println(" [1]Cadastrar Tecnico\n [2]Editar\n [3]Excluir\n [4]Listar\n [5]Voltar\n");
 				int escolha3 = tratamento.validaInt(1,5);/*Váriavel para guardar a escolha da entrada*/
 				if(escolha3 == 1)
 				{
@@ -223,7 +223,7 @@ public class menuprincipal
 			
 			case 5: /* Caso o usuário escolha a opção 4, irão aparecer as opções referentes a Arbitro.*/
 				System.out.println("Opcoes para Arbitro:");/*Lista de opções para esse menu*/
-				System.out.println("1- Cadastrar 2- Editar 3- Excluir 4- Listar 5- Voltar");
+				System.out.println("[1]Cadastrar Tecnico\n [2]Editar\n [3]Excluir\n [4]Listar\n [5]Voltar\n");
 				
 				
 				int escolha4 = tratamento.validaInt(1,5); /*Váriavel para guardar a escolha da entrada*/

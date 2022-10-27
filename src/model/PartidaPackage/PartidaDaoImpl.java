@@ -85,8 +85,11 @@ public class PartidaDaoImpl implements PartidaDAO{
 				if(jogadores.verificaExistencia(codigo)) {
 				System.out.println("Digite a quantidade de Gols que ele marcou: ");
 				String gols = entrada.next();
+				List<String> gols1 = new ArrayList<String>();
+				gols1.add(codigo);
+				gols1.add(gols);
 				jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
-				partida.setGolsSelecao1(Integer.parseInt(gols));
+				partida.setGolsSelecao1(gols1);
 				return true;
 				}
 				System.out.println("Jogador não Cadastrado");
@@ -109,8 +112,12 @@ public class PartidaDaoImpl implements PartidaDAO{
 				if(jogadores.verificaExistencia(codigo)) {
 					System.out.println("Digite a quantidade de Gols que ele marcou: ");
 					String gols = entrada.next();
+					List<String> gols2 = new ArrayList<String>();
+					gols2.add(codigo);
+					gols2.add(gols);
 					jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
-					partida.setGolsSelecao2(Integer.parseInt(gols));
+					partida.setGolsSelecao2(gols2);
+					
 					return true;
 					}
 					System.out.println("Jogador não Cadastrado");
@@ -140,13 +147,19 @@ public class PartidaDaoImpl implements PartidaDAO{
 				if(cartao == 1) {
 					System.out.println("Digite a quantidade de cartoes");
 					String cartaoAmarelo = entrada.next();
+					List<String> cartoesAmarelos = new ArrayList<String>();
+					cartoesAmarelos.add(codigo);
+					cartoesAmarelos.add(cartaoAmarelo);
 					jogadores.atulizarCartoesAmarelos(codigo, nomeDaSelecao, cartaoAmarelo);
-					partida.setCartoesAmarelosSelecao1(Integer.parseInt(cartaoAmarelo));
+					partida.setCartoesAmarelosSelecao1(cartoesAmarelos);
 					mostrarPartida(partida.getSelecao1(), codigo);
 				}
 				else if(cartao == 2) {
+					List<String> cartoesVermelhos = new ArrayList<String>();
+					cartoesVermelhos.add(codigo);
+					cartoesVermelhos.add("1");
 					jogadores.atualizarCartoesVermelhos(codigo, nomeDaSelecao, "1");
-					partida.setCartoesAmarelosSelecao1(1);
+					partida.setCartoesVermelhosSelecao1(cartoesVermelhos);
 				}
 				
 			}
@@ -165,15 +178,23 @@ public class PartidaDaoImpl implements PartidaDAO{
 				String codigo = entrada.next();
 				System.out.println("[1]Cartao Amarelo\n[2]Cartao Vermelho\n");
 				int cartao = entrada.nextInt();
-				System.out.println("Digite a quantidade de cartoes");
-				String cartaoAmarelo = entrada.next();
+				
 				if(cartao == 1) {
+					System.out.println("Digite a quantidade de cartoes");
+					String cartaoAmarelo = entrada.next();
+					List<String> cartoesAmarelos = new ArrayList<String>();
+					cartoesAmarelos.add(codigo);
+					cartoesAmarelos.add(cartaoAmarelo);
 					jogadores.atulizarCartoesAmarelos(codigo, nomeDaSelecao, cartaoAmarelo);
-					partida.setCartoesAmarelosSelecao1(Integer.parseInt(cartaoAmarelo));
+					partida.setCartoesAmarelosSelecao2(cartoesAmarelos);
+					mostrarPartida(partida.getSelecao2(), codigo);
 				}
 				else if(cartao == 2) {
-					jogadores.atualizarCartoesVermelhos(codigo, nomeDaSelecao, cartaoAmarelo);
-					partida.setCartoesAmarelosSelecao1(1);
+					List<String> cartoesVermelhos = new ArrayList<String>();
+					cartoesVermelhos.add(codigo);
+					cartoesVermelhos.add("1");
+					jogadores.atualizarCartoesVermelhos(codigo, nomeDaSelecao, "1");
+					partida.setCartoesVermelhosSelecao2(cartoesVermelhos);
 				}
 				
 			}
@@ -194,7 +215,6 @@ public class PartidaDaoImpl implements PartidaDAO{
 	public void inserir() {
 		
 		String[] grupos = {"A","B","C","D","E","F","G","H"};
-		
 		Scanner entrada = new Scanner(System.in);
 		imprimeGrupos();
 		System.out.println("Digite o indice grupo que deseja inserir a partida");
@@ -239,9 +259,9 @@ public class PartidaDaoImpl implements PartidaDAO{
 		}
 		else {
 			System.out.println("Uma das selecoes da partida ou ambas nao foram cadastradas por completo no sistema");
-			System.out.println("Cadastre as selecoes antes de cadastrar a partida");
+			System.out.println("Cadastre as selecoes antes de cadastrar a partida\n");
 		}
-		System.out.println("\nDeseja cadastar outra partida?\n[0]Nao\n[1]Sim");
+		System.out.println("\nDeseja cadastar outra partida?\n[0]Nao\n[1]Sim\n");
 		opcao = tratamento.validaInt(0, 1);
 		} while (opcao != 0);
 	}
@@ -273,12 +293,12 @@ public class PartidaDaoImpl implements PartidaDAO{
 					dPartida.setHorario("");
 					dPartida.setLocal("");
 					dPartida.setSituacao(false);
-					dPartida.setCartoesAmarelosSelecao1(-1*dPartida.getCartoesAmarelosSelecao1());
-					dPartida.setCartoesAmarelosSelecao2(-1*dPartida.getCartoesAmarelosSelecao2());
-					dPartida.setCartoesVermelhosSelecao1(-1*dPartida.getCartoesVermelhosSelecao1());
-					dPartida.setCartoesVermelhosSelecao2(-1*dPartida.getCartoesVermelhosSelecao2());
-					dPartida.setGolsSelecao1(-1*dPartida.getGolsSelecao1());
-					dPartida.setGolsSelecao2(-1*dPartida.getGolsSelecao2());
+					//dPartida.setCartoesAmarelosSelecao1(-1*dPartida.getCartoesAmarelosSelecao1());
+					//dPartida.setCartoesAmarelosSelecao2(-1*dPartida.getCartoesAmarelosSelecao2());
+					//dPartida.setCartoesVermelhosSelecao1(-1*dPartida.getCartoesVermelhosSelecao1());
+					//dPartida.setCartoesVermelhosSelecao2(-1*dPartida.getCartoesVermelhosSelecao2());
+					//dPartida.setGolsSelecao1(-1*dPartida.getGolsSelecao1());
+					//dPartida.setGolsSelecao2(-1*dPartida.getGolsSelecao2());
 					mostrarPartida(partida.getKey(), codigo);
 					
 				}
@@ -287,15 +307,16 @@ public class PartidaDaoImpl implements PartidaDAO{
 		
 	}
 	
-	private String geraid() {
+	private String geraid() throws InterruptedException {
 		LocalDateTime dataagr = LocalDateTime.now();
-	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmssnn");
+		Thread.sleep(10);
+	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmnn");
 	    String coddate = dataagr.format(formato);
 		return coddate;
 	}
 	
 
-	public void geraPartidas() {
+	public void geraPartidas() throws InterruptedException {
 		String[] grupos = {"A","B","C","D","E","F","G","H"};
 		for (int i = 0; i < grupos.length; i++) {
 			List<String> grupoSelecao = organizaGrupo(grupos[i]);
@@ -357,7 +378,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		//String[] grupos = {"A","B"};
 
 		for (int i = 0; i < grupos.length; i++) {
-			System.out.printf("{%d} -- Grupo [%s]\n",i,grupos[i]);
+			System.out.printf("Grupo [%s]\n",grupos[i]);
 			listarPartida(grupos[i]);
 			System.out.println("");
 			
@@ -367,6 +388,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 	
 	
 	public void mostrarPartida(String grupo, String codigo) {
+		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
 		for (Map.Entry<String, List<Partida>> mpartida : partidas.entrySet()) {
 			for (int i = 0; i < mpartida.getValue().size(); i++) {
 				if(mpartida.getValue().get(i).getCodigo().equals(codigo)) {
@@ -377,6 +399,49 @@ public class PartidaDaoImpl implements PartidaDAO{
 					System.out.printf("Local: %s\n", partida.getLocal());
 					System.out.printf("Data: %s\n", partida.getData());
 					System.out.printf("Horaio: %s\n", partida.getHorario());
+					System.out.printf("Cartoes Amarelos [%s]:\n", partida.getSelecao1());
+					for(List<String> jogador: partida.getCartoesAmarelosSelecao1()) {
+						if(jogador.size()> 0) {
+							System.out.printf("%s - [%s] Cartao amarelo\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+						}
+						else {
+							System.out.printf("Nenhum jogador da [%s] recebeu cartão amarelo!\n",partida.getSelecao1());
+						}
+						
+					}
+					
+					System.out.printf("Cartoes Amarelos [%s]:\n", partida.getSelecao2());
+					for(List<String> jogador: partida.getCartoesAmarelosSelecao2()) {
+						if(jogador.size()> 0 ) {
+							System.out.printf("%s - [%s] Cartao Amarelo\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+						}
+						else {
+							System.out.printf("Nenhum jogador da [%s] recebeu cartão amarelo!\n",partida.getSelecao2());
+						}
+						
+					}
+					
+					System.out.printf("Cartoes Vermelhos [%s]:\n", partida.getSelecao1());
+					for(List<String> jogador: partida.getCartoesVermelhosSelecao1()) {
+						if(jogador.size()> 0) {
+							System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+						}
+						else {
+							System.out.printf("Nenhum jogador da [%s] recebeu cartão vermelho",partida.getSelecao1());
+						}
+						
+					}
+					
+					System.out.printf("Cartoes Vermelhos [%s]:\n", partida.getSelecao2());
+					for(List<String> jogador: partida.getCartoesVermelhosSelecao2()) {
+						if(jogador.size()> 0) {
+							System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+						}
+						else {
+							System.out.printf("Nenhum jogador da [%s] recebeu cartão vermelho",partida.getSelecao2());
+						}
+						
+					}
 					System.out.println("---------------------------------------\n");
 				
 				}
@@ -396,7 +461,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			System.out.println("");
 			
 		}
-		System.out.println("");
+		System.out.println("\n");
 	}
 	
 	
@@ -406,7 +471,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			if(!jogo.get(i).isSituacao())
 			System.out.printf("[%s] %s X %s\n",jogo.get(i).getCodigo(),jogo.get(i).getSelecao1(),jogo.get(i).getSelecao2());
 		}
-		System.out.println("");
+		System.out.println("\n");
 		
 	}
 	
@@ -426,7 +491,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 							+ "[6] Cartoes Vermelhos para a selecao do(a) %s\n"
 							+ "[7] Cartoes Amarelos para a selecao do(a) %s\n"
 							+ "[8] Quantidade de Gols para a selexao do(a) %s\n"
-							+ "[9] Quantidade de Gols para a selexao do(a) %s",
+							+ "[9] Quantidade de Gols para a selexao do(a) %s\n",
 							dPartida.getSelecao1(),
 							dPartida.getSelecao2(),
 							dPartida.getSelecao1(),
@@ -434,7 +499,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 							dPartida.getSelecao1(),
 							dPartida.getSelecao2()
 							);
-					int opcaoUpdate = entrada.nextInt();
+					int opcaoUpdate = tratamento.validaInt(1,9);
 					
 				switch (opcaoUpdate) {
 				case 1:
