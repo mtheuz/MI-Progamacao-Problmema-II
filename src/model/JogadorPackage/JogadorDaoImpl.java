@@ -115,6 +115,11 @@ public void cadastrarUmJogador()
 	/**
 	 * O método inserirJogador é responsável por inserir o Jogador na lista de jogadores
 	 */
+	
+	public void inserirJogadorJson(String nomeJoagador,String nomeDaSelecao) {
+		Jogador novoJogador = new Jogador(nomeJoagador); 
+		inserirJogador(novoJogador,nomeDaSelecao);
+	}
 
 	public void cadastrarNaselecao(String nomeSelecao) {
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
@@ -163,7 +168,7 @@ public void cadastrarUmJogador()
 					e.printStackTrace();
 				}
 				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-				System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+				//System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
 				return true;
 			}
 		}else
@@ -392,7 +397,19 @@ public void cadastrarUmJogador()
 	 * O método imprimirJogador imprime os dados de um objeto do tipo Jogador
 	 */
 
-	
+	public String retornaJogadorNome(String codigo) {
+		String nome = "";
+		for(int index = 0; index < selecao.getListaSelecoes().size();index++) {
+			for (int ijogador = 0; ijogador < selecao.getListaSelecoes().get(index).getListaJogadores().size(); ijogador++) {
+				if(selecao.getListaSelecoes().get(index).getListaJogadores().get(ijogador).getCode().equals(codigo)) {
+					Jogador jogador = selecao.getListaSelecoes().get(index).getListaJogadores().get(ijogador);
+					nome = jogador.getNome();
+				
+					}
+				}
+			}
+			return nome;
+		}
 	
 
 	@Override
@@ -477,7 +494,7 @@ public void cadastrarUmJogador()
 					nomeSelecao = selecaoMap.getKey();
 					if(selecao.getListaSelecoes().get(i).getNome().equals(selecaoMap.getKey())) {
 						for(int j =0; j< selecaoMap.getValue().size();j++) {
-							cadastrar(selecaoMap.getValue().get(j),selecaoMap.getKey());
+							inserirJogadorJson(selecaoMap.getValue().get(j),selecaoMap.getKey());
 						}
 					}
 				}

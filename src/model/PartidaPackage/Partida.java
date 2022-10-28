@@ -1,6 +1,7 @@
 package model.PartidaPackage;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Partida { 
 	private String codigo;
@@ -9,12 +10,12 @@ public class Partida {
 	private String local;
 	private String selecao1;
 	private String selecao2;
-	private int golsSelecao1;
-	private int golsSelecao2;
-	private int cartoesVermelhosSelecao1;
-	private int cartoesVermelhosSelecao2;
-	private int cartoesAmarelosSelecao1;
-	private int cartoesAmarelosSelecao2;
+	private List<List<String>> golsSelecao1;
+	private List<List<String>> golsSelecao2;
+	private List<List<String>> cartoesVermelhosSelecao1;
+	private List<List<String>> cartoesVermelhosSelecao2;
+	private List<List<String>> cartoesAmarelosSelecao1;
+	private List<List<String>> cartoesAmarelosSelecao2;
 	private boolean situacao;
 	
 	public boolean isSituacao() {
@@ -27,7 +28,7 @@ public class Partida {
 	}
 
 
-	public int getGolsSelecao1() {
+	public List<List<String>> getGolsSelecao1() {
 		return golsSelecao1;
 	}
 
@@ -65,49 +66,49 @@ public class Partida {
 	}
 
 
-	public void setGolsSelecao1(int golsSelecao1) {
-		this.golsSelecao1 += golsSelecao1;
+	public void setGolsSelecao1(List<String> golsSelecao1) {
+		this.golsSelecao1.add(golsSelecao1);
 	}
 
-	public int getGolsSelecao2() {
+	public List<List<String>> getGolsSelecao2() {
 		return golsSelecao2;
 	}
 
-	public void setGolsSelecao2(int golsSelecao2) {
-		this.golsSelecao2 += golsSelecao2;
+	public void setGolsSelecao2(List<String>  golsSelecao2) {
+		this.golsSelecao2.add(golsSelecao2);
 	}
 
 	
-	public int getCartoesVermelhosSelecao1() {
+	public List<List<String>> getCartoesVermelhosSelecao1() {
 		return cartoesVermelhosSelecao1;
 	}
 
-	public void setCartoesVermelhosSelecao1(int cartoesVermelhosSelecao1) {
-		this.cartoesVermelhosSelecao1 = cartoesVermelhosSelecao1;
+	public void setCartoesVermelhosSelecao1(List<String> cartoesVermelhosSelecao1) {
+		this.cartoesVermelhosSelecao1.add(cartoesVermelhosSelecao1);
 	}
 
-	public int getCartoesVermelhosSelecao2() {
+	public List<List<String>> getCartoesVermelhosSelecao2() {
 		return cartoesVermelhosSelecao2;
 	}
 
-	public void setCartoesVermelhosSelecao2(int cartoesVermelhosSelecao2) {
-		this.cartoesVermelhosSelecao2 = cartoesVermelhosSelecao2;
+	public void setCartoesVermelhosSelecao2(List<String>  cartoesVermelhosSelecao2) {
+		this.cartoesVermelhosSelecao2.add(cartoesVermelhosSelecao2);
 	}
 
-	public int getCartoesAmarelosSelecao1() {
+	public List<List<String>> getCartoesAmarelosSelecao1() {
 		return cartoesAmarelosSelecao1;
 	}
 
-	public void setCartoesAmarelosSelecao1(int cartoesAmarelosSelecao1) {
-		this.cartoesAmarelosSelecao1 = cartoesAmarelosSelecao1;
+	public void setCartoesAmarelosSelecao1(List<String> cartoesAmarelosSelecao1) {
+		this.cartoesAmarelosSelecao1.add(cartoesAmarelosSelecao1);
 	}
 
-	public int getCartoesAmarelosSelecao2() {
+	public List<List<String>> getCartoesAmarelosSelecao2() {
 		return cartoesAmarelosSelecao2;
 	}
 
-	public void setCartoesAmarelosSelecao2(int cartoesAmarelosSelecao2) {
-		this.cartoesAmarelosSelecao2 = cartoesAmarelosSelecao2;
+	public void setCartoesAmarelosSelecao2(List<String> cartoesAmarelosSelecao2) {
+		this.cartoesAmarelosSelecao2.add(cartoesAmarelosSelecao2);
 	}
 	
 	public String getSelecao1() {
@@ -129,6 +130,13 @@ public class Partida {
 		this.selecao1 = selecao1;
 		this.selecao2 = selecao2;
 		this.situacao = false;
+		this.cartoesVermelhosSelecao1 = new ArrayList<List<String>>();
+		this.cartoesVermelhosSelecao2 = new ArrayList<List<String>>();
+		this.cartoesAmarelosSelecao1 = new ArrayList<List<String>>();
+		this.cartoesAmarelosSelecao2 = new ArrayList<List<String>>();
+		this.golsSelecao2 = new ArrayList<List<String>>();
+		this.golsSelecao1 = new ArrayList<List<String>>();
+		
 	}
 
 
