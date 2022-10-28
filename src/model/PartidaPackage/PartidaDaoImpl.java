@@ -24,10 +24,10 @@ public class PartidaDaoImpl implements PartidaDAO{
 			"Lusail", "Ras Abu Aboud (974)", "Education City", "Al Janoub"};
 	
 	public Map<String,List<Partida>> getPartidas() {
-		return partidas;
+		return partidas; 
 	}
 	public PartidaDaoImpl(ArrayList<Selecao> selecoes){
-		selecao.setListaSelecoes(selecoes);
+		selecao.setListaSelecoes(selecoes); 
 	}
 	private JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
 	private List<String> inputData() {
