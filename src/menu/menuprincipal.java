@@ -97,7 +97,15 @@ public class menuprincipal
 				}
 				if(escolha0 == 2)
 				{
-					partidas.atualizar(null);
+					Scanner entrada = new Scanner(System.in);
+					String[] grupos = {"A","B","C","D","E","F","G","H"};
+					partidas.listarTodasPartidas();
+					System.out.println("Informe o grupo: ");
+					String grupo = tratamento.EntradaString();
+					partidas.listarPartidaCodigo(grupo.toUpperCase());;
+					System.out.println("Informe o codigo da partida que deseja editar");
+					String codigo = entrada.next();
+					partidas.atualizar(codigo);
 				}
 				if(escolha0 == 3)
 				{
