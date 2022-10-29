@@ -51,7 +51,7 @@ public class Jogador {
 	 * Consulta o nome do Jogador
 	 * @return String
 	 */
-	public String getNome() {
+	public String getNome() { 
 		return nome;
 	}
 	/**

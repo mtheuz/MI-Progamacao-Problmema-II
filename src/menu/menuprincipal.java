@@ -28,10 +28,11 @@ import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
 import model.PartidaPackage.Partida;
 import model.PartidaPackage.PartidaDaoImpl;
-import model.PesquisasPackage.Pesquisas;
+
+import model.PesquisaPackage.Pesquisas;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
-
+ 
 
 
 /**
@@ -60,8 +61,7 @@ public class menuprincipal
 		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
 		Pesquisas pesquisas = new Pesquisas();
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
-		
-		//selecao.cadastrarNomesDeTodasSelecoes();
+		//selecao.cadastraNomesDeTodasSelecoes();
 		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
 		jogador.transformaEmMap();
@@ -72,7 +72,6 @@ public class menuprincipal
 		
 		while(continua ==0)// repetição do menu principal
 		{
-			
 			//Exibindo opções do menu
 			System.out.println();
 			System.out.println("MENU:");
@@ -85,7 +84,6 @@ public class menuprincipal
 
 			switch(escolha)
 			{
-			
 			
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
@@ -252,7 +250,9 @@ public class menuprincipal
 				}
 				break;
 			case 6:
-				pesquisas.main();
+
+				pesquisas.pesquisas(partidas.getPartidas(), selecao.getListaSelecoes(), partidas, jogador);
+
 				break;
 			case 7:
 				
@@ -262,9 +262,13 @@ public class menuprincipal
 			
 		
 			}
-			}
 			
-			System.out.println("Fim do programa");
+			
+		}
+	
+
+
+
 			
 			
 				

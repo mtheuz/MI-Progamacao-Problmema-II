@@ -26,6 +26,15 @@ public ArbitroDaoImpl()
 	this.listaArbitros = new ArrayList<Arbitro>(); // Inicializando lista vazia
 }
 
+public ArrayList<Arbitro> getListaArbitro()
+{
+	return this.listaArbitros;
+}
+
+public void setlistaArbitros(ArrayList<Arbitro> lista)
+{
+	this.listaArbitros = lista;
+}
 /**
  * O método cadastrarArbitro é responsável por cadastrar um novo árbitro no sistema
  * @return Void
@@ -49,7 +58,7 @@ public void cadastrarArbitro()
 			
 			if(tratamento.validaNome(nome))
 			{	
-				if (comparaArbitro(nome))
+				if (comparaArbitro(nome)) 
 				{
 					juiz.setNome(nome); /*Chamando método setter para guardar o nome*/
 					System.out.println("Arbitro cadastrado com sucesso no sistema!");
