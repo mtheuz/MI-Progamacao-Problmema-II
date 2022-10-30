@@ -41,7 +41,23 @@ public class Pesquisas
 				
 				String dataPesquisa = dia+"/"+mes+"/"+ano;
 				
+
 				if(!procuraPartidas(dataPesquisa, partidas, partidass))
+
+				for(Entry<String, List<Partida>> grupo : partidas.entrySet())
+				{
+					for(Partida partida : grupo.getValue())
+					{
+						
+						if(partida.getData().equals(dataPesquisa))
+						{
+							System.out.println("Passou");
+							partidass.mostrarPartida(partida.getCodigo());
+						}
+					
+					}
+				}
+
 				
 						System.out.println("Nemhuma partida com essa foi encontrada");
 						

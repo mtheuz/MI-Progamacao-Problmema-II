@@ -35,40 +35,84 @@ public class PartidaDaoImpl implements PartidaDAO{
 	}
 	
 	private JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+	
 	private List<String> inputData() {
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("\n[Digite a data da partida]");
-		String[] dataformat = {"Dia","Mes","Ano"};
 		List<String> data = new ArrayList<String>();
-		for (int i = 0; i < dataformat.length; i++) {
-			System.out.printf("Digite o %s: ",dataformat[i]);
-			String entradaData = entrada.next();
-			data.add(entradaData);
-			
-		}
+		int controle = 0;
+		do {
+			System.out.printf("Digite o dia [dd]: \n");
+			String entradaDia = entrada.next();
+			if(entradaDia.length() == 2 ) {
+				data.add(entradaDia);
+				controle = 1;
+			}
+			else {
+				System.err.println("Entrada invalida");
+			}
+		}while(controle!=1);
+		
+		controle = 0;
+		do {
+			System.out.printf("Digite o mes [MM]: \n");
+			String entradaMes = entrada.next();
+			if(entradaMes.length() == 2) {
+				data.add(entradaMes);
+				controle = 1;
+			}
+			else {
+				System.err.println("Entrada invalida");
+			}
+		}while(controle!=1);
+		
+		controle = 0;
+		do {
+			System.out.printf("Digite o ano [YYYY]: \n");
+			String entradaAno = entrada.next();
+			if(entradaAno.length() == 4) {
+				data.add(entradaAno);
+				controle = 1;
+			}
+			else {
+				System.err.println("Entrada invalida");
+			}
+		}while(controle!=1);
+		
 		return data;
 	}
 	
 	private List<String> inputHora(){
 		Scanner entrada = new Scanner(System.in);
 		List<String> hora = new ArrayList<String>();
-		String[] horaformat = {"Hora","Minuto"};
 		System.out.println("[Digite o horario da partida]");
 		int controle = 0;
 		
-		for (int i = 0; i < horaformat.length; i++) {
-			System.out.printf("Digite o(a) %s: ",horaformat[i]);
-			String entradaData = entrada.next();
+		
 		do {
-			if(entradaData.length() == 2 || !tratamento.validaNome(entradaData)) {
-				hora.add(entradaData);
+			System.out.printf("Digite a Hora [HH]: ");
+			String entradaHora = entrada.next();
+			if(entradaHora.length() == 2 ) {
+				hora.add(entradaHora);
 				controle = 1;
 			}
 			else {
-				System.err.println("Entrada inválida");
+				System.err.println("Entrada invalida");
 			}
 		}while(controle!=1);
-		}
+		
+		controle =0;
+		do {
+			System.out.printf("Digite os mintutos [mm]: ");
+			String entradaMinuto = entrada.next();
+			if(entradaMinuto.length() == 2) {
+				hora.add(entradaMinuto);
+				controle = 1;
+			}
+			else {
+				System.err.println("Entrada invalida");
+			}
+		}while(controle!=1);
 		return hora;
 	}
 	
@@ -95,7 +139,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 					jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
 					partida.setGolsSelecao1(gols1);
 				}else {
-					System.out.println("Jogador nao Cadastrado");
+					System.err.println("Jogador nao Cadastrado");
 					quantidadeGolsJogadores++;
 					}
 				}
@@ -576,11 +620,11 @@ public class PartidaDaoImpl implements PartidaDAO{
 					jogador.set(1, conversao);
 					mostrarPartida(codigo);
 					}else {
-						System.out.println("Não é possivel adicionar mais cartão, limite por partida atingido");
+						System.err.println("Nao e possivel adicionar mais cartao, limite por partida atingido");
 					}
 			}
 		}else {
-			System.out.printf("Nenhum jogador da %s recebeu cartão amarelo!",dPartida.getSelecao1());
+			System.out.printf("Nenhum jogador da %s recebeu cartao amarelo!",dPartida.getSelecao1());
 		}
 	}
 	private void atualizarCartaoAmareloS2(String codigo) {
@@ -608,7 +652,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 				jogador.set(1, conversao);
 				mostrarPartida(codigo);
 				}else {
-					System.out.println("Não é possivel adicionar mais cartão, limite por partida atingido");
+					System.err.println("Não e possivel adicionar mais cartao, limite por partida atingido");
 				}
 			}else {
 				if(valorCartao > 0 && (cartao <= valorCartao)) {
@@ -617,12 +661,12 @@ public class PartidaDaoImpl implements PartidaDAO{
 					jogador.set(1, conversao);
 					mostrarPartida(codigo);
 					}else {
-						System.out.println("Não é possivel adicionar mais cartão, limite por partida atingido");
+						System.err.println("Nao e possivel adicionar mais cartao, limite por partida atingido");
 					}
 			}
 		}
 		else {
-			System.out.printf("Nenhum jogador da %s recebeu cartão amarelo!",dPartida.getSelecao2());
+			System.err.printf("Nenhum jogador da %s recebeu cartao amarelo!",dPartida.getSelecao2());
 		}
 	}
 	
@@ -647,18 +691,18 @@ public class PartidaDaoImpl implements PartidaDAO{
 				jogador.set(1, "1");
 				mostrarPartida(codigo);
 				}else {
-					System.out.println("Não é possivel adicionar mais cartão, limite por partida atingido");
+					System.err.println("Nao e possivel adicionar mais carteo, limite por partida atingido");
 				}
 			}else {
 				if(valorCartao == 1) {
 					jogador.set(1, "0");
 					mostrarPartida(codigo);
 					}else {
-						System.out.println("Não é possivel retirar cartão!");
+						System.err.println("Nao e possivel retirar cartao!");
 					}
 			}
 		}else {
-			System.out.printf("Nenhum jogador da %s recebeu cartão vermelho!",dPartida.getSelecao2());
+			System.err.printf("Nenhum jogador da %s recebeu cartao vermelho!",dPartida.getSelecao2());
 		}
 	}
 	
@@ -683,18 +727,18 @@ public class PartidaDaoImpl implements PartidaDAO{
 				jogador.set(1, "1");
 				mostrarPartida(codigo);
 				}else {
-					System.out.println("Não é possivel adicionar mais cartão, limite por partida atingido");
+					System.err.println("Não e possivel adicionar mais cartao, limite por partida atingido");
 				}
 			}else {
 				if(valorCartao == 1) {
 					jogador.set(1, "0");
 					mostrarPartida(codigo);
 					}else {
-						System.out.println("Não é possivel retirar cartão!");
+						System.err.println("Não e possivel retirar cartao!");
 					}
 				}
 			}else {
-				System.out.printf("Nenhum jogador da %s recebeu cartão vermelho!",dPartida.getSelecao1());
+				System.err.printf("Nenhum jogador da %s recebeu cartao vermelho!",dPartida.getSelecao1());
 			}
 		}
 	
@@ -728,11 +772,11 @@ public class PartidaDaoImpl implements PartidaDAO{
 					jogador.set(1, conversao);
 					mostrarPartida(codigo);
 					}else {
-						System.out.println("Não é possivel retirar gols");
+						System.err.println("Não e possivel retirar gols");
 					}
 			}
 		}else {
-			System.out.printf("Nenhum jogador da %s não fez gol!",dPartida.getSelecao1());
+			System.err.printf("Nenhum jogador da %s não fez gol!",dPartida.getSelecao1());
 		}
 	}
 	
@@ -766,11 +810,11 @@ public class PartidaDaoImpl implements PartidaDAO{
 					jogador.set(1, conversao);
 					mostrarPartida(codigo);
 					}else {
-						System.out.println("Não é possivel retirar gols");
+						System.err.println("Nao e possivel retirar gols");
 					}
 			}
 		}else {
-			System.out.printf("Nenhum jogador da %s não fez gol!",dPartida.getSelecao2());
+			System.err.printf("Nenhum jogador da %s nao fez gol!",dPartida.getSelecao2());
 		}
 	}
 	
