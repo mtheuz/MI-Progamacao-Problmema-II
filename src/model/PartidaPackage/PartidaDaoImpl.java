@@ -101,6 +101,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			}
 		}while(controle!=1);
 		
+		controle =0;
 		do {
 			System.out.printf("Digite os mintutos [mm]: ");
 			String entradaMinuto = entrada.next();

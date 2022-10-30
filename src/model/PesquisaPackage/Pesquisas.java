@@ -49,7 +49,7 @@ public class Pesquisas
 						if(partida.getData().equals(dataPesquisa))
 						{
 							System.out.println("Passou");
-							partidass.mostrarPartida(grupo.getKey(), partida.getCodigo());
+							partidass.mostrarPartida(partida.getCodigo());
 						}
 					
 					}
@@ -86,7 +86,7 @@ public class Pesquisas
 					if(partida.getSelecao1().equals(nomeselecao) || partida.getSelecao2().equals(nomeselecao))
 					{
 					
-						partidass.mostrarPartida(grupo.getKey(), partida.getCodigo());
+						partidass.mostrarPartida(partida.getCodigo());
 					}
 				}
 			}
