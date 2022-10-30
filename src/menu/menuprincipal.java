@@ -28,9 +28,11 @@ import model.ArbitroPackage.ArbitroDaoImpl;
 import model.JogadorPackage.JogadorDaoImpl;
 import model.PartidaPackage.Partida;
 import model.PartidaPackage.PartidaDaoImpl;
+
+import model.PesquisaPackage.Pesquisas;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
-
+ 
 
 
 /**
@@ -57,9 +59,9 @@ public class menuprincipal
 		JogadorDaoImpl jogador = new JogadorDaoImpl(selecao.getListaSelecoes());//Instanciando objeto da Classe responsável pelo CRUD de Jogadores no sistema
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
 		PartidaDaoImpl partidas = new PartidaDaoImpl(selecao.getListaSelecoes());
+		Pesquisas pesquisas = new Pesquisas();
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
-		
-		//selecao.cadastrarNomesDeTodasSelecoes();
+		//selecao.cadastraNomesDeTodasSelecoes();
 		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
 		jogador.transformaEmMap();
@@ -70,7 +72,6 @@ public class menuprincipal
 		
 		while(continua ==0)// repetição do menu principal
 		{
-			
 			//Exibindo opções do menu
 			System.out.println();
 			System.out.println("MENU:");
@@ -83,7 +84,6 @@ public class menuprincipal
 
 			switch(escolha)
 			{
-			
 			
 			case 1:
 				//Exibindo opções do menu da opção 1 (Seleções)
@@ -258,15 +258,25 @@ public class menuprincipal
 				}
 				break;
 			case 6:
+
+				pesquisas.pesquisas(partidas.getPartidas(), selecao.getListaSelecoes(), partidas, jogador);
+
+				break;
+			case 7:
+				
 				continua = -1; //Atualizando a variavel que sai do while do menu princiapl
 				
 				break; // Saída do menu principal
+			
+		
 			}
 			
 			
 		}
-			
-			System.out.println("Fim");
+	
+
+
+
 			
 			
 				

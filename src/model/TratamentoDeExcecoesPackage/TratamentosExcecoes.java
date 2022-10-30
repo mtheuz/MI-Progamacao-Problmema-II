@@ -21,7 +21,7 @@ public class TratamentosExcecoes {
 		while(true)
 			try
 			{
-				Scanner entrada = new Scanner(System.in);
+				Scanner entrada = new Scanner(System.in); 
 				String escolha = entrada.next();
 				if(isInt(escolha) && (Integer.parseInt(escolha) <=maximo || Integer.parseInt(escolha)>minimo) )
 					return Integer.parseInt(escolha);
@@ -102,7 +102,51 @@ public class TratamentosExcecoes {
 		
 	}
 	
+	public String entradaDateDay() {
+		while(true)
+			try
+			{
+				Scanner entrada = new Scanner(System.in);
+				int dia = entrada.nextInt();
+				if(dia>0 && dia<=31) 
+				{
+					return String.valueOf(dia);
+				}
+				else
+					{
+					System.out.println("Dia inválido, Tente novamente");
+					}
+					
+			}
+			catch(Exception erro){
+				System.out.println("Entrada Invalida, tente novamente");
+				continue;
+		}
+		
+	}
 	
+	public String entradaDateMes() {
+		while(true)
+			try
+			{
+				Scanner entrada = new Scanner(System.in);
+				int mes = entrada.nextInt();
+				if(mes>0 && mes<=12) 
+				{
+					return String.valueOf(mes);
+				}
+				else
+					{
+					System.out.println("Mes inválido, Tente novamente");
+					}
+					
+			}
+			catch(Exception erro){
+				System.out.println("Entrada Invalida, tente novamente");
+				continue;
+		}
+		
+	}
 
 	
 }

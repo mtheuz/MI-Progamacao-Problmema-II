@@ -136,6 +136,7 @@ public class Partida {
 		this.cartoesAmarelosSelecao2 = new ArrayList<List<String>>();
 		this.golsSelecao2 = new ArrayList<List<String>>();
 		this.golsSelecao1 = new ArrayList<List<String>>();
+		this.data = "00/00/00";
 		
 	}
 

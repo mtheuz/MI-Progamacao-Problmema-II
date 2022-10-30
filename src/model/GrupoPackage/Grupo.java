@@ -1,5 +1,5 @@
 package model.GrupoPackage;
 
-public class Grupo {
+public class Grupo { 
 	private String grupo;
 }
