@@ -64,7 +64,7 @@ public class menuprincipal
 		//selecao.cadastraNomesDeTodasSelecoes();
 		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
-		jogador.transformaEmMap();
+		//jogador.transformaEmMap();
 		partidas.geraPartidas();
 
 		
@@ -95,7 +95,12 @@ public class menuprincipal
 				{
 					partidas.inserir();
 				}
-				if(escolha0 == 2)
+				if(escolha0 == 3)
+				{
+					
+				}
+				
+				if(escolha0 == 3)
 				{
 					Scanner entrada = new Scanner(System.in);
 					String[] grupos = {"A","B","C","D","E","F","G","H"};
@@ -133,8 +138,8 @@ public class menuprincipal
 			case 2:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Selecao:");
-				System.out.println("[1]Cadastrar ou Editar Selecao\n [2]Listar Selecoes\n [3]Voltar\n");
-				int escolha1 = tratamento.validaInt(0,3);//Leitura da entrada de inteiro valido(de 1 a 5)
+				System.out.println("[1]Cadastrar Selecao\n[2]Listar Selecoes\n[3]Editar Selecao\n[4]Voltar");
+				int escolha1 = tratamento.validaInt(0,4);//Leitura da entrada de inteiro valido(de 1 a 5)
 				
 				
 				if(escolha1 == 1)

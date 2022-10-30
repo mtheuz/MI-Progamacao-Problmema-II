@@ -41,20 +41,11 @@ public class Pesquisas
 				
 				String dataPesquisa = dia+"/"+mes+"/"+ano;
 				
-				for(Entry<String, List<Partida>> grupo : partidas.entrySet())
-				{
-					for(Partida partida : grupo.getValue())
-					{
-						
-						if(partida.getData().equals(dataPesquisa))
-						{
-							System.out.println("Passou");
-							partidass.mostrarPartida(grupo.getKey(), partida.getCodigo());
-						}
-					
-					}
-				}
+				if(!procuraPartidas(dataPesquisa, partidas, partidass))
 				
+						System.out.println("Nemhuma partida com essa foi encontrada");
+						
+				break;
 			}
 			if(opcao ==2)
 			{
@@ -75,7 +66,7 @@ public class Pesquisas
 					
 				
 				
-			System.out.println("Digite o indice da Seleca que deseja exibir as partidas:");
+			System.out.println("Digite o indice da Selecao que deseja exibir as partidas:");
 			int escolhaSelecao = tratamento.validaInt(1, listaSelecoes.size());
 			String nomeselecao = listaSelecoes.get(escolhaSelecao).getNome();
 			
@@ -86,7 +77,7 @@ public class Pesquisas
 					if(partida.getSelecao1().equals(nomeselecao) || partida.getSelecao2().equals(nomeselecao))
 					{
 					
-						partidass.mostrarPartida(grupo.getKey(), partida.getCodigo());
+						partidass.mostrarPartida(partida.getCodigo());
 					}
 				}
 			}
@@ -107,6 +98,28 @@ public class Pesquisas
 		
 		
 		}
+	}
+
+	private static boolean procuraPartidas(String dataPesquisa, Map<String, List<Partida>> partidas, PartidaDaoImpl partidass) {
+		int aux =0;
+		for(Entry<String, List<Partida>> grupo : partidas.entrySet())
+		{
+			for(Partida partida : grupo.getValue())
+			{
+				
+				if(partida.getData().equals(dataPesquisa))
+				{
+					
+					((PartidaDaoImpl) partidass).mostrarPartida( partida.getCodigo());
+					aux++;
+				}
+			
+			}
+		}
+		if(aux>0)
+			return true;
+		return false;
+			
 	}
 
 	private static boolean listaJogadoresPorNome(ArrayList<Selecao> listaSelecoes, String nomeJogador, JogadorDaoImpl jogador) {

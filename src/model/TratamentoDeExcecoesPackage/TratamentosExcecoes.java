@@ -23,7 +23,7 @@ public class TratamentosExcecoes {
 			{
 				Scanner entrada = new Scanner(System.in); 
 				String escolha = entrada.next();
-				if(isInt(escolha) && (Integer.parseInt(escolha) <=maximo || Integer.parseInt(escolha)>minimo) )
+				if(isInt(escolha) && (Integer.parseInt(escolha) <=maximo && Integer.parseInt(escolha)>=minimo) )
 					return Integer.parseInt(escolha);
 				else
 				System.out.println("Tente novamente");
@@ -84,7 +84,7 @@ public class TratamentosExcecoes {
 			try
 			{
 				Scanner entrada = new Scanner(System.in);
-				String nome = entrada.next();
+				String nome = entrada.nextLine();
 				if(validaNome(nome)) 
 				{
 					return nome;

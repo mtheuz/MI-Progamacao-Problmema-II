@@ -39,6 +39,7 @@ public class JogadorDaoImpl implements JogadorDAO{
 	}
 	
 @Override	
+
 public void cadastrarUmJogador() 
 	{
 	TratamentosExcecoes tratamento = new TratamentosExcecoes();
@@ -46,7 +47,7 @@ public void cadastrarUmJogador()
 	System.out.println("Em qual selecao deseja cadastrar um novo jogador?");
 	selecao.listarSelecao();
 	System.out.println("Digite o indice referente a selecao que deseja cadastrar um novo jogador");
-	int escolha = tratamento.validaInt(1,selecao.getListaSelecoes().size());
+	int escolha = tratamento.validaInt(0,selecao.getListaSelecoes().size());
 	ArrayList<Selecao> listaSelecoes = selecao.getListaSelecoes();
 	Selecao selecao = listaSelecoes.get(escolha);
 	if(selecao.getListaJogadores().size()<26)
@@ -56,11 +57,16 @@ public void cadastrarUmJogador()
 		String nome = tratamento.EntradaString();
 		
 		listarPosicoes();
-		String pos = entrada.next();
+		String pos = tratamento.EntradaString();
 		pos = posicoes.get(pos.toUpperCase());
 		//cria o objeto jogador
 		Jogador novoJogador = new Jogador(nome);
 		novoJogador.setPosicao(pos);
+		try {
+			novoJogador.setCode(geraid(novoJogador));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		inserirJogador(novoJogador,selecao.getNome()); 
 	}
 	else
@@ -136,8 +142,9 @@ public void cadastrarUmJogador()
 					String nome = entrada.next();
 					
 					listarPosicoes();
-					String pos = entrada.next();
+					String pos = tratamento.EntradaString();
 					pos = posicoes.get(pos.toUpperCase());
+					
 					//cria o objeto jogador
 					Jogador novoJogador = new Jogador(nome); 
 					
