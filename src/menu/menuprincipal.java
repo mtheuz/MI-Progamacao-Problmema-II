@@ -95,12 +95,9 @@ public class menuprincipal
 				{
 					partidas.inserir();
 				}
-				if(escolha0 == 3)
-				{
-					
-				}
 				
-				if(escolha0 == 3)
+				
+				if(escolha0 == 2)
 				{
 					Scanner entrada = new Scanner(System.in);
 					String[] grupos = {"A","B","C","D","E","F","G","H"};
@@ -155,9 +152,13 @@ public class menuprincipal
 				
 				else if (escolha1 == 3)
 				{
+					selecao.editarSelecao(partidas);
+					
+				}
+				else if (escolha1 == 4)
+				{
 					continue;
 				}
-				
 			break;
 			
 			
@@ -181,7 +182,7 @@ public class menuprincipal
 				else if(escolha5 == 3) {
 					selecao.listarSelecao();
 					System.out.println("Digite o indice da selecao que deseja excluir um jogador");
-					int indiceSelecao = tratamento.validaInt(1, selecao.getListaSelecoes().size());
+					int indiceSelecao = tratamento.validaInt(0, selecao.getListaSelecoes().size());
 					jogador.listarJogadores(selecao.getListaSelecoes().get(indiceSelecao).getNome());
 					System.out.println("Digite o Codigo do jogador: ");
 					String codigo = entrada.next();
@@ -193,7 +194,7 @@ public class menuprincipal
 				{	
 					selecao.listarSelecao();
 					System.out.println("Digite o indice da selecao que deseja listar os jogadores");
-					int indiceSelecao = tratamento.validaInt(1, selecao.getListaSelecoes().size());
+					int indiceSelecao = tratamento.validaInt(0, selecao.getListaSelecoes().size());
 					jogador.listarJogadores(selecao.getListaSelecoes().get(indiceSelecao).getNome());
 					
 				}
@@ -236,7 +237,7 @@ public class menuprincipal
 			
 			case 5: /* Caso o usuário escolha a opção 4, irão aparecer as opções referentes a Arbitro.*/
 				System.out.println("Opcoes para Arbitro:");/*Lista de opções para esse menu*/
-				System.out.println("[1]Cadastrar Tecnico\n [2]Editar\n [3]Excluir\n [4]Listar\n [5]Voltar\n");
+				System.out.println("[1]Cadastrar Arbitro\n[2]Editar\n[3]Excluir\n[4]Listar\n[5]Voltar\n");
 				
 				
 				int escolha4 = tratamento.validaInt(1,5); /*Váriavel para guardar a escolha da entrada*/

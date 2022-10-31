@@ -21,21 +21,15 @@ import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 public class JogadorDaoImpl implements JogadorDAO{
 	
 	SelecaoDaoImpl selecao = new SelecaoDaoImpl();
-	private Map<String,String> posicoes;
+	private String[] posicoes = {"Goleiro", "Zagueiro","Lateral", "Volante", "Meio-Campo", "Atacante"};
 	/**
 	 * Construtor padrão da classe <b> JogadorDaoImpl </b>
 	 * @param selecoes
 	 */
 	public JogadorDaoImpl(ArrayList<Selecao> selecoes) {
-		this.posicoes = new HashMap<String,String>();
+		
 		selecao.setListaSelecoes(selecoes);
-		posicoes.put("GK","Goleiro");
-		posicoes.put("CB","Zagueiro");
-		posicoes.put("RB","Lateral Direito");
-		posicoes.put("LB","Lateral Esquerdo");
-		posicoes.put("CDM","Volante");
-		posicoes.put("CM","Meio Campista"); 
-		posicoes.put("ST","Atacante");
+	
 	}
 	
 @Override	
@@ -57,17 +51,18 @@ public void cadastrarUmJogador()
 		String nome = tratamento.EntradaString();
 		
 		listarPosicoes();
-		String pos = tratamento.EntradaString();
-		pos = posicoes.get(pos.toUpperCase());
+		int indicePosicao = tratamento.validaInt(0,6);
+		String posicao = posicoes[indicePosicao];
 		//cria o objeto jogador
 		Jogador novoJogador = new Jogador(nome);
-		novoJogador.setPosicao(pos);
+		novoJogador.setPosicao(posicao);
 		try {
 			novoJogador.setCode(geraid(novoJogador));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		inserirJogador(novoJogador,selecao.getNome()); 
+		
 	}
 	else
 	{
@@ -91,7 +86,7 @@ public void cadastrarUmJogador()
 		if(selecao.getListaSelecoes().size()> 0) {
 		selecao.listarSelecao();
 		System.out.println("Digite o indice da Selecao que deseja inserir o jogador");
-		int selecaobusca = entrada.nextInt();
+		int selecaobusca = tratamento.validaInt(0, 26);
 		selecaoInput = nomeDaSelecao;
 		System.out.println("Digite a quantidade de jogadores que deseja cadastrar");
 		quantidadeJogadores = entrada.nextInt();
@@ -104,10 +99,12 @@ public void cadastrarUmJogador()
 				String nome = nomeJoagador;
 				
 				listarPosicoes();
-				String pos = entrada.next();
-				pos = posicoes.get(pos.toUpperCase());
+				int indicePosicao = tratamento.validaInt(0,6);
+				String posicao = posicoes[indicePosicao];
+				
 				//cria o objeto jogador
-				Jogador novoJogador = new Jogador(nome); 
+				Jogador novoJogador = new Jogador(nome);
+				novoJogador.setPosicao(posicao);
 				inserirJogador(novoJogador,selecaoInput); 
 				
 		}
@@ -139,15 +136,15 @@ public void cadastrarUmJogador()
 				for (int i = 0; i < quantidadeJogadores; i++) {
 					System.out.println("==== Cadastro de Jogador ====");
 					System.out.println("Digite o nome do Jogador: ");
-					String nome = entrada.next();
+					String nome = tratamento.EntradaString();
 					
 					listarPosicoes();
-					String pos = tratamento.EntradaString();
-					pos = posicoes.get(pos.toUpperCase());
+					int indicePosicao = tratamento.validaInt(0,6);
+					String posicao = posicoes[indicePosicao];
 					
 					//cria o objeto jogador
 					Jogador novoJogador = new Jogador(nome); 
-					
+					novoJogador.setPosicao(posicao);
 					//insere na lista de jogadores na seleçao
 					inserirJogador(novoJogador,nomeSelecao); 
 				}
@@ -175,7 +172,7 @@ public void cadastrarUmJogador()
 					e.printStackTrace();
 				}
 				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-				//System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+				System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
 				return true;
 			}
 		}else
@@ -382,11 +379,18 @@ public void cadastrarUmJogador()
 	@Override
 	public void listarJogadores(String nomeSelecao) {
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
-		System.out.printf("Lista de jogadores [%s]\n", nomeSelecao);
+		System.out.printf("Lista de jogadores da Selecao [%s]\n", nomeSelecao);
+		System.out.println("--------------------------------------------");
 		if(selecaoBusca != -1) {
 			if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size()> 0) {
 			for(Jogador jogador: selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores()) {
-				System.out.printf("%s - %s \n",jogador.getCode(),jogador.getNome());
+				System.out.printf("%s - %s \n",jogador.getCode(), jogador.getNome());
+				System.out.println("Posicao: "+jogador.getPosicao());
+				System.out.println("Gols Marcados: "+jogador.getGolsMarcados());
+				System.out.println("Cartoes Amarelos: "+jogador.getCartoesAmarelos());
+				System.out.println("Cartoes Vermelhos: "+jogador.getCartoesVermelhos()+"\n");
+				
+				System.out.println();
 				
 				}
 			}
@@ -448,11 +452,12 @@ public void cadastrarUmJogador()
 	 */
 	@Override
 	public void listarPosicoes() {
-		System.out.println("Digite a sigla de  acordo com a sua posicao:\n");
-		for(Map.Entry<String, String> pos: posicoes.entrySet() ) {
-			System.out.println(pos.getKey()+ " - " + pos.getValue());
+		System.out.println("Digite o indice de  acordo com a sua posicao:\n");
+		for(int i= 0; i<posicoes.length; i++)
+		{
+			System.out.printf("[%d]"+ " - " + posicoes[i]+"\n",i);
 		}
-		System.out.println("------------------------------------------");
+		
 	}
 
 
@@ -522,7 +527,7 @@ public void cadastrarUmJogador()
 		
 		selecao.listarSelecao();
 		System.out.println("Digite o indice da selecao que deseja editar um jogador");
-		int indiceSelecao = tratamento.validaInt(1,selecao.getListaSelecoes().size());
+		int indiceSelecao = tratamento.validaInt(0,selecao.getListaSelecoes().size());
 		
 		
 		if(selecao.getListaSelecoes().get(indiceSelecao).getListaJogadores().size()>0)

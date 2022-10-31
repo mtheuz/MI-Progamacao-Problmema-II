@@ -3,8 +3,13 @@ package model.SelecaoPackage;
 // for reading file data  
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import model.JogadorPackage.JogadorDaoImpl;
+import model.PartidaPackage.Partida;
+import model.PartidaPackage.PartidaDaoImpl;
 import model.TecnicoPackage.TecnicoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
@@ -168,17 +173,18 @@ public boolean ComparaSelecao(String nome) {
 }
 /**
  * O método editarSeleção é responsável por editar uma Seleção no sistema 
+ * @param partidas 
  */
 @Override
-public void editarSelecao() {
+public void editarSelecao(PartidaDaoImpl partidas) {
 	TratamentosExcecoes tratamento = new TratamentosExcecoes();//Instanciando classe para validar dados de entrada no programa
 	if(listaSelecoes.size()>0) //Verificando se há cadastros
 	{
 		listarSelecao(); //Listando cadastros de Seleções
 		
-		System.out.println("Digite o nome da selecao que deseja editar: ");
+		System.out.println("Digite o NOME da selecao que deseja editar: ");
 		Scanner entrada = new Scanner(System.in);
-		String nomeSelecao = entrada.next(); //Lendo nome da seleção
+		String nomeSelecao = tratamento.EntradaString(); //Lendo nome da seleção
 		int indice = buscaSelecao(nomeSelecao); //Busca o indice na lista do cadastro da seleção digitada
 		if(indice != -1)
 		{
@@ -194,13 +200,14 @@ public void editarSelecao() {
 			while(true)
 			{
 				System.out.println("Digite o novo nome da Selecao ");
-				String novoNomeSelecao = entrada.next(); //Lendo entrada do novo nome
+				String novoNomeSelecao = tratamento.EntradaString(); //Lendo entrada do novo nome
 				if(tratamento.validaNome(novoNomeSelecao))
 				{
 					if(ComparaSelecao(novoNomeSelecao))//Verifica se Seleção já foi cadastrada
 					{
 						((Selecao) listaSelecoes.get(indice)).setNome(novoNomeSelecao); //Graavando novo nome no cadastro
 						System.out.println("Nome editado com sucesso! ");
+						atualizarSelecaoNoGrupo(nomeSelecao,novoNomeSelecao, partidas);
 						break;
 					}
 					else
@@ -223,6 +230,25 @@ public void editarSelecao() {
 	}
 	else
 		System.out.println("Ainda nao foram cadastradas Selecoes no sistema");
+}
+
+private void atualizarSelecaoNoGrupo(String nome,String novoNomeSelecao, PartidaDaoImpl partidas) {
+	Map<String,List<Partida>> partidass = partidas.getPartidas();
+	for(Entry<String, List<Partida>> grupo: partidass.entrySet())
+	{
+		for(Partida partida: grupo.getValue())
+		{
+			if(partida.getSelecao1().equals(nome))
+			{
+				partida.setSelecao1(novoNomeSelecao);
+			}
+			else if(partida.getSelecao2().equals(nome))
+			{
+				partida.setSelecao2(novoNomeSelecao);
+			}
+		}
+	}
+	
 }
 
 /**

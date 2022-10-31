@@ -264,7 +264,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		String[] grupos = {"A","B","C","D","E","F","G","H"};
 		Scanner entrada = new Scanner(System.in);
 		imprimeGrupos();
-		System.out.println("Digite o indice grupo que deseja inserir a partida");
+		System.out.println("Digite o indice do grupo que deseja inserir a partida");
 		int numPartida = tratamento.validaInt(0,grupos.length);
 		int opcao = 1;
 		//

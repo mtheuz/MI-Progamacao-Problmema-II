@@ -109,7 +109,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 				{
 					System.out.println("Digite o nome do tecnico: ");
 					Scanner entrada = new Scanner(System.in);
-					String nome = entrada.nextLine(); //Lendo o nome do Técnico
+					String nome = tratamento.EntradaString(); //Lendo o nome do Técnico
 					if (tratamento.validaNome(nome))//verificando se a entrada de string é válida
 						if(ComparaTecnico(nome))//verificando se já existe um cadastro igual
 						{
@@ -127,7 +127,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 				{
 					System.out.println("Digite a nacionalidade do tecnico: ");
 					Scanner entrada = new Scanner(System.in);
-					String nacionalidade = entrada.nextLine();//Lendo a nacionalidade
+					String nacionalidade = tratamento.EntradaString();//Lendo a nacionalidade
 					if(tratamento.validaNome(nacionalidade))	//verificando se a entrada de string é válida
 					{
 						tecnico.setNacionalidade(nacionalidade);//Salvando a nacionalidade
@@ -141,9 +141,9 @@ public class TecnicoDaoImpl implements TecnicoDAO
 				
 				while(true)
 				{
-					System.out.println("Digite o nome da Selecao que deseja cadastrar:");
+					System.out.println("Digite o NOME da Selecao que em deseja cadastrar:");
 					Scanner nomeSelecao = new Scanner(System.in);
-					String nome = nomeSelecao.nextLine(); //Lendo o nome de uma seleção
+					String nome = tratamento.EntradaString(); //Lendo o nome de uma seleção
 					int teste =0; //Essa variavel auxilia em caso de erro de busca
 					if(tratamento.validaNome(nome))//verificando se a entrada de string é válida
 					{

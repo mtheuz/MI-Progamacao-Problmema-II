@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.PartidaPackage.Partida;
+import model.PartidaPackage.PartidaDaoImpl;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public interface SelecaoDAO 
 {
 	void cadastrarSelecao();
-	public void editarSelecao();
+	void editarSelecao(PartidaDaoImpl partidas);
 	public void apagarSelecao();
 	public void listarSelecao();
 	/**
@@ -29,6 +30,11 @@ public interface SelecaoDAO
 	 * @param Partida 
 	 * @param map 
 	 */
+	/**
+	 * O método editarSeleção é responsável por editar uma Seleção no sistema 
+	 * @param partidas 
+	 */
+	
 	
 	
 	
