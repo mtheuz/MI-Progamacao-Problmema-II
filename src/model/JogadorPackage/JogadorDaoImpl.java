@@ -570,7 +570,8 @@ public void cadastrarUmJogador()
 				
 				listarPosicoes();
 				System.out.println("Digite a nova posicao: ");
-				String posicao = tratamento.EntradaString();
+				int posicao = tratamento.validaInt(0,5);
+				String pos = posicoes[posicao];
 				ArrayList<Selecao> listaSelecoes =selecao.getListaSelecoes();
 				for(Selecao selecao : listaSelecoes)
 				{
@@ -578,7 +579,7 @@ public void cadastrarUmJogador()
 					{
 						if(jogador.getCode().equals(codigo))
 						{
-							jogador.setPosicao(posicao);
+							jogador.setPosicao(pos);
 							System.out.println("Posicao atualizada com sucesso!");
 						}
 					}
@@ -587,10 +588,10 @@ public void cadastrarUmJogador()
 				
 			}
 			
-			
+		}	
 		else
 			System.out.println("Sem jogadores cadastrados nesta selecao");
-	}
+	
 	
 	}
 }
