@@ -88,7 +88,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.println("[Digite o horario da partida]");
 		int controle = 0;
 		
-		
+
 		do {
 			System.out.printf("Digite a Hora [HH]: ");
 			String entradaHora = entrada.next();
@@ -421,9 +421,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 	public void listarTodasPartidas() {
 		System.out.println("[Lista de Partidas]");
 		String[] grupos = {"A","B","C","D","E","F","G","H"};
-
-		//String[] grupos = {"A","B"};
-
+		
 		for (int i = 0; i < grupos.length; i++) {
 			System.out.printf("Grupo [%s]\n",grupos[i]);
 			listarPartida(grupos[i]);
@@ -445,6 +443,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		for (Map.Entry<String, List<Partida>> mpartida : partidas.entrySet()) {
 			for (int i = 0; i < mpartida.getValue().size(); i++) {
 				if(mpartida.getValue().get(i).getCodigo().equals(codigo)) {
+					
 					final Partida partida = mpartida.getValue().get(i) ;
 					System.out.printf("Codigo da Partida: %s\n",partida.getCodigo());
 					System.out.printf("|%s X %s|\n",partida.getSelecao1(),partida.getSelecao2());

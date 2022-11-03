@@ -64,7 +64,7 @@ public class menuprincipal
 		//selecao.cadastraNomesDeTodasSelecoes();
 		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
-		//jogador.transformaEmMap();
+		jogador.transformaEmMap();
 		partidas.geraPartidas();
 
 		
@@ -195,7 +195,7 @@ public class menuprincipal
 					selecao.listarSelecao();
 					System.out.println("Digite o indice da selecao que deseja listar os jogadores");
 					int indiceSelecao = tratamento.validaInt(0, selecao.getListaSelecoes().size());
-					jogador.listarJogadores(selecao.getListaSelecoes().get(indiceSelecao).getNome());
+					jogador.listarJogadoresDados(indiceSelecao);
 					
 				}
 				else if(escolha == 5) {

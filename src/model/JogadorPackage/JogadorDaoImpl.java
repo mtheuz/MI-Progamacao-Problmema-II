@@ -211,23 +211,6 @@ public void cadastrarUmJogador()
 
 
 	
-	public boolean atualizarPosicao(String codigo, String nomeSelecao, String alteracao) {
-		int index = buscarJogador(codigo); 
-		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
-		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
-		for(Map.Entry<String, String> pos: posicoes.entrySet()){
-			if(alteracao.equals(pos.getValue())) {
-				listaJogadores.get(index).setPosicao(alteracao);
-				imprimirJogador(codigo);
-				System.out.println("O jogador foi atualizado na base dados!");
-				return true;
-			}else {
-				System.out.println("Valor digitado invalido");
-				
-				}
-			}
-		return false;
-		}
 	
 	public boolean atualizarNome(String codigo, String nomeSelecao, String alteracao) {
 		int index = buscarJogador(codigo); 
@@ -384,13 +367,7 @@ public void cadastrarUmJogador()
 		if(selecaoBusca != -1) {
 			if(selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().size()> 0) {
 			for(Jogador jogador: selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores()) {
-				System.out.printf("%s - %s \n",jogador.getCode(), jogador.getNome());
-				System.out.println("Posicao: "+jogador.getPosicao());
-				System.out.println("Gols Marcados: "+jogador.getGolsMarcados());
-				System.out.println("Cartoes Amarelos: "+jogador.getCartoesAmarelos());
-				System.out.println("Cartoes Vermelhos: "+jogador.getCartoesVermelhos()+"\n");
-				
-				System.out.println();
+				System.out.printf("%s - %s\n",jogador.getCode(), jogador.getNome());
 				
 				}
 			}
