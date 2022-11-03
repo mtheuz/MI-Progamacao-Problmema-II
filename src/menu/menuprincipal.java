@@ -44,7 +44,7 @@ public class menuprincipal
 {
 	
 	/**
-	 * 
+	 * Método onde fica a principal execução do programa
 	 * @param args
 	 * @throws IOException 
 	 * @throws InterruptedException 
@@ -135,13 +135,16 @@ public class menuprincipal
 			case 2:
 				//Exibindo opções do menu da opção 1 (Seleções)
 				System.out.println("Opcoes para Selecao:");
-				System.out.println("[1]Cadastrar Selecao\n[2]Listar Selecoes\n[3]Editar Selecao\n[4]Voltar");
+				System.out.println("[1]Completar cadastro de Selecao\n[2]Listar Selecoes\n[3]Editar Selecao\n[4]Voltar");
 				int escolha1 = tratamento.validaInt(0,4);//Leitura da entrada de inteiro valido(de 1 a 5)
 				
 				
 				if(escolha1 == 1)
 				{
-					selecao.cadastrarSelecao();
+					System.out.println("Digite o nome da Selecao que deseja completar o cadastro:");
+					
+					String nome = tratamento.EntradaString();
+					selecao.cadastrarSelecao(nome); //Método para completar o cadastro da seleção
 					
 				}
 				

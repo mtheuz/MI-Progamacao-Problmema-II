@@ -112,15 +112,8 @@ public void leArquivoSelecoes() throws IOException
  * @param map 
  */
 @Override
-public void cadastrarSelecao() {
+public void cadastrarSelecao(String nome) {
 	
-		TratamentosExcecoes tratamento = new TratamentosExcecoes();//Instanciando classe para validar dados de entrada no programa
-	
-			
-		System.out.println("Digite o nome da Selecao que deseja completar o cadastro:");
-		
-		String nome = tratamento.EntradaString();
-		
 		int indice = buscaSelecao(nome);
 		Selecao selecao = new Selecao();
 		if(indice != -1)

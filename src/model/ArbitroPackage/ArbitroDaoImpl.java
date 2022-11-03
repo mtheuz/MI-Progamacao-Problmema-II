@@ -192,7 +192,7 @@ public void apagarArbitro()
 			System.out.println("Arbitro removido do sistema com sucesso!");
 		}
 		else
-			System.out.println("Arbitro não Cadastrado no sistema.");/*Mensagem de falha na busca*/
+			System.out.println("Arbitro nao Cadastrado no sistema.");/*Mensagem de falha na busca*/
 
 	}
 	else

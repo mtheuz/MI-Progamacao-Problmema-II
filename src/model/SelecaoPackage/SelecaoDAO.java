@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public interface SelecaoDAO 
 {
-	void cadastrarSelecao();
+	void cadastrarSelecao(String nome);
 	void editarSelecao(PartidaDaoImpl partidas);
 	public void apagarSelecao();
 	public void listarSelecao();
@@ -34,6 +34,13 @@ public interface SelecaoDAO
 	 * O método editarSeleção é responsável por editar uma Seleção no sistema 
 	 * @param partidas 
 	 */
+	/**
+	 * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
+	 * O limite de cadastros é de 32 seleções na copa do mundo
+	 * @param Partida 
+	 * @param map 
+	 */
+	
 	
 	
 	
