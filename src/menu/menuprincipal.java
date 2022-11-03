@@ -64,7 +64,7 @@ public class menuprincipal
 		//selecao.cadastraNomesDeTodasSelecoes();
 		System.out.println("Inicializando o programa,aguarde...");
 		selecao.leArquivoSelecoes();
-		//jogador.transformaEmMap();
+		jogador.transformaEmMap();
 		partidas.geraPartidas();
 
 		
