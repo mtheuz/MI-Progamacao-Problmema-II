@@ -201,7 +201,7 @@ public void cadastrarUmJogador()
 			}
 		}
 			System.out.println("Esse jogador ainda nao foi cadastrado!\n");
-			return false;
+			return false; 
 		
 	}
 

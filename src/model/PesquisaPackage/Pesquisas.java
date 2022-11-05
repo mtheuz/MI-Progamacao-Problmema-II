@@ -31,7 +31,7 @@ public class Pesquisas
 			int opcao = tratamento.validaInt(1,2);
 			if(opcao ==1)
 			{
-				System.out.println("Digite o dia:");
+				System.out.println("Digite o dia:"); 
 				String dia = tratamento.entradaDateDay();
 				System.out.println("Digite o mes:");
 				String mes = tratamento.entradaDateMes();

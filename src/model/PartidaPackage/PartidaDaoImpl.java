@@ -27,7 +27,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		return partidas; 
 	}
 	public PartidaDaoImpl(ArrayList<Selecao> selecoes){
-		selecao.setListaSelecoes(selecoes); 
+		selecao.setListaSelecoes(selecoes);  
 	}
 	
 	public PartidaDaoImpl(){

@@ -1,4 +1,4 @@
-package menu;
+package view;
 
 /*
 Autores: Matheus Mota e Mailson Alves
@@ -45,7 +45,7 @@ public class menuprincipal
 	
 	/**
 	 * Método onde fica a principal execução do programa
-	 * @param args
+	 * @param args 
 	 * @throws IOException 
 	 * @throws InterruptedException 
 	 */

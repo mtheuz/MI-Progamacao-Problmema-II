@@ -15,9 +15,8 @@ import java.util.ArrayList;
  */
 public interface SelecaoDAO 
 {
-	void cadastrarSelecao(String nome);
-	void editarSelecao(PartidaDaoImpl partidas);
-	public void apagarSelecao();
+	void procedimentoCadastrarSelecao(String nome);
+	void ProcedimentoEditarSelecao(PartidaDaoImpl partidas);
 	public void listarSelecao();
 	/**
 	 * O método cadastrarSeleção é responsável por cadastrar uma nova Seleção no sistema <br></br>
