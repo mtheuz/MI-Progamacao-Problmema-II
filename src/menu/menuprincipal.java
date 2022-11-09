@@ -93,7 +93,8 @@ public class menuprincipal
 				
 				if(escolha0==1)
 				{
-					partidas.inserir();
+					Scanner entrada = new Scanner(System.in);
+					
 				}
 				
 				
