@@ -140,14 +140,14 @@ public class Controller {
 			}
 			else if(escolha == 5) {
 				break;
-			}
+			} 
 			
 			break;
 		
 		case 4:/* Caso o usuário escolha a opção 4, irão aparecer as opções referentes a Técnico.*/
 			
 			TecnicoView tecnicoView = new TecnicoView();
-			int escolha3 = tecnicoView.menuOpcoes();
+			int escolha3 = tecnicoView.menuOpcoes(); 
 			if(escolha3 == 1)
 			{
 				tecnicoDao.cadastrarTecnicoSemSelecao();/*Chamando o método da classe responsável pelo CRUD de arbitro para fazer o cadastro um novo técnico. */

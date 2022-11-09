@@ -39,7 +39,7 @@ public class menuPrincipalView
 		
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
-		Controller controller = new Controller();
+		Controller controller = new Controller(); 
 		int escolha = menuView();
 		controller.menu(escolha);
 	}

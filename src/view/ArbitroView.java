@@ -13,4 +13,20 @@ public class ArbitroView {
 		int opcao = tratamento.validaInt(1,5); /*Váriavel para guardar a escolha da entrada*/
 		return opcao;
 	}
+	public void mostrar(String str)
+	{
+		System.out.println(str); 
+	}
+	public int inputInt(int min, int max)
+	{ 
+		TratamentosExcecoes tratamento = new TratamentosExcecoes();
+		int entrada = tratamento.validaInt(min,max);
+		return entrada; 
+	}
+	public String inputStr()
+	{
+		TratamentosExcecoes tratamento = new TratamentosExcecoes();
+		String entrada = tratamento.EntradaString();
+		return entrada; 	
+	}
 }
