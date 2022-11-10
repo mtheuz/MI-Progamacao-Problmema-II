@@ -29,97 +29,63 @@ public class PartidaDaoImpl implements PartidaDAO{
 	public PartidaDaoImpl(ArrayList<Selecao> selecoes){
 		selecao.setListaSelecoes(selecoes);  
 	}
-	
-	public PartidaDaoImpl(){
-		selecao.setListaSelecoes(null);
-	}
-	
 	private JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
 	
-	private List<String> inputData() {
-		Scanner entrada = new Scanner(System.in);
-		System.out.println("\n[Digite a data da partida]");
-		List<String> data = new ArrayList<String>();
-		int controle = 0;
-		do {
-			System.out.printf("Digite o dia [dd]: \n");
-			String entradaDia = entrada.next();
-			if(entradaDia.length() == 2 ) {
-				data.add(entradaDia);
-				controle = 1;
-			}
-			else {
-				System.err.println("Entrada invalida");
-			}
-		}while(controle!=1);
-		
-		controle = 0;
-		do {
-			System.out.printf("Digite o mes [MM]: \n");
-			String entradaMes = entrada.next();
-			if(entradaMes.length() == 2) {
-				data.add(entradaMes);
-				controle = 1;
-			}
-			else {
-				System.err.println("Entrada invalida");
-			}
-		}while(controle!=1);
-		
-		controle = 0;
-		do {
-			System.out.printf("Digite o ano [YYYY]: \n");
-			String entradaAno = entrada.next();
-			if(entradaAno.length() == 4) {
-				data.add(entradaAno);
-				controle = 1;
-			}
-			else {
-				System.err.println("Entrada invalida");
-			}
-		}while(controle!=1);
-		
-		return data;
+	public String inputDia(String dia){
+		if(dia.length() == 2  && ((Integer.valueOf(dia)> 0) && Integer.valueOf(dia)<= 31)) {
+			return dia;
+		}
+		else {
+			//System.err.println("Entrada invalida");
+			return "Entrada invalida" ;
+		}
 	}
 	
-	private List<String> inputHora(){
-		Scanner entrada = new Scanner(System.in);
-		List<String> hora = new ArrayList<String>();
-		System.out.println("[Digite o horario da partida]");
-		int controle = 0;
-		
-
-		do {
-			System.out.printf("Digite a Hora [HH]: ");
-			String entradaHora = entrada.next();
-			if(entradaHora.length() == 2 ) {
-				hora.add(entradaHora);
-				controle = 1;
-			}
-			else {
-				System.err.println("Entrada invalida");
-			}
-		}while(controle!=1);
-		
-		controle =0;
-		do {
-			System.out.printf("Digite os mintutos [mm]: ");
-			String entradaMinuto = entrada.next();
-			if(entradaMinuto.length() == 2) {
-				hora.add(entradaMinuto);
-				controle = 1;
-			}
-			else {
-				System.err.println("Entrada invalida");
-			}
-		}while(controle!=1);
-		return hora;
+	public String inputMes(String mes) {
+		if(mes.length() == 2) {
+			return mes;
+		}
+		else {
+			System.err.println("Entrada invalida");
+			return "";
+		}
+	}
+	
+	public String inputAno(String mes) {
+		if(mes.length() == 4) {
+			return mes;
+		}
+		else {
+			System.err.println("Entrada invalida");
+			return "";
+		}
+	}
+	
+	public String inputHora(String hora) {
+		if(hora.length() == 2 || (Integer.valueOf(hora)>= 0) || (Integer.valueOf(hora) <=24) ) {
+			return hora;
+		}
+		else {
+			System.err.println("Entrada invalida");
+			return "";
+		}
+	}
+	
+	public String inputMinutos(String Minutos) {
+		if(Minutos.length() == 2 && ((Integer.valueOf(Minutos)>= 0) && (Integer.valueOf(Minutos) <=59) )) {
+			return Minutos;
+		}
+		else {
+			return "Entrada invalida";
+		}
 	}
 	
 	
-	private boolean inputGols(Partida partida) {
+	public boolean inputGolsSelecao1(Partida partida, String gols, String codigo) {
 		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
-		Scanner entrada = new Scanner(System.in);
+		
+		/*Scanner entrada = new Scanner(System.in);
+		 * Colocar no menu
 		System.out.printf("A selecao %s fez gol?\n[0]Nao\n[1]Sim\n",partida.getSelecao1());
 		int respGols = tratamento.validaInt(0,1);
 		if(respGols == 1) {
@@ -130,22 +96,23 @@ public class PartidaDaoImpl implements PartidaDAO{
 				jogadores.listarJogadores(nomeDaSelecao);
 				System.out.println("Digite o codigo do jogador que marcou:");
 				String codigo = entrada.next();
+				System.out.println("Digite a quantidade de Gols que ele marcou: ");
+				String gols = entrada.next();
+				*/
 				if(jogadores.verificaExistencia(codigo)) {
-					System.out.println("Digite a quantidade de Gols que ele marcou: ");
-					String gols = entrada.next();
 					List<String> gols1 = new ArrayList<String>();
 					gols1.add(codigo);
 					gols1.add(gols);
-					jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
+					jogadores.atualizarGolsMarcados(codigo, partida.getSelecao1(), gols);
 					partida.setGolsSelecao1(gols1);
+					return true;
 				}else {
 					System.err.println("Jogador nao Cadastrado");
-					quantidadeGolsJogadores++;
+					return false;
 					}
-				}
-			}
-		
-		
+	}
+		//Colocar no menu
+		/*
 		System.out.printf("A selecao %s fez gol?\n[0]Nao\n[1]Sim",partida.getSelecao2());
 		int respGols2 = tratamento.validaInt(0,1);
 		if(respGols2 == 1) {
@@ -156,98 +123,90 @@ public class PartidaDaoImpl implements PartidaDAO{
 				jogadores.listarJogadores(nomeDaSelecao);
 				System.out.println("Digite o codigo do jogador que marcou:");
 				String codigo = entrada.next();
+				*/
+	public boolean inputGolsSelecao2(Partida partida, String gols, String codigo) {
+				JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
 				if(jogadores.verificaExistencia(codigo)) {
-					System.out.println("Digite a quantidade de Gols que ele marcou: ");
-					String gols = entrada.next();
 					List<String> gols2 = new ArrayList<String>();
 					gols2.add(codigo);
 					gols2.add(gols);
-					jogadores.atualizarGolsMarcados(codigo, nomeDaSelecao, gols);
+					jogadores.atualizarGolsMarcados(codigo, partida.getSelecao2(), gols);
 					partida.setGolsSelecao2(gols2);
+					return true;
 	
 				}else {
-					System.out.println("Jogador nao Cadastrado");
-					quantidadeGolsJogadores++;
+					System.err.println("Jogador nao Cadastrado");
+					return false;
 					}
 				}
-			}
 		
-		return false;
+	
+	
+	public boolean inputCartosAmarelosSelecao1(Partida partida, String cartaoAmarelo, String codigo) {
+		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+		List<String> cartoesAmarelos = new ArrayList<String>();
+		cartoesAmarelos.add(codigo);
+		cartoesAmarelos.add(cartaoAmarelo);
+		if(jogadores.verificaExistencia(codigo)) {
+		jogadores.atulizarCartoesAmarelos(codigo, partida.getSelecao1(), cartaoAmarelo);
+		partida.setCartoesAmarelosSelecao1(cartoesAmarelos);
+		//mostrarPartida(codigo);
+		return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	public boolean inputCartosVermelhoSelecao1(Partida partida, String cartaoVermelho, String codigo) {
+		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+		List<String> cartoesVermelhos = new ArrayList<String>();
+		cartoesVermelhos.add(codigo);
+		cartoesVermelhos.add(cartaoVermelho);
+		if(jogadores.verificaExistencia(codigo)) {
+		jogadores.atualizarCartoesVermelhos(codigo, partida.getSelecao1(), cartaoVermelho);
+		partida.setCartoesVermelhosSelecao1(cartoesVermelhos);
+		//mostrarPartida(codigo);
+		return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	public boolean inputCartosAmarelosSelecao2(Partida partida, String cartaoAmarelo, String codigo) {
+		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+		List<String> cartoesAmarelos = new ArrayList<String>();
+		cartoesAmarelos.add(codigo);
+		cartoesAmarelos.add(cartaoAmarelo);
+		if(jogadores.verificaExistencia(codigo)) {
+		jogadores.atulizarCartoesAmarelos(codigo, partida.getSelecao2(), cartaoAmarelo);
+		partida.setCartoesAmarelosSelecao2(cartoesAmarelos);
+		mostrarPartida(codigo);
+		return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	public boolean inputCartosVermelhoSelecao2(Partida partida, String cartaoVermelho, String codigo) {
+		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
+		List<String> cartoesVermelhos = new ArrayList<String>();
+		cartoesVermelhos.add(codigo);
+		cartoesVermelhos.add(cartaoVermelho);
+		if(jogadores.verificaExistencia(codigo)) {
+		jogadores.atualizarCartoesVermelhos(codigo, partida.getSelecao2(), cartaoVermelho);
+		partida.setCartoesVermelhosSelecao2(cartoesVermelhos);
+		mostrarPartida(codigo);
+		return true;
+		}
+		else {
+			return false;
+		}
+		
 	}
 	
-	private void inputCartoes(Partida partida) {
-		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
-		Scanner entrada = new Scanner(System.in);
-		System.out.printf("Os jogadores da(o) selecao %s receberam cartoes?\n[0]Nao\n[1]Sim\n",partida.getSelecao1());
-		int respCartoaAmarelo1 = tratamento.validaInt(0,1);
-		if(respCartoaAmarelo1 == 1) {
-			System.out.printf("Quantos jogadores receberam cartoes? ");
-			int quantidadeDeCartoes= entrada.nextInt();
-			for (int i = 0; i < quantidadeDeCartoes; i++) {
-				final String nomeDaSelecao = partida.getSelecao1();
-				jogadores.listarJogadores(nomeDaSelecao);
-				System.out.println("Digite o codigo do jogador que recebeu o cartao:");
-				String codigo = entrada.next();
-				System.out.println("[1]Cartao Amarelo\n[2]Cartao Vermelho\n");
-				int cartao = tratamento.validaInt(0,1);
-				
-				if(cartao == 1) {
-					System.out.println("Digite a quantidade de cartoes");
-					String cartaoAmarelo = entrada.next();
-					List<String> cartoesAmarelos = new ArrayList<String>();
-					cartoesAmarelos.add(codigo);
-					cartoesAmarelos.add(cartaoAmarelo);
-					jogadores.atulizarCartoesAmarelos(codigo, nomeDaSelecao, cartaoAmarelo);
-					partida.setCartoesAmarelosSelecao1(cartoesAmarelos);
-					mostrarPartida(codigo);
-				}
-				else if(cartao == 2) {
-					List<String> cartoesVermelhos = new ArrayList<String>();
-					cartoesVermelhos.add(codigo);
-					cartoesVermelhos.add("1");
-					jogadores.atualizarCartoesVermelhos(codigo, nomeDaSelecao, "1");
-					partida.setCartoesVermelhosSelecao1(cartoesVermelhos);
-				}
-				
-			}
-			
-			
-		}
-		System.out.printf("Os jogadores da(o) selecao %s receberam cartoes?\n[0]Nao\n[1]Sim",partida.getSelecao2());
-		int respCartoaAmarelo2 = tratamento.validaInt(0,1);
-		if(respCartoaAmarelo2 == 1) {
-			System.out.printf("Quantos jogadores receberam cartoes? ");
-			int quantidadeDeCartoes= entrada.nextInt();
-			for (int i = 0; i < quantidadeDeCartoes; i++) {
-				final String nomeDaSelecao = partida.getSelecao2();
-				jogadores.listarJogadores(nomeDaSelecao);
-				System.out.println("Digite o codigo do jogador que recebeu o cartao:");
-				String codigo = entrada.next();
-				System.out.println("[1]Cartao Amarelo\n[2]Cartao Vermelho\n");
-				int cartao = entrada.nextInt();
-				
-				if(cartao == 1) {
-					System.out.println("Digite a quantidade de cartoes");
-					String cartaoAmarelo = entrada.next();
-					List<String> cartoesAmarelos = new ArrayList<String>();
-					cartoesAmarelos.add(codigo);
-					cartoesAmarelos.add(cartaoAmarelo);
-					jogadores.atulizarCartoesAmarelos(codigo, nomeDaSelecao, cartaoAmarelo);
-					partida.setCartoesAmarelosSelecao2(cartoesAmarelos);
-					mostrarPartida(codigo);
-				}
-				else if(cartao == 2) {
-					List<String> cartoesVermelhos = new ArrayList<String>();
-					cartoesVermelhos.add(codigo);
-					cartoesVermelhos.add("1");
-					jogadores.atualizarCartoesVermelhos(codigo, nomeDaSelecao, "1");
-					partida.setCartoesVermelhosSelecao2(cartoesVermelhos);
-				}
-				
-			}
-			
-		}
-	}
 	private int inputLocal() {
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("[Digite o local da partida]");
@@ -259,7 +218,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		return local;
 	}
 	@Override
-	public void inserir() {
+	public boolean inserir(String dia, String mes, String ano, String hora, String minuto, String local) {
 		
 		String[] grupos = {"A","B","C","D","E","F","G","H"};
 		Scanner entrada = new Scanner(System.in);
@@ -281,23 +240,13 @@ public class PartidaDaoImpl implements PartidaDAO{
 			
 		{
 			System.out.printf("|Partida: %s X %s|",partida.getSelecao1(),partida.getSelecao2());
-			List<String> data = inputData();
-			System.out.println("");
-			//
-			List<String> hora = inputHora();
-			System.out.println("");
-			//
-			System.out.println("");
-			int local = inputLocal();
-			inputGols(partida);
-			System.out.println("");
-			inputCartoes(partida);
-			//
-			
-			partida.setData(data.get(0)+ "/" + data.get(1) + "/" + data.get(2));
-			partida.setHorario(hora.get(0) + ":" + hora.get(1));
-			partida.setLocal(estadios[local]);
+			String data = dia + "/" + mes + "/" + ano;
+			String horap = hora + ":" + minuto;
+			partida.setData(data);
+			partida.setHorario(hora);
+			partida.setLocal(local);
 			partida.setSituacao(true);
+			return true;
 			//
 			System.out.println("");
 			System.out.println("-----------------Partida Gerada-----------------");
@@ -306,6 +255,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		else {
 			System.out.println("Uma das selecoes da partida ou ambas nao foram cadastradas por completo no sistema");
 			System.out.println("Cadastre as selecoes antes de cadastrar a partida\n");
+			return false;
 		}
 		System.out.println("\nDeseja cadastar outra partida?\n[0]Nao\n[1]Sim\n");
 		opcao = tratamento.validaInt(0, 1);
@@ -330,7 +280,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 
 	
 	@Override
-	public void deletar(String codigo) {
+	public boolean deletar(String codigo) {
 		for (Map.Entry<String, List<Partida>> partida : partidas.entrySet()) {
 			for (int i = 0; i < partida.getValue().size(); i++) {
 				if(partida.getValue().get(i).getCodigo().equals(codigo)) {
@@ -347,14 +297,16 @@ public class PartidaDaoImpl implements PartidaDAO{
 					resetaListasPartida(dPartida.getGolsSelecao1());
 					resetaListasPartida(dPartida.getGolsSelecao2());
 					mostrarPartida(codigo);
+					return true;
 					
 				}
 			}
 		}
+		return false;
 		
 	}
 	
-	private String geraid() throws InterruptedException {
+	public String geraid() throws InterruptedException {
 		LocalDateTime dataagr = LocalDateTime.now();
 		Thread.sleep(10);
 	    DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyHHmmnn");
@@ -368,6 +320,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 		for (int i = 0; i < grupos.length; i++) {
 			List<String> grupoSelecao = organizaGrupo(grupos[i]);
 			List<Partida> partidaGrupo= new ArrayList<Partida>();
+			if(grupoSelecao.isEmpty() || grupoSelecao.size()<=4) {
 			for(int c = 0; c < grupoSelecao.size(); c++) {
 				for(int j = c+1; j < (grupoSelecao.size()); j++) {
 					String selecao1 = grupoSelecao.get(c);
@@ -376,7 +329,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 					jogo.setCodigo(geraid());
 					partidaGrupo.add(jogo);
 					this.partidas.put(grupos[i], partidaGrupo);
-					
+					}
 				}
 			}
 		}
@@ -431,12 +384,15 @@ public class PartidaDaoImpl implements PartidaDAO{
 		System.out.println("");
 	}
 	
-	private int somaGols(List<List<String>> listaGols) {
+	public int somaGols(List<List<String>> listaGols) {
 		int gols = 0;
-		for(List<String> jogador: listaGols) {
-			gols += Integer.parseInt(jogador.get(1));
+		if(!listaGols.isEmpty()) {
+			for(List<String> jogador: listaGols) {
+				gols += Integer.parseInt(jogador.get(1));
+			}
+			return gols;
 		}
-		return gols;
+		return -1;
 	}
 	public void mostrarPartida(String codigo) {
 		JogadorDaoImpl jogadores = new JogadorDaoImpl(selecao.getListaSelecoes());
@@ -564,17 +520,15 @@ public class PartidaDaoImpl implements PartidaDAO{
 		return dPartida;
 	}
 	
-	private void atualizarData(String codigo) {
+	private void atualizarData(String codigo, String dia, String mes, String ano) {
 		final Partida dPartida = findPartida(codigo);
-		List<String> data = inputData();
-		dPartida.setData(data.get(0)+ "/" + data.get(1) + "/" + data.get(2));
+		dPartida.setData(dia + "/" + mes + "/" + ano);
 		mostrarPartida(codigo);
 	}
 	
-	private void atualizarHora(String codigo) {
+	private void atualizarHora(String codigo, String hora, String minuto) {
 		final Partida dPartida = findPartida(codigo);
-		List<String> hora = inputHora();
-		dPartida.setHorario(hora.get(0) + ":" + hora.get(1));
+		dPartida.setHorario(hora + ":" + minuto);
 		mostrarPartida(codigo);
 	}
 	
@@ -585,238 +539,97 @@ public class PartidaDaoImpl implements PartidaDAO{
 		mostrarPartida(codigo);
 	}
 	
-	private void atualizarCartaoAmareloS1(String codigo) {
-		Scanner entrada = new Scanner(System.in);
-		final Partida dPartida = findPartida(codigo);
+	public void listarJogadoresCartoesS1(String codigoPartida) {
+		final Partida dPartida = findPartida(codigoPartida);
 		if(dPartida.getCartoesAmarelosSelecao1().size() > 0) {
 		for (int j = 0; j < dPartida.getCartoesAmarelosSelecao1().size(); j++) {
 			List<String> jogador = dPartida.getCartoesAmarelosSelecao1().get(j);
 			System.out.printf("[%d] %s - %s Cartao Amarelo\n",j,jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
 			
 			}
-		
-			System.out.println("Digite o indice do jogador que deseja alterar: ");
-			int indice = entrada.nextInt();
-			List<String> jogador = dPartida.getCartoesAmarelosSelecao1().get(indice);
-			System.out.println("Deseja retirar ou adicionar cartao?\n[0]Adicionar\n[1]Retirar\n");
-			int opcaoCartao = tratamento.validaInt(0,1);
-			System.out.println("Digite o valor:\n");
-			int cartao = entrada.nextInt();
-			int valorCartao = Integer.parseInt(jogador.get(1));
-			if(opcaoCartao == 0) {
-				if(valorCartao < 2 && (cartao <= 2 && cartao >0)) {
-				int soma = cartao + valorCartao;
-				String conversao = Integer.toString(soma);
-				jogador.set(1, conversao);
-				mostrarPartida(codigo);
-				}else {
-					System.out.println("Não é possivel adicionar mais cartão, limite por partida atingido");
-				}
-			}else {
-				if(valorCartao > 0 && (cartao <= valorCartao)) {
-					int soma = valorCartao - cartao;
-					String conversao = Integer.toString(soma);
-					jogador.set(1, conversao);
-					mostrarPartida(codigo);
-					}else {
-						System.err.println("Nao e possivel adicionar mais cartao, limite por partida atingido");
-					}
-			}
-		}else {
-			System.out.printf("Nenhum jogador da %s recebeu cartao amarelo!",dPartida.getSelecao1());
 		}
 	}
-	private void atualizarCartaoAmareloS2(String codigo) {
-		Scanner entrada = new Scanner(System.in);
-		final Partida dPartida = findPartida(codigo);
-		if(dPartida.getCartoesAmarelosSelecao2().size() > 0) {
-		for (int j = 0; j < dPartida.getCartoesAmarelosSelecao2().size(); j++) {
-			List<String> jogador = dPartida.getCartoesAmarelosSelecao2().get(j);
-			System.out.printf("[%d] %s - %s Cartao Amarelo\n",j,jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
-			
-			}
-		
-			System.out.println("Digite o indice do jogador que deseja alterar: ");
-			int indice = entrada.nextInt();
-			List<String> jogador = dPartida.getCartoesAmarelosSelecao2().get(indice);
-			System.out.println("Deseja retirar ou adicionar cartao?\n[0]Adicionar\n[1]Retirar\n");
-			int opcaoCartao = tratamento.validaInt(0,1);
-			System.out.println("Digite o valor:\n");
-			int cartao = entrada.nextInt();
-			int valorCartao = Integer.parseInt(jogador.get(1));
-			if(opcaoCartao == 0) {
-				if(valorCartao < 2 && (cartao <= 2 && cartao >0)) {
-				int soma = cartao + valorCartao;
-				String conversao = Integer.toString(soma);
-				jogador.set(1, conversao);
-				mostrarPartida(codigo);
-				}else {
-					System.err.println("Não e possivel adicionar mais cartao, limite por partida atingido");
-				}
+	
+	private void adicionarCartaoAmarelo(int cartao, List<String> jogador) {
+		int valorCartao = Integer.parseInt(jogador.get(1));
+		if(valorCartao < 2 && (cartao <= 2 && cartao >0)) {
+			int soma = cartao + valorCartao;
+			String conversao = Integer.toString(soma);
+			jogador.set(1, conversao);
+			//mostrarPartida(codigo);
 			}else {
-				if(valorCartao > 0 && (cartao <= valorCartao)) {
-					int soma = valorCartao - cartao;
-					String conversao = Integer.toString(soma);
-					jogador.set(1, conversao);
-					mostrarPartida(codigo);
-					}else {
-						System.err.println("Nao e possivel adicionar mais cartao, limite por partida atingido");
-					}
+				System.out.println("Não é possivel adicionar mais cartão, limite por partida atingido");
 			}
-		}
-		else {
-			System.err.printf("Nenhum jogador da %s recebeu cartao amarelo!",dPartida.getSelecao2());
-		}
 	}
+	
+	private void retirarCartaoAmarelo(int cartao, List<String> jogador) {
+		int valorCartao = Integer.parseInt(jogador.get(1));
+		if(valorCartao > 0 && (cartao <= valorCartao)) {
+			int soma = valorCartao - cartao;
+			String conversao = Integer.toString(soma);
+			jogador.set(1, conversao);
+			//mostrarPartida(codigo);
+			}else {
+				System.err.println("Nao e possivel adicionar mais cartao, limite por partida atingido");
+			}
+	}
+	
+	private void adicionarCartaoVemelho(int cartao, List<String> jogador) {
+		int valorCartao = Integer.parseInt(jogador.get(1));
+		if(valorCartao == 0) {
+			jogador.set(1, "1");
+			//mostrarPartida(codigo);
+			}else {
+				System.err.println("Nao e possivel adicionar mais carteo, limite por partida atingido");
+			}
+	}
+	
+	private void retirarCartaoVemelho(int cartao, List<String> jogador) {
+		int valorCartao = Integer.parseInt(jogador.get(1));
+		if(valorCartao == 1) {
+			jogador.set(1, "0");
+			//mostrarPartida(codigo);
+			}else {
+				System.err.println("Nao e possivel retirar cartao!");
+			}
+	
+	}
+	
 	
 	private void atualizarCartaoVemelhoS2(String codigo) {
 		Scanner entrada = new Scanner(System.in);
 		final Partida dPartida = findPartida(codigo);
 		if(dPartida.getCartoesVermelhosSelecao2().size() > 0) {
-		for (int j = 0; j < dPartida.getCartoesVermelhosSelecao2().size(); j++) {
-			List<String> jogador = dPartida.getCartoesVermelhosSelecao2().get(j);
-			System.out.printf("[%d] %s - %s Cartao Amarelo\n",j,jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
-			
-			}
-		
-			System.out.println("Digite o indice do jogador que deseja alterar: ");
-			int indice = entrada.nextInt();
-			List<String> jogador = dPartida.getCartoesVermelhosSelecao2().get(indice);
-			System.out.println("Deseja retirar ou adicionar cartao?\n[0]Adicionar\n[1]Retirar\n");
-			int opcaoCartao = tratamento.validaInt(0,1);
-			int valorCartao = Integer.parseInt(jogador.get(1));
-			if(opcaoCartao == 0) {
-				if(valorCartao == 0) {
-				jogador.set(1, "1");
-				mostrarPartida(codigo);
-				}else {
-					System.err.println("Nao e possivel adicionar mais carteo, limite por partida atingido");
-				}
-			}else {
-				if(valorCartao == 1) {
-					jogador.set(1, "0");
-					mostrarPartida(codigo);
-					}else {
-						System.err.println("Nao e possivel retirar cartao!");
-					}
-			}
-		}else {
-			System.err.printf("Nenhum jogador da %s recebeu cartao vermelho!",dPartida.getSelecao2());
-		}
+	}
 	}
 	
-	private void atualizarCartaoVemelhoS1(String codigo) {
-		Scanner entrada = new Scanner(System.in);
-		final Partida dPartida = findPartida(codigo);
-		if(dPartida.getCartoesVermelhosSelecao1().size() > 0) {
-		for (int j = 0; j < dPartida.getCartoesVermelhosSelecao1().size(); j++) {
-			List<String> jogador = dPartida.getCartoesVermelhosSelecao1().get(j);
-			System.out.printf("[%d] %s - %s Cartao Amarelo\n",j,jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
-			
-			}
-		
-			System.out.println("Digite o indice do jogador que deseja alterar: ");
-			int indice = entrada.nextInt();
-			List<String> jogador = dPartida.getCartoesVermelhosSelecao1().get(indice);
-			System.out.println("Deseja retirar ou adicionar cartao?\n[0]Adicionar\n[1]Retirar\n");
-			int opcaoCartao = tratamento.validaInt(0,1);
-			int valorCartao = Integer.parseInt(jogador.get(1));
-			if(opcaoCartao == 0) {
-				if(valorCartao == 0) {
-				jogador.set(1, "1");
-				mostrarPartida(codigo);
-				}else {
-					System.err.println("Não e possivel adicionar mais cartao, limite por partida atingido");
-				}
+	private void adicionarGols(int gol,List<String> jogador) {
+		int valorGol = Integer.parseInt(jogador.get(1));
+		int soma = gol + valorGol;
+		String conversao = Integer.toString(soma);
+		jogador.set(1, conversao);
+		//mostrarPartida(codigo);
+	}
+	private void retirarGols(int gol,List<String> jogador) {
+		int valorGol = Integer.parseInt(jogador.get(1));
+		if(valorGol > 0 && (gol <= valorGol)) {
+			int soma = valorGol - gol;
+			String conversao = Integer.toString(soma);
+			jogador.set(1, conversao);
+			//mostrarPartida(codigo);
 			}else {
-				if(valorCartao == 1) {
-					jogador.set(1, "0");
-					mostrarPartida(codigo);
-					}else {
-						System.err.println("Não e possivel retirar cartao!");
-					}
-				}
-			}else {
-				System.err.printf("Nenhum jogador da %s recebeu cartao vermelho!",dPartida.getSelecao1());
+				System.err.println("Não e possivel retirar gols");
 			}
-		}
+	}
 	
-	private void atualizarGolsS1(String codigo) {
+	private void atualizarGolsS1(String codigo, int indice) {
 		Scanner entrada = new Scanner(System.in);
 		final Partida dPartida = findPartida(codigo);
 		if(dPartida.getGolsSelecao1().size()> 0) {
-		for (int j = 0; j < dPartida.getGolsSelecao1().size(); j++) {
-			List<String> jogador = dPartida.getGolsSelecao1().get(j);
-			System.out.printf("[%d] %s - %s Cartao Amarelo\n",j,jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
-			
-			}
-		
-			System.out.println("Digite o indice do jogador que deseja alterar: ");
-			int indice = entrada.nextInt();
-			List<String> jogador = dPartida.getGolsSelecao1().get(indice);
-			System.out.println("Deseja retirar ou adicionar gol?\n[0]Adicionar\n[1]Retirar\n");
-			int opcaoGol = tratamento.validaInt(0,1);
-			System.out.println("Digite o valor:\n");
-			int gol = entrada.nextInt();
-			int valorGol = Integer.parseInt(jogador.get(1));
-			if(opcaoGol == 0) {
-				int soma = gol + valorGol;
-				String conversao = Integer.toString(soma);
-				jogador.set(1, conversao);
-				mostrarPartida(codigo);
-			}else {
-				if(valorGol > 0 && (gol <= valorGol)) {
-					int soma = valorGol - gol;
-					String conversao = Integer.toString(soma);
-					jogador.set(1, conversao);
-					mostrarPartida(codigo);
-					}else {
-						System.err.println("Não e possivel retirar gols");
-					}
-			}
-		}else {
-			System.err.printf("Nenhum jogador da %s não fez gol!",dPartida.getSelecao1());
-		}
-	}
+		List<String> jogador = dPartida.getGolsSelecao1().get(indice);
 	
-	private void atualizarGolsS2(String codigo) {
-		Scanner entrada = new Scanner(System.in);
-		final Partida dPartida = findPartida(codigo);
-		if(dPartida.getGolsSelecao1().size() > 0) {
-		for (int j = 0; j < dPartida.getGolsSelecao1().size(); j++) {
-			List<String> jogador = dPartida.getGolsSelecao1().get(j);
-			System.out.printf("[%d] %s - %s Cartao Amarelo\n",j,jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
-			
-			}
-		
-			System.out.println("Digite o indice do jogador que deseja alterar: ");
-			int indice = entrada.nextInt();
-			List<String> jogador = dPartida.getGolsSelecao1().get(indice);
-			System.out.println("Deseja retirar ou adicionar gol?\n[0]Adicionar\n[1]Retirar\n");
-			int opcaoGol = tratamento.validaInt(0,1);
-			System.out.println("Digite o valor:\n");
-			int gol = entrada.nextInt();
-			int valorGol = Integer.parseInt(jogador.get(1));
-			if(opcaoGol == 0) {
-				int soma = gol + valorGol;
-				String conversao = Integer.toString(soma);
-				jogador.set(1, conversao);
-				mostrarPartida(codigo);
-			}else {
-				if(valorGol > 0 && (gol <= valorGol)) {
-					int soma = valorGol - gol;
-					String conversao = Integer.toString(soma);
-					jogador.set(1, conversao);
-					mostrarPartida(codigo);
-					}else {
-						System.err.println("Nao e possivel retirar gols");
-					}
-			}
-		}else {
-			System.err.printf("Nenhum jogador da %s nao fez gol!",dPartida.getSelecao2());
-		}
 	}
-	
+		}
 	
 	
 	public void atualizar(String codigo) {
@@ -847,31 +660,31 @@ public class PartidaDaoImpl implements PartidaDAO{
 					
 				switch (opcaoUpdate) {
 				case 1:
-					atualizarData(codigo);
+					//atualizarData(codigo);
 					break;
 				case 2:
-					atualizarHora(codigo);
+					//atualizarHora(codigo);
 					break;
 				case 3:
-					atualizarLocal(codigo);
+					//atualizarLocal(codigo);
 					break;
 				case 4:
-					atualizarCartaoAmareloS1(codigo);
+					//atualizarCartaoAmareloS1(codigo);
 					break;
 				case 5:
-					atualizarCartaoAmareloS2(codigo);
+					//atualizarCartaoAmareloS2(codigo);
 					break;	
 				case 6:
-					atualizarCartaoVemelhoS1(codigo);
+					//atualizarCartaoVemelhoS1(codigo);
 					break;
 				case 7:
-					atualizarCartaoVemelhoS2(codigo);
+					//atualizarCartaoVemelhoS2(codigo);
 					break;
 				case 8:
-					atualizarGolsS1(codigo);
+					//atualizarGolsS1(codigo);
 					break;
 				case 9:
-					atualizarGolsS2(codigo);
+					//atualizarGolsS2(codigo);
 					break;
 				default:
 					break;
