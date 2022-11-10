@@ -144,7 +144,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			String data = dia + "/" + mes + "/" + ano;
 			String horap = hora + ":" + minuto;
 			partida.setData(data);
-			partida.setHorario(hora);
+			partida.setHorario(horap);
 			partida.setLocal(local);
 			partida.setSituacao(true);
 			return true;
@@ -302,7 +302,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 				System.out.printf("Gols [%s] \n",partida.getSelecao1());
 			for(List<String> jogador: partida.getGolsSelecao1()) {
 				if(jogador.size()> 0 && Integer.parseInt(jogador.get(1))>0) {
-					System.out.printf("%s - [%s] Gols\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+					System.out.printf("%s - [%s] Gols\n",jogadores.retornaJogadorNome(jogador.get(0),selecao.getListaSelecoes()),jogador.get(1));
 					}	
 				}
 			
@@ -310,7 +310,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 				System.out.printf("Gols [%s] \n",partida.getSelecao2());
 			for(List<String> jogador: partida.getGolsSelecao2()) {
 				if(jogador.size()> 0 && Integer.parseInt(jogador.get(1))>0) {
-					System.out.printf("%s - [%s] Gols\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+					System.out.printf("%s - [%s] Gols\n",jogadores.retornaJogadorNome(jogador.get(0),selecao.getListaSelecoes()),jogador.get(1));
 					}	
 				}
 			
@@ -318,7 +318,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			if(partida.getCartoesAmarelosSelecao1().size()>0) {
 			for(List<String> jogador: partida.getCartoesAmarelosSelecao1()) {
 				if(jogador.size()> 0 && Integer.parseInt(jogador.get(1))>0) {
-					System.out.printf("%s - [%s] Cartao amarelo\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+					System.out.printf("%s - [%s] Cartao amarelo\n",jogadores.retornaJogadorNome(jogador.get(0),selecao.getListaSelecoes()),jogador.get(1));
 					}	
 				}
 			}else {
@@ -329,7 +329,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			if(partida.getCartoesAmarelosSelecao2().size()>0) {
 			for(List<String> jogador: partida.getCartoesAmarelosSelecao2()) {
 				if(jogador.size()> 0 && Integer.parseInt(jogador.get(1))>0) {
-					System.out.printf("%s - [%s] Cartao Amarelo\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+					System.out.printf("%s - [%s] Cartao Amarelo\n",jogadores.retornaJogadorNome(jogador.get(0),selecao.getListaSelecoes()),jogador.get(1));
 					}
 				}
 			}else {
@@ -340,7 +340,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			if(partida.getCartoesVermelhosSelecao1().size()>0) {
 			for(List<String> jogador: partida.getCartoesVermelhosSelecao1()) {
 				if(jogador.size()> 0 && Integer.parseInt(jogador.get(1))>0) {
-					System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+					System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0),selecao.getListaSelecoes()),jogador.get(1));
 					}
 				}
 			}else {
@@ -352,7 +352,7 @@ public class PartidaDaoImpl implements PartidaDAO{
 			if(partida.getCartoesVermelhosSelecao2().size()>0) {
 			for(List<String> jogador: partida.getCartoesVermelhosSelecao2()) {
 				if(jogador.size()> 0) {
-					System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+					System.out.printf("%s - [%s] Cartao Vermelho\n",jogadores.retornaJogadorNome(jogador.get(0),selecao.getListaSelecoes()),jogador.get(1));
 					}
 				}
 			}else{
@@ -454,9 +454,12 @@ public class PartidaDaoImpl implements PartidaDAO{
 		if(jogadoresList.size() > 0) {
 		for (int j = 0; j < jogadoresList.size(); j++) {
 			List<String> jogador = jogadoresList.get(j);
-			System.out.printf("[%d] %s - %s\n",j,jogadores.retornaJogadorNome(jogador.get(0)),jogador.get(1));
+			System.out.printf("[%d] %s - %s\n",j,jogadores.retornaJogadorNome(jogador.get(0),selecao.getListaSelecoes()),jogador.get(1));
 			
 			}
+		}
+		else {
+			partidaView.mostrar("Não foi cadastrado!");
 		}
 	}
 	

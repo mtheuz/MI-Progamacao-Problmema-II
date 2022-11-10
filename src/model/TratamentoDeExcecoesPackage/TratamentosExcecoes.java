@@ -106,7 +106,7 @@ public class TratamentosExcecoes {
 			try
 			{
 				Scanner entrada = new Scanner(System.in);
-				String nome = entrada.nextLine();
+				String nome = entrada.next();
 				if(isInt(nome)) 
 				{
 					return nome;

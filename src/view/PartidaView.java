@@ -13,7 +13,7 @@ public class PartidaView {
 		System.out.println("\n");
 		System.out.println("Opcoes para Partida:");
 		System.out.println("[1]Cadastrar\n[2]Editar\n[3]Listar por Grupo\n[4]Cancelar Partida\n[5]Voltar\n");
-		int opcao = tratamento.validaInt(1, 4);
+		int opcao = tratamento.validaInt(1, 5);
 		return opcao;
 	}
 	
@@ -27,7 +27,7 @@ public class PartidaView {
 				+ "[2] Horario\n"
 				+ "[3] Local\n"
 				+ "[4] Cartoes Amarelos para a selecao do(a) %s\n"
-				+ "[5] Cartoes Amarelos para a selecao do(a) %s\\n"
+				+ "[5] Cartoes Amarelos para a selecao do(a) %s\n"
 				+ "[6] Cartoes Vermelhos para a selecao do(a) %s\n"
 				+ "[7] Cartoes Vermelhos para a selecao do(a) %s\n"
 				+ "[8] Quantidade de Gols para a selecao do(a) %s\n"
@@ -55,9 +55,16 @@ public class PartidaView {
 		return numPartida;
 	}
 	
+	public String indiceArbitro() {
+		TratamentosExcecoes tratamento = new TratamentosExcecoes();
+		System.out.println("Digite o nome do Arbitro que deseja inserir a partida");
+		String arbitro = tratamento.EntradaString();
+		return arbitro;
+	}
+	
 	public int opcaoCartao() {
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
-		System.out.println("Opcoes cartão:\n[0]Adicionar\n[1]Retirar");
+		System.out.println("Opcoes cartao:\n[0]Adicionar\n[1]Retirar");
 		int opcaoCartao = tratamento.validaInt(0,1);
 		return opcaoCartao;
 	}
@@ -165,7 +172,6 @@ public class PartidaView {
 		System.out.println("Informe o grupo: ");
 		String grupo = tratamento.EntradaString();
 		return grupo;
-		
 	}
 	
 	public String editarPartidaEscolheCodigo() {
@@ -174,6 +180,7 @@ public class PartidaView {
 		String codigo = tratamento.EntradaInt();
 		return codigo;
 	}
+	
 	public String cancelarPartidaEscolheGrupo()
 	{
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
@@ -182,10 +189,11 @@ public class PartidaView {
 		String grupo = tratamento.EntradaString();
 		return grupo;
 	}
+	
 	public String cancelarPartidaEscolheCodigo() {
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
 		System.out.println("Informe o codigo da partida que deseja resetar");
-		String codigo = tratamento.EntradaString();
+		String codigo = tratamento.EntradaInt();
 		return codigo;
 	}
 }

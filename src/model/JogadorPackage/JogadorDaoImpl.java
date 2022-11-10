@@ -382,13 +382,12 @@ public void cadastrarUmJogador()
 	 * O método imprimirJogador imprime os dados de um objeto do tipo Jogador
 	 */
 
-	public String retornaJogadorNome(String codigo) {
-		SelecaoDaoImpl selecao = new SelecaoDaoImpl();
+	public String retornaJogadorNome(String codigo,List<Selecao> listaSelecao) {
 		String nome = "";
-		for(int index = 0; index < selecao.getListaSelecoes().size();index++) {
-			for (int ijogador = 0; ijogador < selecao.getListaSelecoes().get(index).getListaJogadores().size(); ijogador++) {
-				if(selecao.getListaSelecoes().get(index).getListaJogadores().get(ijogador).getCode().equals(codigo)) {
-					Jogador jogador = selecao.getListaSelecoes().get(index).getListaJogadores().get(ijogador);
+		for(int index = 0; index < listaSelecao.size();index++) {
+			for (int ijogador = 0; ijogador < listaSelecao.get(index).getListaJogadores().size(); ijogador++) {
+				if(listaSelecao.get(index).getListaJogadores().get(ijogador).getCode().equals(codigo)) {
+					Jogador jogador = listaSelecao.get(index).getListaJogadores().get(ijogador);
 					nome = jogador.getNome();
 				
 					}

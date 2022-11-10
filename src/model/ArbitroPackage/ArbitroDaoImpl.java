@@ -90,7 +90,7 @@ public void cadastrarArbitro()
  * @param nome
  * @return boolean
  */
-private boolean comparaArbitro(String nome) {
+public boolean comparaArbitro(String nome) {
 	for(int i=0; i<listaArbitros.size();i++)
 	{
 		if(((Arbitro) listaArbitros.get(i)).getNome().toUpperCase().equals(nome.toUpperCase()))
