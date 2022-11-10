@@ -12,9 +12,6 @@ do código, e estou ciente que estes trechos não serão considerados para fins 
 */
 
 import java.util.Scanner;
-
-
-
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 import model.SelecaoPackage.Selecao;
 

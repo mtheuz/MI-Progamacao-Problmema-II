@@ -16,36 +16,6 @@ import model.SelecaoPackage.SelecaoDaoImpl;
 class PartidaTest {
 
 	@Test
-	void testInputDia() {
-		SelecaoDaoImpl selecao = new SelecaoDaoImpl();
-		PartidaDaoImpl partida = new PartidaDaoImpl(selecao.getListaSelecoes());
-		String ValorObtido1 = partida.inputDia("222");
-		String ValorObtido2 = partida.inputDia("17");
-		String ValorObtido3 = partida.inputDia("00");
-		String ValorObtido4 = partida.inputDia("44");
-		
-		assertEquals("Entrada invalida",ValorObtido1);
-		assertEquals("17",ValorObtido2);
-		assertEquals("Entrada invalida",ValorObtido3);
-		assertEquals("Entrada invalida",ValorObtido4);
-	}
-	
-	@Test
-	void testInputMinutos() {
-		SelecaoDaoImpl selecao = new SelecaoDaoImpl();
-		PartidaDaoImpl partida = new PartidaDaoImpl(selecao.getListaSelecoes());
-		String ValorObtidoMinutos1 = partida.inputMinutos("600");
-		String ValorObtidoMinutos2 = partida.inputMinutos("70");
-		String ValorObtidoMinutos3 = partida.inputMinutos("30");
-		String ValorObtidoMinutos4 = partida.inputMinutos("1");
-		
-		assertEquals("Entrada invalida",ValorObtidoMinutos1);
-		assertEquals("Entrada invalida",ValorObtidoMinutos2);
-		assertEquals("30",ValorObtidoMinutos3);
-		assertEquals("Entrada invalida",ValorObtidoMinutos4);
-	}
-	
-	@Test
 	void testSomagols() throws InterruptedException {
 		
 		SelecaoDaoImpl selecao = new SelecaoDaoImpl();

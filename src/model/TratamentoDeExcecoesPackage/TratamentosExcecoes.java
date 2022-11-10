@@ -91,12 +91,34 @@ public class TratamentosExcecoes {
 				}
 				else
 					{
-					System.out.println("Tente novamente");
+					System.err.println("Tente novamente");
 					}
 					
 			}
 			catch(Exception erro){
-				System.out.println("Entrada Invalida, tente novamente");
+				System.err.println("Entrada Invalida, tente novamente");
+				continue;
+		}
+		
+	}
+	public String EntradaInt() {
+		while(true)
+			try
+			{
+				Scanner entrada = new Scanner(System.in);
+				String nome = entrada.nextLine();
+				if(isInt(nome)) 
+				{
+					return nome;
+				}
+				else
+					{
+					System.err.println("Tente novamente");
+					}
+					
+			}
+			catch(Exception erro){
+				System.err.println("Entrada Invalida, tente novamente");
 				continue;
 		}
 		
@@ -114,12 +136,12 @@ public class TratamentosExcecoes {
 				}
 				else
 					{
-					System.out.println("Dia inválido, Tente novamente");
+					System.err.println("Dia inválido, Tente novamente");
 					}
 					
 			}
 			catch(Exception erro){
-				System.out.println("Entrada Invalida, tente novamente");
+				System.err.println("Entrada Invalida, tente novamente");
 				continue;
 		}
 		
@@ -130,19 +152,81 @@ public class TratamentosExcecoes {
 			try
 			{
 				Scanner entrada = new Scanner(System.in);
-				int mes = entrada.nextInt();
-				if(mes>0 && mes<=12) 
+				String mes = entrada.next();
+				if(mes.length() == 2 && ((Integer.valueOf(mes) <= 23) && (Integer.valueOf(mes) >= 00))) 
 				{
-					return String.valueOf(mes);
+					return mes;
+				}else {
+					System.err.println("Entrada invalida, tente novamente");
 				}
-				else
-					{
-					System.out.println("Mes inválido, Tente novamente");
-					}
+				
 					
 			}
 			catch(Exception erro){
-				System.out.println("Entrada Invalida, tente novamente");
+				System.err.println("Entrada Invalida, tente novamente");
+				continue;
+		}
+		
+	}
+	
+	public String entradaDateAno() {
+		while(true)
+			try
+			{
+				Scanner entrada = new Scanner(System.in);
+				String ano = entrada.next();
+				if(ano.length() == 4) {
+					return ano;
+				}
+				else {
+					System.err.println("Entrada invalida, tente novamente");
+				}
+					
+			}
+			catch(Exception erro){
+				System.err.println("Entrada Invalida, tente novamente");
+				continue;
+		}
+		
+	}
+	
+	public String entradaHora() {
+		while(true)
+			try
+			{
+				Scanner entrada = new Scanner(System.in);
+				String hora = entrada.next();
+				if(hora.length() == 2 && ((Integer.valueOf(hora) <= 23) && (Integer.valueOf(hora) >= 00))) {
+					return hora;
+				}
+				else {
+					System.err.println("Entrada invalida");
+				}
+					
+			}
+			catch(Exception erro){
+				System.err.println("Entrada Invalida, tente novamente");
+				continue;
+		}
+		
+	}
+	
+	public String entradaMinuto() {
+		while(true)
+			try
+			{
+				Scanner entrada = new Scanner(System.in);
+				String minuto = entrada.next();
+				if(minuto.length() == 2 && ((Integer.valueOf(minuto) <= 59) && (Integer.valueOf(minuto) >= 00))) {
+					return minuto;
+				}
+				else {
+					System.err.println("Entrada invalida, tente novamente");
+				}
+					
+			}
+			catch(Exception erro){
+				System.err.println("Entrada Invalida, tente novamente");
 				continue;
 		}
 		

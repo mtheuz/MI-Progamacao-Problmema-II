@@ -2,9 +2,9 @@ package model.PartidaPackage;
 
 public interface PartidaDAO {
 	
-	public void inserir();
 	public void listar();
-	public void deletar(String codigo);
+	public boolean deletar(String codigo);
+	boolean inserir(String dia, String mes, String ano, String hora, String minuto, String local, Partida partida);
 
 
 }
