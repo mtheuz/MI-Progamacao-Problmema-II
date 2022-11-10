@@ -11,7 +11,7 @@ class ArbitroDaoImplTest {
 	public Arbitro arbitro2 = new Arbitro();
 	
 	@Test
-	void test_CadastrarArbitro() {
+	void testeCadastrarArbitro() {
 		
 		arbitro.cadastrarArbitro();
 		assertEquals(false, arbitro.getListaArbitro().isEmpty());

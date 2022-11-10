@@ -12,34 +12,25 @@ import model.PartidaPackage.PartidaDaoImpl;
 import model.SelecaoPackage.Selecao;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
+import view.PesquisasView;
 
 public class Pesquisas 
 {
 	public static void pesquisas(Map<String,List<Partida>> partidas, ArrayList<Selecao> listaSelecoes, PartidaDaoImpl partidass, JogadorDaoImpl jogador)
 	{
+		PesquisasView pesquisasView = new PesquisasView();
 		TratamentosExcecoes tratamento = new TratamentosExcecoes(); //Instanciando classe existe para validar dados de entrada no programa
-		
-		System.out.println("Opcoes de Pesquisa: \n "); 
-		System.out.println("[1]Por Partida\n[2]Por Jogador\n[3]Voltar");
-		int escolha = tratamento.validaInt(1,3);
+		int escolha = pesquisasView.menuOpcoes();
 		
 		switch(escolha)
 		{
 		case 1:
-			System.out.println("Escolha uma opcao:");
-			System.out.println("[1]Pesquisa por data [2] Pesquisa por Selecao");
-			int opcao = tratamento.validaInt(1,2);
+			pesquisasView.mostrar("Escolha uma opcao:");
+			pesquisasView.mostrar("[1]Pesquisa por data [2] Pesquisa por Selecao");
+			int opcao = pesquisasView.inputInt(1, 2);
 			if(opcao ==1)
 			{
-				System.out.println("Digite o dia:"); 
-				String dia = tratamento.entradaDateDay();
-				System.out.println("Digite o mes:");
-				String mes = tratamento.entradaDateMes();
-				System.out.println("Digite o ano:");
-				int entradaAno = tratamento.validaInt();
-				String ano = String.valueOf(entradaAno);
-				
-				String dataPesquisa = dia+"/"+mes+"/"+ano;
+				String dataPesquisa = pesquisasView.inputData();
 				
 
 				if(!procuraPartidas(dataPesquisa, partidas, partidass))
@@ -51,7 +42,6 @@ public class Pesquisas
 						
 						if(partida.getData().equals(dataPesquisa))
 						{
-							System.out.println("Passou");
 							partidass.mostrarPartida(partida.getCodigo());
 						}
 					
@@ -59,7 +49,7 @@ public class Pesquisas
 				}
 
 				
-						System.out.println("Nemhuma partida com essa foi encontrada");
+						pesquisasView.mostrar("Nemhuma partida com essa foi encontrada");
 						
 				break;
 			}
@@ -67,23 +57,23 @@ public class Pesquisas
 			{
 				if(listaSelecoes.size()>0)
 				{
-					System.out.println();
-					System.out.println("Lista de Selecoes:");
+					pesquisasView.mostrar(null);
+					pesquisasView.mostrar("Lista de Selecoes:");
 					//Percorrendo a lista de cadastros
 					for(int i=0; i< listaSelecoes.size(); i++)
 					{
 						System.out.println("["+(i)+"]"+((Selecao) listaSelecoes.get(i)).getNome()); // Imprimindo o nome da Seleção
 					}
-					System.out.println();
+					pesquisasView.mostrar(null);
 					
 				}
 				else
-					System.out.println("Ainda nao foram cadastradas Selecoes no sistema");
+					pesquisasView.mostrar("Ainda nao foram cadastradas Selecoes no sistema");
 					
 				
 				
-			System.out.println("Digite o indice da Selecao que deseja exibir as partidas:");
-			int escolhaSelecao = tratamento.validaInt(1, listaSelecoes.size());
+			pesquisasView.mostrar("Digite o indice da Selecao que deseja exibir as partidas:");
+			int escolhaSelecao = pesquisasView.inputInt(0, listaSelecoes.size());
 			String nomeselecao = listaSelecoes.get(escolhaSelecao).getNome();
 			
 			for(Entry<String, List<Partida>> grupo : partidas.entrySet())
@@ -100,10 +90,10 @@ public class Pesquisas
 			break;
 		}
 		case 2:
-			System.out.println("Digite um nome para pesquisar registros no sistema:");
-			String nomeJogador= tratamento.EntradaString();
+			pesquisasView.mostrar("Digite um nome para pesquisar registros no sistema:");
+			String nomeJogador= pesquisasView.inputStr();
 			if(!listaJogadoresPorNome(listaSelecoes,nomeJogador, jogador))
-				System.out.println("Nemhum jogador com esse nome foi encontrado!");
+				pesquisasView.mostrar("Nemhum jogador com esse nome foi encontrado!");
 			
 			break;
 			

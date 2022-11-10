@@ -1,9 +1,12 @@
 package view;
 
+import model.SelecaoPackage.Selecao;
+import model.TecnicoPackage.Tecnico;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 
 public class TecnicoView {
 
+	private Object Selecao;
 	public int menuOpcoes()
 	{
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
@@ -13,4 +16,21 @@ public class TecnicoView {
 		return opcao;
 		
 	}
+	public void mostrar(String str)
+	{
+		System.out.println(str); 
+	}
+	public int inputInt(int min, int max)
+	{ 
+		TratamentosExcecoes tratamento = new TratamentosExcecoes();
+		int entrada = tratamento.validaInt(min,max);
+		return entrada; 
+	}
+	public String inputStr()
+	{
+		TratamentosExcecoes tratamento = new TratamentosExcecoes();
+		String entrada = tratamento.EntradaString();
+		return entrada; 	
+	}
+	
 }
