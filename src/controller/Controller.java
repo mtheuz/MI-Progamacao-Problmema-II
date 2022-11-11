@@ -345,6 +345,7 @@ public class Controller {
 				break;
 			}
 			}while(true);
+			break;
 		 
 		
 		case 2:

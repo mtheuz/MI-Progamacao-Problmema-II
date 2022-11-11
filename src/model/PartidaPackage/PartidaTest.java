@@ -364,5 +364,24 @@ class PartidaTest {
 		assertTrue(deletar2);
 	}
 	
+	@Test
+	void testInserir() throws InterruptedException, IOException {
+		SelecaoDaoImpl selecao = new SelecaoDaoImpl();
+		PartidaDaoImpl partidaDao = new PartidaDaoImpl(selecao.getListaSelecoes());
+		JogadorDaoImpl JogadorDao = new JogadorDaoImpl(selecao.getListaSelecoes());
+		selecao.leArquivoSelecoes();
+		partidaDao.geraPartidas();
+		Partida partida = partidaDao.getPartidas().get("A").get(0);
+		Partida partida2 = partidaDao.getPartidas().get("A").get(1);
+		
+		boolean testinserir = partidaDao.inserir("12", "04", "2020", "17", "30", "sem eespaço", partida);
+		assertFalse(testinserir);
+		
+		JogadorDao.transformaEmMap();
+		boolean testinserir2 = partidaDao.inserir("12", "04", "2020", "17", "30", "sem eespaço", partida2);
+		assertTrue(testinserir2);
+		
+	}
+	
 
 }
