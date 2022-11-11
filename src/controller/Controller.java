@@ -12,9 +12,21 @@ import model.TecnicoPackage.TecnicoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 import view.*;
 
-public class Controller {
+/**
+ *  A classe <b> Controller </b> é responsável por fazer a mediação entre as views e o model, nele está o menu principal do programa com as Chamadas das views e models
+ * @author Mailson
+ * @since 2022
+ *
+ */
 
-	
+public class Controller { 
+
+	/**
+	 * O método menu é onde estão as opções do menu principal no programa e suas chamadas de views e models
+	 * @param escolha
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void menu(int escolha) throws IOException, InterruptedException
 	{
 		ArbitroDaoImpl juizDao = new ArbitroDaoImpl();//Instanciando objeto da Classe responsavel pelo CRUD de Árbitros no sistema
@@ -27,7 +39,7 @@ public class Controller {
 		Pesquisas pesquisas = new Pesquisas();
 		
 		selecaoDao.leArquivoSelecoes();
-		partidasDao.geraPartidas(); 
+		partidasDao.geraPartidas();  
 		jogadorDao.transformaEmMap();
 		
 		while(escolha !=7)

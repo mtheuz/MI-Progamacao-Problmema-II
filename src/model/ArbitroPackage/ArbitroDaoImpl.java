@@ -62,9 +62,7 @@ public void cadastrarArbitro()
 			{	
 				if (comparaArbitro(nome)) 
 				{
-					juiz.setNome(nome); /*Chamando método setter para guardar o nome*/
-					arbitroView.mostrar("Arbitro cadastrado com sucesso no sistema!");
-					listaArbitros.add(juiz); /*Adicionando o cadastro a lista de cadastros de arbitros*/
+					cadastrarArbitro(juiz, nome);
 					break;
 				}
 				
@@ -83,6 +81,18 @@ public void cadastrarArbitro()
 	{
 		arbitroView.mostrar("Total limite de arbitros cadastrados atingido");
 	}
+}
+/**
+ * Função para cadastrar um nov Arbitro na lista de Arbitros
+ * @param juiz
+ * @param nome
+ */
+public void cadastrarArbitro(Arbitro juiz, String nome) {
+	ArbitroView arbitroView = new ArbitroView();
+	juiz.setNome(nome); /*Chamando método setter para guardar o nome*/
+	arbitroView.mostrar("Arbitro cadastrado com sucesso no sistema!");
+	listaArbitros.add(juiz); /*Adicionando o cadastro a lista de cadastros de arbitros*/
+	
 }
 
 /**
@@ -136,7 +146,7 @@ public void editarArbitro() {
 		String nomeArbitro;
 		while(true)
 		{
-			arbitroView.mostrar("Digite o nome do Arbitro que deseja editar:");
+			arbitroView.mostrar("Digite o NOME do Arbitro que deseja editar:");
 			
 			nomeArbitro = arbitroView.inputStr();/*Entrada para guardar a entrada referente ao cadastro do arbitro que será excluido*/
 			if(tratamento.validaNome(nomeArbitro))
@@ -156,8 +166,7 @@ public void editarArbitro() {
 				if(comparaArbitro(nome))
 			
 				{
-					((Arbitro) listaArbitros.get(indice)).setNome(nome); /*metodo setter para definir novo nome do cadastro no campo nome do objeto*/
-					arbitroView.mostrar("Cadastro de arbitro atualizado com sucesso!");
+					editarArbitro(nome, indice);
 					break;
 				}
 				else
@@ -174,6 +183,18 @@ public void editarArbitro() {
 	
 	}
 }
+/**
+ * Função que edita um arbitro na lista
+ * @param nome
+ * @param indice
+ */
+public void editarArbitro(String nome, int indice) {
+	ArbitroView arbitroView = new ArbitroView();
+	((Arbitro) listaArbitros.get(indice)).setNome(nome); /*metodo setter para definir novo nome do cadastro no campo nome do objeto*/
+	arbitroView.mostrar("Cadastro de arbitro atualizado com sucesso!");
+	
+}
+
 /**
  * O método cadastrarArbitro é responsável por editar um cadastro de árbitro no sistema
  * @return Void
@@ -192,16 +213,25 @@ public void apagarArbitro()
 		int indice = buscaArbitro(listaArbitros, nomeArbitro); /*Função para buscar arbitro na lista de cadastros*/
 		if(indice != -1) /*caso encontre algum resultado*/
 		{
-			listaArbitros.remove(indice); /*Removendo o arbitro da lista de cadastrados pelo indice encontrado na busca*/
-			arbitroView.mostrar("Arbitro removido do sistema com sucesso!");
+			removerArbitro(indice);
 		}
 		else
-			arbitroView.mostrar("Nemhum Arbitro com esse foi cadastrado.");/*Mensagem de falha na busca*/
+			arbitroView.mostrar("Nemhum Arbitro com esse foi cadastrado.");/*Mensagem de falha na busca*/ 
 
 	}
 	else
 		arbitroView.mostrar("Ainda nao existem Arbitros Cadastrados no sistema");;/* Mensagem para caso a lista esteja vazia*/
 	}
+/**
+ * Função para remover um arbitro da Lista
+ * @param indice
+ */
+public void removerArbitro(int indice) {
+	ArbitroView arbitroView = new ArbitroView();
+	listaArbitros.remove(indice); /*Removendo o arbitro da lista de cadastrados pelo indice encontrado na busca*/
+	arbitroView.mostrar("Arbitro removido do sistema com sucesso!");
+	
+}
 
 /**
  * Esta função é responsável por buscar e retornar o indice na lista de um cadastro de árbitro
@@ -209,7 +239,7 @@ public void apagarArbitro()
  * @param nomeArbitro
  * @return
  */
-private int buscaArbitro(ArrayList listaArbitros, String nomeArbitro) 
+public int buscaArbitro(ArrayList listaArbitros, String nomeArbitro) 
 {
 	
 	for(int i=0; i<listaArbitros.size();i++) /*Laço para procurar arbitro nos cadastros*/

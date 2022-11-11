@@ -21,7 +21,7 @@ import controller.*;
 
 
 /**
- * Essa classe é a classe principal do programa onde fica o menu principal
+ * A classe <b> menuPricipalView </b> é onde fica a tela inicial do programa
  * @author Mailson
  * @since 2022
  */
@@ -29,21 +29,26 @@ public class menuPrincipalView
 { 
 	
 	/**
-	 * Método onde fica a principal execução do programa
+	 * Método que executa a primeira exibição e a primeira chamada do controller
 	 * @param args
-	 * @throws IOException 
-	 * @throws InterruptedException 
-	 */ 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public static void main(String[] args) throws IOException, InterruptedException 
 	{
 		
 		System.out.println("Bem vindo ao Syscopa 2.0!\n");
 		
 		Controller controller = new Controller(); 
-		int escolha = menuView();
+		int escolha = menuView(); 
 		controller.menu(escolha);
 	}
-
+	/**
+	 * Método onde fica a principal execução do programa
+	 * @param args
+	 * @throws IOException 
+	 * @throws InterruptedException 
+	 */ 
 	public static int menuView() {
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();
 		System.out.println();

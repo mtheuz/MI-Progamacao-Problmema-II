@@ -24,7 +24,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	private ArrayList<Tecnico> listaTecnicos;
 	
 	public ArrayList<Tecnico> getListaTecnicos() {
-		return listaTecnicos;
+		return listaTecnicos; 
 	
 	}
 	public void setListaTecnicos(ArrayList<Tecnico> listaTecnicos) {
@@ -53,6 +53,10 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	{
 		this.listaTecnicos = new ArrayList<Tecnico>(); 
 	}
+	/**
+	 * O método cadastrarTecnico mostra as opções chamando a view para cadastrar um novo técnico
+	 * return Tecnico
+	 */
 	@Override
 	public Tecnico cadastrarTecnico() 
 	{
@@ -74,7 +78,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 				if(ComparaTecnico(nome)) //verificando se já existe um cadastro igual
 				{
 					tecnico.setNome(nome); //Salvando o nome do Técnico  
-					break;
+					break; 
 				}
 					
 				else
@@ -97,7 +101,10 @@ public class TecnicoDaoImpl implements TecnicoDAO
 		cadastrarTecnico(tecnico);
 		return tecnico; //retorna o o objeto para ser inserido na sua respectiva Seleção
 	}
-	
+	/**
+	 * Essa função cadastra um técnico na lista de técnicos
+	 * @param tecnico
+	 */
 	public void cadastrarTecnico(Tecnico tecnico) {
 		listaTecnicos.add(tecnico);
 		
@@ -198,6 +205,11 @@ public class TecnicoDaoImpl implements TecnicoDAO
 		((Selecao)listaSelecoes.get(i)).setTecnico(tecnico); //Salvando o técnico no cadastro da seleção
 		
 	}
+	/**
+	 * Essa função altera um tecnico de uma selecao que esteja sem tecnico na lita de técnicos
+	 * @param i
+	 * @param tecnico
+	 */
 	public void substituirTecnicoVazioNaListaTecnicos(int i, Tecnico tecnico) {
 		listaTecnicos.set(i, tecnico);
 		
@@ -322,6 +334,11 @@ public class TecnicoDaoImpl implements TecnicoDAO
 			
 		
 	}
+	/**
+	 * Essa função busca um técnico na lista através do nome
+	 * @param nomeTecnico
+	 * @return
+	 */
 	public int buscaTecnicoListaTecnicos(String nomeTecnico) 
 	{
 		
@@ -373,7 +390,11 @@ public class TecnicoDaoImpl implements TecnicoDAO
 			tecnicoView.mostrar("Ainda nao foram cadastradas selecoes no sistema");
 		
 	}
-
+	/**
+	 * Essa função remove um técnico da lista de técnicos
+	 * @param nome
+	 * @param indice
+	 */
 	public void removerTecnico(String nome, int indice) {
 		Tecnico tecnico = new Tecnico();
 		int indice2 = buscaTecnicoListaTecnicos(nome);
@@ -390,7 +411,7 @@ public class TecnicoDaoImpl implements TecnicoDAO
 	
 		}
 	}
-		/**
+	/**
 	 * O método listarTecnico é responsável por listar os cadastros de técnicos no sistema
 	 * @return Void
 	 */

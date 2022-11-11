@@ -30,7 +30,7 @@ public class SelecaoDaoImpl implements SelecaoDAO
 /**
  * Construtor padrão da classe <b>SelecaoDaoImpl</b>
  */
-public SelecaoDaoImpl()
+public SelecaoDaoImpl() 
 {
 	this.listaSelecoes = new ArrayList<Selecao>(); 
 }

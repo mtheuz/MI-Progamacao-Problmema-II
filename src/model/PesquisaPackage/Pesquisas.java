@@ -14,8 +14,21 @@ import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
 import view.PesquisasView;
 
+/**
+ *  A classe <b> Pesquisas </b> é responsável por fazer pesquisas de Partidas por seleção e por data, e de jogador por nome
+ * @author Mailson
+ * @since 2022
+ *
+ */
 public class Pesquisas 
-{
+{ 
+	/**
+	 * O método pesquisas chama as views para mostrar e receber os inputs do menu de pesquisa
+	 * @param partidas
+	 * @param listaSelecoes
+	 * @param partidass
+	 * @param jogador
+	 */
 	public static void pesquisas(Map<String,List<Partida>> partidas, ArrayList<Selecao> listaSelecoes, PartidaDaoImpl partidass, JogadorDaoImpl jogador)
 	{
 		PesquisasView pesquisasView = new PesquisasView();
@@ -32,7 +45,7 @@ public class Pesquisas
 			{
 				String dataPesquisa = pesquisasView.inputData();
 				
-
+				int teste =0;
 				if(!procuraPartidas(dataPesquisa, partidas, partidass))
 
 				for(Entry<String, List<Partida>> grupo : partidas.entrySet())
@@ -43,19 +56,21 @@ public class Pesquisas
 						if(partida.getData().equals(dataPesquisa))
 						{
 							partidass.mostrarPartida(partida.getCodigo());
+							teste++;
 						}
 					
 					}
 				}
 
-				
-						pesquisasView.mostrar("Nemhuma partida com essa foi encontrada");
-						
+				if(teste!=0)
+				{	
+					pesquisasView.mostrar("Nemhuma partida com essa data foi encontrada");
+				}		
 				break;
 			}
 			if(opcao ==2)
 			{
-				if(listaSelecoes.size()>0)
+				if(listaSelecoes.size()>0) 
 				{
 					pesquisasView.mostrar(null);
 					pesquisasView.mostrar("Lista de Selecoes:");
@@ -105,7 +120,13 @@ public class Pesquisas
 		
 		}
 	}
-
+/**
+ * O método procuraPartidas procura partidas a partir de uma data que o usuario digita
+ * @param dataPesquisa
+ * @param partidas
+ * @param partidass
+ * @return
+ */
 	private static boolean procuraPartidas(String dataPesquisa, Map<String, List<Partida>> partidas, PartidaDaoImpl partidass) {
 		int aux =0;
 		for(Entry<String, List<Partida>> grupo : partidas.entrySet())
@@ -127,13 +148,19 @@ public class Pesquisas
 		return false;
 			
 	}
-
+	/**
+	 * O método listaJogadoresPorNome lista todos os jogodares com um nome que ele recebe
+	 * @param listaSelecoes
+	 * @param nomeJogador
+	 * @param jogador
+	 * @return
+	 */
 	private static boolean listaJogadoresPorNome(ArrayList<Selecao> listaSelecoes, String nomeJogador, JogadorDaoImpl jogador) {
 		int aux=0;
 		for(Selecao selecao: listaSelecoes)
 			for(Jogador jogadorr: selecao.getListaJogadores())
 			{
-				if(jogadorr.getNome().equals(nomeJogador))
+				if(jogadorr.getNome().toUpperCase().equals(nomeJogador.toUpperCase()))
 				{
 					jogador.imprimirJogador(jogadorr.getCode());
 					aux =1;
