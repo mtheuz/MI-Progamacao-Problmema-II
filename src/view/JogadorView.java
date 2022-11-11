@@ -16,7 +16,10 @@ public class JogadorView {
 		int opcao = tratamento.validaInt(1, 5);
 		return opcao;
 	}
-	
+	public void mostrar(String str)
+	{
+		System.out.println(str);
+	}
 	public int deletarJogadorEscolheIndice(int tam)
 	{
 		TratamentosExcecoes tratamento = new TratamentosExcecoes();

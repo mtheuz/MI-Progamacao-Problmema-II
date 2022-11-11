@@ -13,13 +13,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.SelecaoPackage.Selecao;
 import model.SelecaoPackage.SelecaoDaoImpl;
 import model.TratamentoDeExcecoesPackage.TratamentosExcecoes;
+import view.JogadorView;
 /**
  *  A classe <b> JogadorDaoImpl </b> é responsável pelo CRUD de objetos da classe Árbitro
  * @author Mailson
  *	@since 2022
  */
 public class JogadorDaoImpl implements JogadorDAO{
-	
+	JogadorView jogadorView = new JogadorView();
 	SelecaoDaoImpl selecao = new SelecaoDaoImpl();
 	private String[] posicoes = {"Goleiro", "Zagueiro","Lateral", "Volante", "Meio-Campo", "Atacante"};
 	/**
@@ -172,7 +173,7 @@ public void cadastrarUmJogador()
 					e.printStackTrace();
 				}
 				selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores().add(jogador);
-				System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
+				//System.out.println("Jogador inserido na base de dados seu codigo e "+ jogador.getCode());
 				return true;
 			}
 		}else
@@ -217,7 +218,6 @@ public void cadastrarUmJogador()
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
 		listaJogadores.get(index).setNome(alteracao);
-		imprimirJogador(codigo);
 		System.out.println("O jogador foi atualizado na base dados!");
 		return true;
 	}
@@ -227,7 +227,6 @@ public void cadastrarUmJogador()
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();			
 		listaJogadores.get(index).setCartoesAmarelos(Integer.parseInt(alteracao));
-		imprimirJogador(codigo);
 		System.out.println("O jogador foi atualizado na base dados!");
 		return true;
 	}
@@ -237,7 +236,6 @@ public void cadastrarUmJogador()
 		int selecaoBusca = selecao.buscaSelecao(nomeSelecao);
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
 		listaJogadores.get(index).setCartoesVermelhos(Integer.parseInt(alteracao));
-		imprimirJogador(codigo);
 		System.out.println("O jogador foi atualizado na base dados!");
 		return true;
 	}
@@ -248,7 +246,6 @@ public void cadastrarUmJogador()
 		final List<Jogador> listaJogadores = selecao.getListaSelecoes().get(selecaoBusca).getListaJogadores();
 		if(listaJogadores.get(index).getGolsMarcados() != 0) {
 			listaJogadores.get(index).setGolsMarcados(Integer.parseInt(alteracao));
-			imprimirJogador(codigo);
 			System.out.println("O jogador foi atualizado na base dados!");
 			return true;
 		}
@@ -385,12 +382,12 @@ public void cadastrarUmJogador()
 	 * O método imprimirJogador imprime os dados de um objeto do tipo Jogador
 	 */
 
-	public String retornaJogadorNome(String codigo) {
+	public String retornaJogadorNome(String codigo,List<Selecao> listaSelecao) {
 		String nome = "";
-		for(int index = 0; index < selecao.getListaSelecoes().size();index++) {
-			for (int ijogador = 0; ijogador < selecao.getListaSelecoes().get(index).getListaJogadores().size(); ijogador++) {
-				if(selecao.getListaSelecoes().get(index).getListaJogadores().get(ijogador).getCode().equals(codigo)) {
-					Jogador jogador = selecao.getListaSelecoes().get(index).getListaJogadores().get(ijogador);
+		for(int index = 0; index < listaSelecao.size();index++) {
+			for (int ijogador = 0; ijogador < listaSelecao.get(index).getListaJogadores().size(); ijogador++) {
+				if(listaSelecao.get(index).getListaJogadores().get(ijogador).getCode().equals(codigo)) {
+					Jogador jogador = listaSelecao.get(index).getListaJogadores().get(ijogador);
 					nome = jogador.getNome();
 				
 					}
@@ -470,8 +467,8 @@ public void cadastrarUmJogador()
 	}
 	
 	public void transformaEmMap() {  
+		jogadorView.mostrar("Cadastrando Jogadores, Aguarde......");
 		ObjectMapper mapper = new ObjectMapper();
-	  
 	    File fileObj = new File("selecoesJogadores.json");  
 	    try {   
 	        Map<String, List<String>> mapJson = mapper.readValue(  

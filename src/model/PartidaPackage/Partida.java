@@ -17,7 +17,6 @@ public class Partida {
 	private List<List<String>> cartoesAmarelosSelecao1;
 	private List<List<String>> cartoesAmarelosSelecao2;
 	private boolean situacao;
-	
 	public boolean isSituacao() {
 		return situacao;
 	}
