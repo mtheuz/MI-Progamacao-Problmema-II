@@ -1,0 +1,6 @@
+Importante
+-Para iniciar o programa precisa rodar a classe menuPrincipalView dentro da pasta View.
+-Para facilitar, fizemos dois arquivos com informações de seleções e jogadores que o sistema abre e cadastra automaticamente.
+-Existem métodos que também criamos que permitem fazer o cadastro manual de seleções e jogadores, basta trocar as chamadas desses métodos.
+-No cadastramento manual o sistema inicia já solicitando apenas os nomes de todas as seleções pra gerar um pré cadastro e conseguir gerar as partidas, depois será necessário
+o usuário terminar de cadastrar cada seleção para, por exemplo, cadastrar uma partida, pois a partida deve ter as seleções completas. 
